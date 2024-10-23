@@ -20,7 +20,6 @@ public class inventaire extends State{
 
     @Override
     public void map() {
-
     }
 
     @Override
