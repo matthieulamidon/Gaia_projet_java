@@ -15,4 +15,22 @@ public class AttaqueMixte implements Attaque{
     public void Action() {
 
     }
+    public Effet getEffet() {
+        return effet;
+    }
+    public void setEffet(Effet effet) {
+        this.effet = effet;
+    }
+    public int getPuissance() {
+        return puissance;
+    }
+    public void setPuissance(int puissance) {
+        this.puissance = puissance;
+    }
+    public int getPuissance_effet() {
+        return puissance_effet;
+    }
+    public void setPuissance_effet(int puissance_effet) {
+        this.puissance_effet = puissance_effet;
+    }
 }

@@ -56,6 +56,7 @@ public abstract class Mystimon {
     }
 
     //methodes mères
+
     public void subirAttaque(Attaque attaque){
 
     }

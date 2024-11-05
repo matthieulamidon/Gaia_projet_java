@@ -2,6 +2,7 @@ module fr.eseo.gaia_projet_java {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires java.desktop;
 
     opens fr.eseo.gaia_projet_java to javafx.fxml;
     exports fr.eseo.gaia_projet_java;
