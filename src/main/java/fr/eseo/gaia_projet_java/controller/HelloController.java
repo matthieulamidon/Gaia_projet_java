@@ -1,4 +1,4 @@
-package fr.eseo.gaia_projet_java;
+package fr.eseo.gaia_projet_java.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
