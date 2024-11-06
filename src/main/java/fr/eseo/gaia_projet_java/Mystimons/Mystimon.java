@@ -11,17 +11,21 @@ public abstract class Mystimon {
     protected int ID;
     protected String Nom;
     protected ArrayList<Types> liste_types;
-    protected ArrayList<Attaque> liste_attaques;
+    protected ArrayList<String> liste_attaques;
     protected HashMap<String, Integer> stats;
     protected long Experience;
     protected int Niveau;
+    protected int pv;
 
-    public Mystimon(int ID, String Nom, ArrayList<Types> liste_types, ArrayList<Attaque> liste_attaques, long Experience, int Niveau){
+    public Mystimon(int ID, String Nom, ArrayList<Types> liste_types, ArrayList<String> liste_attaques, long Experience, int Niveau, HashMap<String, Integer> stats, int pv){
         this.ID = ID;
         this.Nom = Nom;
         this.liste_types = liste_types;
         this.liste_attaques = liste_attaques;
-        this.stats = new HashMap<>();
+        this.Experience = Experience;
+        this.Niveau = Niveau;
+        this.stats = stats;
+        this.pv = pv;
     }
     //gets et sets
     public int getID(){
@@ -33,7 +37,7 @@ public abstract class Mystimon {
     public ArrayList<Types> getListeTypes(){
         return liste_types;
     }
-    public ArrayList<Attaque> getListeAttaques(){
+    public ArrayList<String> getListeAttaques(){
         return liste_attaques;
     }
     public HashMap<String, Integer> getStats(){
@@ -48,7 +52,7 @@ public abstract class Mystimon {
     public void setListeTypes(ArrayList<Types> liste_types){
         this.liste_types = liste_types;
     }
-    public void setListeAttaques(ArrayList<Attaque> liste_attaques){
+    public void setListeAttaques(ArrayList<String> liste_attaques){
         this.liste_attaques = liste_attaques;
     }
     public void setStats(HashMap<String, Integer> stats){

@@ -76,36 +76,43 @@ public class DatabaseInitializer {
         INSERT INTO equipe (nom, pv, Stat, types, attaque, evolution, description)
         SELECT 'kuro', 20, 0, 5, 25, '[10,10,10,10,10,10]', '["tenebre"]', '[ "charge", "toileColante", "crosEmpoisonner"]', '[18,2]', 'NULL'
         FROM DUAL
-        WHERE NOT EXISTS (SELECT 1 FROM mystidex WHERE nom = 'kuro');
+        WHERE NOT EXISTS (SELECT 1 FROM equipe WHERE nom = 'kuro');
         """;
             statement.executeUpdate(insertDefaultScoreQuery);
         }
     }
-    private void createTableEquipePnj(Connection connection,int nbPnj) throws SQLException {
+    private void createTableEquipePnj(Connection connection, int nbPnj) throws SQLException {
+        // Utilisation de `String.format` pour faciliter la lecture et la substitution de `nbPnj`
+        String tableName = "equipedunb" + nbPnj;
+
         try (Statement statement = connection.createStatement()) {
-            String createTableQuery = """
-        CREATE TABLE IF NOT EXISTS equipedunb1 (
-            id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-            nom VARCHAR(50) NOT NULL,
-            pv INT(11) NOT NULL,
-            xp INT(11) NOT NULL,
-            lv INT(11) NOT NULL,
-            ev INT(11) NOT NULL,
-            Stat JSON NOT NULL,
-            types JSON NOT NULL,
-            attaque JSON NOT NULL,
-            objet VARCHAR(50) NOT NULL,
-        );""";
+            // Correction de la requête de création de table
+            String createTableQuery = String.format("""
+            CREATE TABLE IF NOT EXISTS %s (
+                id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                nom VARCHAR(50) NOT NULL,
+                pv INT(11) NOT NULL,
+                xp INT(11) NOT NULL,
+                lv INT(11) NOT NULL,
+                ev INT(11) NOT NULL,
+                Stat JSON NOT NULL,
+                types JSON NOT NULL,
+                attaque JSON NOT NULL,
+                objet VARCHAR(50) NOT NULL
+            );""", tableName); // Utilisation de `tableName` ici
             statement.executeUpdate(createTableQuery);
-            String insertDefaultScoreQuery = """
-        INSERT INTO equipedunb1 (nom, pv, Stat, types, attaque, evolution, description)
-        SELECT 'kuro', 20, 0, 5, 25, '[10,10,10,10,10,10]', '["tenebre"]', '[ "charge", "toileColante", "crosEmpoisonner"]', '[18,2]', 'NULL'
-        FROM DUAL
-        WHERE NOT EXISTS (SELECT 1 FROM equipedunb1 WHERE nom = 'kuro');
-        """;
+
+            // Correction de la requête d'insertion avec le nom de table dynamique et les valeurs manquantes
+            String insertDefaultScoreQuery = String.format("""
+            INSERT INTO %s (nom, pv, xp, lv, ev, Stat, types, attaque, objet)
+            SELECT 'kuro', 20, 0, 5, 25, '[10,10,10,10,10,10]', '["tenebre"]', '["charge", "toileColante", "crosEmpoisonner"]', 'NULL'
+            FROM DUAL
+            WHERE NOT EXISTS (SELECT 1 FROM %s WHERE nom = 'kuro');
+            """, tableName, tableName); // Utilisation de `tableName` deux fois
             statement.executeUpdate(insertDefaultScoreQuery);
         }
     }
+
     private void createTableInvocateur(Connection connection) throws SQLException {
         try (Statement statement = connection.createStatement()) {
             String createTableQuery = """
@@ -140,7 +147,7 @@ public class DatabaseInitializer {
             statement.executeUpdate(createTableQuery);
             String insertDefaultScoreQuery = """
         INSERT INTO attaque (nom, attaque, types, effet, aspect, pressision)
-        SELECT 'charge', 40, 'normal', 'physique', 100
+        SELECT 'charge', 40, 'normal', 'atk','physique', 100
         FROM DUAL
         WHERE NOT EXISTS (SELECT 1 FROM attaque WHERE nom = 'charge');
         """;
@@ -161,7 +168,7 @@ public class DatabaseInitializer {
             statement.executeUpdate(createTableQuery);
             String insertDefaultScoreQuery = """
         INSERT INTO attaque (nom, effet, prixAchat, prixVente, description)
-        SELECT 'charge', 'zinedine_zidane', 250, 100, 'il est 17h20 j ai la flemme'
+        SELECT 'heal', 'zinedine_zidane', 250, 100, 'il est 17h20 j ai la flemme'
         FROM DUAL
         WHERE NOT EXISTS (SELECT 1 FROM objet WHERE nom = 'heal');
         """;

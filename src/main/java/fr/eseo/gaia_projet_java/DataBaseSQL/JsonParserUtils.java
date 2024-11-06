@@ -20,6 +20,11 @@ public class JsonParserUtils {
 
     private static final Gson gson = new Gson();
 
+    public static <T> ArrayList<T> jsonToArrayList(String json, Class<T> clazz) {
+        Type type = TypeToken.getParameterized(ArrayList.class, clazz).getType();
+        return gson.fromJson(json, type);
+    }
+
     // Convertit une chaîne JSON en List<Integer>
     public static List<Integer> parseJsonToListInt(String json) {
         Type listType = new TypeToken<ArrayList<Integer>>() {}.getType();

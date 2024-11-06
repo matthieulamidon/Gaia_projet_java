@@ -1,9 +1,9 @@
 package fr.eseo.gaia_projet_java.DataBaseSQL.dao;
 
-import fr.eseo.gaia_projet_java.Attaques.Attaque;
+import fr.eseo.gaia_projet_java.Attaques.AttaqueCombat;
 import fr.eseo.gaia_projet_java.DataBaseSQL.JsonParserUtils;
 import fr.eseo.gaia_projet_java.Mystimons.Exemplemon;
-import fr.eseo.gaia_projet_java.Mystimons.Mystimon;
+import fr.eseo.gaia_projet_java.enumerations.Effet;
 import fr.eseo.gaia_projet_java.enumerations.Types;
 
 import java.sql.*;
@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static fr.eseo.gaia_projet_java.DataBaseSQL.JsonParserUtils.jsonToArrayList;
 import static fr.eseo.gaia_projet_java.DataBaseSQL.config.DatabaseInitializer.getConnection;
 
 public class DAOUserMariaDB implements DAOUser {
@@ -57,6 +58,112 @@ public class DAOUserMariaDB implements DAOUser {
 
     }
 
+    //revoie toute l'equipe de mystimon
+    @Override
+    public List<Exemplemon> readLectuceDeLequipe() throws SQLException {
+        List<Exemplemon> equipe = new ArrayList<>();
+        try (Connection connexion = getConnection();
+             Statement statement = connexion.createStatement();
+             ResultSet resultat = statement.executeQuery(
+                     "SELECT id, nom, xp, lv, pv, Stat, types, attaque FROM equipe;")) {
+            while (resultat.next()) {
+                int id = resultat.getInt("id");
+                String nom = resultat.getString("nom");
+                int xp = resultat.getInt("xp");
+                int lv = resultat.getInt("lv");
+                int pv = resultat.getInt("pv");
+
+                // Récupérer et convertir Stat, types, et attaque
+                String statJson = resultat.getString("Stat");
+                List<Integer> listeStats = JsonParserUtils.parseJsonToListInt(statJson);
+
+                String typesJson = resultat.getString("types");
+                List<String> listeTypes = JsonParserUtils.parseJsonToListString(typesJson);
+
+                String attaqueJson = resultat.getString("attaque");
+                Map<Integer, String> listeAttaques = JsonParserUtils.parseJsonToMapIntString(attaqueJson);
+
+                //ArrayList<Types> listeTypesConverti = new ArrayList();
+                ArrayList<Types> listeTypesConverti=TraductionStringTypes(listeTypes);
+
+                String jsonStringList=typesJson;
+
+                ArrayList<String> listeAttaqueConverti = jsonToArrayList(jsonStringList, String.class);
+                HashMap<String, Integer> listeStatesConverti = TraductionStateListeMaps(listeStats);
+
+                equipe.add(new Exemplemon(id, nom, listeTypesConverti, listeAttaqueConverti, xp, lv, listeStatesConverti, pv));
+            }
+            return equipe;
+        }
+    }
+
+    @Override
+    public List<Exemplemon> readLectuceDeEquipeAdverse(int nbAdv) throws SQLException {
+        List<Exemplemon> equipe = new ArrayList<>();
+        try (Connection connexion = getConnection();
+             Statement statement = connexion.createStatement();
+             ResultSet resultat = statement.executeQuery(
+                     "SELECT id, nom, xp, lv, pv, Stat, types, attaque FROM equipe"+nbAdv+";")) {
+            while (resultat.next()) {
+                int id = resultat.getInt("id");
+                String nom = resultat.getString("nom");
+                int xp = resultat.getInt("xp");
+                int lv = resultat.getInt("lv");
+                int pv = resultat.getInt("pv");
+
+                // Récupérer et convertir Stat, types, et attaque
+                String statJson = resultat.getString("Stat");
+                List<Integer> listeStats = JsonParserUtils.parseJsonToListInt(statJson);
+
+                String typesJson = resultat.getString("types");
+                List<String> listeTypes = JsonParserUtils.parseJsonToListString(typesJson);
+
+                String attaqueJson = resultat.getString("attaque");
+                Map<Integer, String> listeAttaques = JsonParserUtils.parseJsonToMapIntString(attaqueJson);
+
+                //ArrayList<Types> listeTypesConverti = new ArrayList();
+                ArrayList<Types> listeTypesConverti=TraductionStringTypes(listeTypes);
+
+                String jsonStringList =typesJson;
+
+                ArrayList<String> listeAttaqueConverti = jsonToArrayList(jsonStringList, String.class);
+                HashMap<String, Integer> listeStatesConverti = TraductionStateListeMaps(listeStats);
+
+                equipe.add(new Exemplemon(id, nom, listeTypesConverti, listeAttaqueConverti, xp, lv, listeStatesConverti, pv));
+            }
+            return equipe;
+        }
+    }
+
+    @Override
+    public List<AttaqueCombat> LectuceDeEquipeAttaque() throws SQLException {
+        List<AttaqueCombat> attaqueCombats = new ArrayList<>();
+        try (Connection connexion = getConnection();
+             Statement statement = connexion.createStatement();
+             ResultSet resultat = statement.executeQuery(
+                     "SELECT id, nom, puissance, types, effet, aspect, pressision FROM attaque;")) {
+            while (resultat.next()) {
+                int id = resultat.getInt("id");
+                String nom= resultat.getString("nom");
+                int puissance = resultat.getInt("puissance");
+                String types = resultat.getString("types");
+                String effet = resultat.getString("effet");
+                String aspect = resultat.getString("aspect");
+                int pressision = resultat.getInt("pressision");
+
+                Types typesTraduit = TraductionsanslisteStringTypes(types);
+
+                String attaqueJson = resultat.getString("attaque");
+                Map<Integer, String> listeAttaques = JsonParserUtils.parseJsonToMapIntString(attaqueJson);
+
+
+
+                attaqueCombats.add(new AttaqueCombat(id, nom, puissance, typesTraduit, effet, aspect, pressision));
+            }
+            return attaqueCombats;
+        }
+    }
+
     HashMap<String, Integer> TraductionStateListeMaps(List<Integer> listeStats){
         HashMap<String, Integer> listeStatesConverti = new HashMap<>();
         listeStatesConverti.put("PV",listeStats.get(0));
@@ -83,6 +190,44 @@ public class DAOUserMariaDB implements DAOUser {
 
 
         return listeAttaqueConverti;
+    }
+
+    Types TraductionsanslisteStringTypes(String Types){
+        Types TypesConverti = null;
+
+        switch (Types) {
+            case "feu":
+                    TypesConverti= fr.eseo.gaia_projet_java.enumerations.Types.feu;
+                    break;
+            case "eau":
+                    TypesConverti= fr.eseo.gaia_projet_java.enumerations.Types.eau;
+                    break;
+            case "plante":
+                    TypesConverti= fr.eseo.gaia_projet_java.enumerations.Types.plante;
+                    break;
+            case "tenebres":
+                    TypesConverti = fr.eseo.gaia_projet_java.enumerations.Types.tenebres;
+                    break;
+            case "dragon":
+                    TypesConverti = fr.eseo.gaia_projet_java.enumerations.Types.dragon;
+                    break;
+            case "fee":
+                    TypesConverti = fr.eseo.gaia_projet_java.enumerations.Types.fee;
+                    break;
+            case "foudre":
+                    TypesConverti = fr.eseo.gaia_projet_java.enumerations.Types.feu;
+                    break;
+            case "terre":
+                    TypesConverti = fr.eseo.gaia_projet_java.enumerations.Types.terre;
+                    break;
+            case "normal":
+                    TypesConverti = fr.eseo.gaia_projet_java.enumerations.Types.normal;
+                    break;
+            case "lumiere":
+                    TypesConverti = fr.eseo.gaia_projet_java.enumerations.Types.lumiere;
+            }
+
+        return TypesConverti;
     }
 
     ArrayList<Types> TraductionStringTypes(List<String> listeTypes){
@@ -116,6 +261,9 @@ public class DAOUserMariaDB implements DAOUser {
                 case "normal":
                     listeTypesConverti.add(Types.normal);
                     break;
+                case "lumiere":
+                    listeTypesConverti.add(Types.lumiere);
+
             }
         }
         return listeTypesConverti;
