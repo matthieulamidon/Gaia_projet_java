@@ -10,6 +10,7 @@ import java.util.HashMap;
 public abstract class Mystimon {
     protected int ID;
     protected String Nom;
+
     protected ArrayList<Types> liste_types;
     protected ArrayList<String> liste_attaques;
     protected HashMap<String, Integer> stats;
@@ -43,12 +44,16 @@ public abstract class Mystimon {
     public HashMap<String, Integer> getStats(){
         return stats;
     }
+    public long getExperience(){ return Experience; }
+    public int getPv(){ return pv; }
+    public int getNiveau(){ return Niveau; }
     public void setID(int ID){
         this.ID = ID;
     }
     public void setNom(String Nom){
         this.Nom = Nom;
     }
+    public void setPv(int pv){ this.pv = pv; }
     public void setListeTypes(ArrayList<Types> liste_types){
         this.liste_types = liste_types;
     }

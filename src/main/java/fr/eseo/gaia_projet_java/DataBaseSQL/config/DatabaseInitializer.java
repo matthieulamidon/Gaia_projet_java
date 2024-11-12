@@ -20,6 +20,10 @@ public class DatabaseInitializer {
         try (Connection connection = DriverManager.getConnection(url+"/"+database, username, password)) {
             createTableMystidex(connection);
             createTableEquipeInvocateur(connection);
+            createTableEquipePnj(connection, 0);
+            createTableInvocateur(connection);
+            createTableAttaque(connection);
+            createTableObjet(connection);
         }
     }
     private void createDatabase(Connection connection) throws SQLException {
@@ -66,15 +70,16 @@ public class DatabaseInitializer {
             xp INT(11) NOT NULL,
             lv INT(11) NOT NULL,
             ev INT(11) NOT NULL,
+            iv INT(11) NOT NULL,
             Stat JSON NOT NULL,
             types JSON NOT NULL,
             attaque JSON NOT NULL,
-            objet VARCHAR(50) NOT NULL,
+            objet VARCHAR(50) NOT NULL
         );""";
             statement.executeUpdate(createTableQuery);
             String insertDefaultScoreQuery = """
-        INSERT INTO equipe (nom, pv, Stat, types, attaque, evolution, description)
-        SELECT 'kuro', 20, 0, 5, 25, '[10,10,10,10,10,10]', '["tenebre"]', '[ "charge", "toileColante", "crosEmpoisonner"]', '[18,2]', 'NULL'
+        INSERT INTO equipe (nom, pv, xp, lv, ev, iv, Stat, types, attaque, objet)
+        SELECT 'kuro', 20, 0, 5, 25, 25, '[10,10,10,10,10,10]', '["tenebre"]', '[ "charge", "toileColante", "crosEmpoisonner"]', 'NULL'
         FROM DUAL
         WHERE NOT EXISTS (SELECT 1 FROM equipe WHERE nom = 'kuro');
         """;
@@ -83,7 +88,7 @@ public class DatabaseInitializer {
     }
     private void createTableEquipePnj(Connection connection, int nbPnj) throws SQLException {
         // Utilisation de `String.format` pour faciliter la lecture et la substitution de `nbPnj`
-        String tableName = "equipedunb" + nbPnj;
+        String tableName = "equipeduPnj" + nbPnj;
 
         try (Statement statement = connection.createStatement()) {
             // Correction de la requête de création de table
@@ -95,20 +100,21 @@ public class DatabaseInitializer {
                 xp INT(11) NOT NULL,
                 lv INT(11) NOT NULL,
                 ev INT(11) NOT NULL,
+                iv INT(11) NOT NULL,  
                 Stat JSON NOT NULL,
                 types JSON NOT NULL,
                 attaque JSON NOT NULL,
                 objet VARCHAR(50) NOT NULL
-            );""", tableName); // Utilisation de `tableName` ici
+            );""", tableName);// Utilisation de `tableName` ici
             statement.executeUpdate(createTableQuery);
 
             // Correction de la requête d'insertion avec le nom de table dynamique et les valeurs manquantes
             String insertDefaultScoreQuery = String.format("""
-            INSERT INTO %s (nom, pv, xp, lv, ev, Stat, types, attaque, objet)
-            SELECT 'kuro', 20, 0, 5, 25, '[10,10,10,10,10,10]', '["tenebre"]', '["charge", "toileColante", "crosEmpoisonner"]', 'NULL'
+            INSERT INTO %s (nom, pv, xp, lv, ev, iv, Stat, types, attaque, objet)
+            SELECT 'kuro', 20, 0, 5, 25, 25, '[10,10,10,10,10,10]', '["tenebre"]', '["charge", "toileColante", "crosEmpoisonner"]', 'NULL'
             FROM DUAL
             WHERE NOT EXISTS (SELECT 1 FROM %s WHERE nom = 'kuro');
-            """, tableName, tableName); // Utilisation de `tableName` deux fois
+            """, tableName, tableName);// Utilisation de `tableName` deux fois
             statement.executeUpdate(insertDefaultScoreQuery);
         }
     }
@@ -146,7 +152,7 @@ public class DatabaseInitializer {
         );""";
             statement.executeUpdate(createTableQuery);
             String insertDefaultScoreQuery = """
-        INSERT INTO attaque (nom, attaque, types, effet, aspect, pressision)
+        INSERT INTO attaque (nom, puissance, types, effet, aspect, pressision)
         SELECT 'charge', 40, 'normal', 'atk','physique', 100
         FROM DUAL
         WHERE NOT EXISTS (SELECT 1 FROM attaque WHERE nom = 'charge');
@@ -163,11 +169,11 @@ public class DatabaseInitializer {
             effet VARCHAR(50) NOT NULL,
             prixAchat INT(11) NOT NULL,
             prixVente INT(11) NOT NULL,
-            description VARCHAR(50) NOT NULL,
+            description VARCHAR(50) NOT NULL
         );""";
             statement.executeUpdate(createTableQuery);
             String insertDefaultScoreQuery = """
-        INSERT INTO attaque (nom, effet, prixAchat, prixVente, description)
+        INSERT INTO objet (nom, effet, prixAchat, prixVente, description)
         SELECT 'heal', 'zinedine_zidane', 250, 100, 'il est 17h20 j ai la flemme'
         FROM DUAL
         WHERE NOT EXISTS (SELECT 1 FROM objet WHERE nom = 'heal');
