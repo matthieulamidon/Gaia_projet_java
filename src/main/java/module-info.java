@@ -3,6 +3,7 @@ module fr.eseo.gaia_projet_java {
     requires javafx.fxml;
     requires java.sql;
     requires com.google.gson;
+    requires java.desktop;
 
     opens fr.eseo.gaia_projet_java to javafx.fxml;
     exports fr.eseo.gaia_projet_java;

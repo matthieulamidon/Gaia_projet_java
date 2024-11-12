@@ -34,4 +34,26 @@ public class Map {
     public void setCarte(ArrayList<ArrayList<int[]>> carte) {
         this.carte = carte;
     }
+
+    //coquilles vides :
+
+    public void deplacementJoueur(Joueur joueur) {
+
+    }
+
+    public void deplacementPnj(Adversaire adversaire) {
+
+    }
+
+    public void map_suivante(){
+
+    }
+
+    public void debut_combat(Adversaire adversaire, Joueur joueur){
+
+    }
+
+    public void fin_combat(Adversaire adversaire, Joueur joueur){
+
+    }
 }

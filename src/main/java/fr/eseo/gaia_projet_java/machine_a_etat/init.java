@@ -1,40 +1,34 @@
 package fr.eseo.gaia_projet_java.machine_a_etat;
 
-import fr.eseo.gaia_projet_java.users.Gaia;
+import fr.eseo.gaia_projet_java.controller.Transition;
 
 public class init extends State{
 
-    init(Gaia gaia) {
+    public init(Transition gaia) {
         super(gaia);
     }
 
-    @Override
-    public void init() {
-
-    }
 
     @Override
     public void menu() {
-
+        //SI LA PARTIE EST BIEN LOADED
+        transition.setState(new menu(transition));
     }
 
     @Override
     public void map() {
-
+        //pas possible normalement
     }
 
     @Override
     public void inventaire() {
-
+        //pas possible normalement
     }
 
     @Override
     public void combat() {
-
+        //pas possible normalement
     }
 
-    @Override
-    public void gameOver() {
 
-    }
 }

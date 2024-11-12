@@ -5,12 +5,12 @@ import java.util.ArrayList;
 public class Decore {
     private ArrayList<Integer>position;
     private String image;
-    private boolean tangibiliter;
+    private boolean tangibilite;
 
-    public Decore(ArrayList<Integer> position, String image, boolean tangibiliter) {
+    public Decore(ArrayList<Integer> position, String image, boolean tangibilite) {
         this.position = position;
         this.image = image;
-        this.tangibiliter = tangibiliter;
+        this.tangibilite = tangibilite;
     }
     public ArrayList<Integer> getPosition() {
         return position;
@@ -18,8 +18,8 @@ public class Decore {
     public String getImage() {
         return image;
     }
-    public boolean isTangibiliter() {
-        return tangibiliter;
+    public boolean isTangibilite() {
+        return tangibilite;
     }
     public void setPosition(ArrayList<Integer> position) {
         this.position = position;
@@ -27,7 +27,7 @@ public class Decore {
     public void setImage(String image) {
         this.image = image;
     }
-    public void setTangibiliter(boolean tangibiliter) {
-        this.tangibiliter = tangibiliter;
+    public void setTangibilite(boolean tangibilite) {
+        this.tangibilite = tangibilite;
     }
 }
