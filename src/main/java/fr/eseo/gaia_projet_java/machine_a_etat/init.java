@@ -1,15 +1,13 @@
 package fr.eseo.gaia_projet_java.machine_a_etat;
 
+import fr.eseo.gaia_projet_java.controller.Transition;
+
 public class init extends State{
 
     public init(Transition gaia) {
         super(gaia);
     }
 
-    @Override
-    public void init() {
-        //deja l'etat actuel
-    }
 
     @Override
     public void menu() {
@@ -32,8 +30,5 @@ public class init extends State{
         //pas possible normalement
     }
 
-    @Override
-    public void gameOver() {
-        //clairement pas possible
-    }
+
 }

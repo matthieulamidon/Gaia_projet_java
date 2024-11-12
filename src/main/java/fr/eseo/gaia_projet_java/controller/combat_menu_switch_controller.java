@@ -1,4 +1,4 @@
 package fr.eseo.gaia_projet_java.controller;
 
-public class menu_controller {
+public class combat_menu_switch_controller {
 }

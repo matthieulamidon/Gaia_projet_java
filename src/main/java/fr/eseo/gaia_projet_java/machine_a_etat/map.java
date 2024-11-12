@@ -1,6 +1,6 @@
 package fr.eseo.gaia_projet_java.machine_a_etat;
 
-import fr.eseo.gaia_projet_java.users.Gaia;
+import fr.eseo.gaia_projet_java.controller.Transition;
 
 public class map extends State{
 
@@ -8,10 +8,6 @@ public class map extends State{
         super(gaia);
     }
 
-    @Override
-    public void init() {
-        //pas possible
-    }
 
     @Override
     public void menu() {
@@ -25,16 +21,13 @@ public class map extends State{
 
     @Override
     public void inventaire() {
-        transition.setState(new inventaire(transition));
+      transition.setState(new inventaire(transition));
     }
 
     @Override
     public void combat() {
-        transition.setState(new combat(transition));
+     transition.setState(new combat(transition));
     }
 
-    @Override
-    public void gameOver() {
-       //pas possible
-    }
+
 }
