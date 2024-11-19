@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Exemplemon extends Mystimon {
 
-    public Exemplemon(int ID, String Nom, ArrayList<Types> liste_types, ArrayList<String> liste_attaques, long Experience, int Niveau, HashMap<String, Integer> state, int pv) {
-        super(ID, Nom, liste_types, liste_attaques, Experience, Niveau, state, pv);
+    public Exemplemon(int ID, String Nom, ArrayList<Types> liste_types, ArrayList<String> liste_attaques, long Experience, int Niveau, int ev, int iv, HashMap<String, Integer> stats, int pv) {
+        super(ID, Nom, liste_types, liste_attaques, Experience,  Niveau, ev, iv, stats, pv);
     }
 }

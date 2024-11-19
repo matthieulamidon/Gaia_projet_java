@@ -38,7 +38,7 @@ public class HelloApplication extends Application {
         scene.setOnKeyPressed(event -> transition.handleKeyPress(event.getCode()));//on active les transitions dans la scene
 
 
-        primaryStage.setTitle("State Machine Example");
+        primaryStage.setTitle("Projet Gaia");
         primaryStage.setScene(scene);
         primaryStage.setResizable(true);
         primaryStage.show();

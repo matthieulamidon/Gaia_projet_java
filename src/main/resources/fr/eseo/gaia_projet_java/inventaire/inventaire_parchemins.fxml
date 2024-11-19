@@ -5,7 +5,19 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="241.0" layoutY="64.0" text="Inventaire Parchemins" />
-      <Button fx:id="BoutonRetour" onAction="#RetourMenuI" layoutX="274.0" layoutY="188.0" mnemonicParsing="false" text="Retour" />
+      <!-- Label mis à jour avec le texte "Liste Parchemins" -->
+      <Label layoutX="241.0" layoutY="64.0" text="Liste Parchemins" />
+
+      <!-- ListView inchangé -->
+      <ListView fx:id="listeViewParchemins" layoutX="200.0" layoutY="88.0" prefHeight="200.0" prefWidth="200.0" onMouseClicked="#clicPourDetails"/>
+
+      <!-- Bouton déplacé en bas à gauche -->
+      <Button
+              fx:id="BoutonRetour"
+              layoutX="10.0"
+              layoutY="360.0"
+              mnemonicParsing="false"
+              onAction="#RetourMenuI"
+              text="Retour" />
    </children>
 </AnchorPane>

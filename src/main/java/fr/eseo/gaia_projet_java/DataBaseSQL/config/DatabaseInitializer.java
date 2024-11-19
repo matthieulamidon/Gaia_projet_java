@@ -169,12 +169,13 @@ public class DatabaseInitializer {
             effet VARCHAR(50) NOT NULL,
             prixAchat INT(11) NOT NULL,
             prixVente INT(11) NOT NULL,
-            description VARCHAR(50) NOT NULL
+            description VARCHAR(50) NOT NULL,
+            efficacite INT(11) NOT NULL
         );""";
             statement.executeUpdate(createTableQuery);
             String insertDefaultScoreQuery = """
-        INSERT INTO objet (nom, effet, prixAchat, prixVente, description)
-        SELECT 'heal', 'zinedine_zidane', 250, 100, 'il est 17h20 j ai la flemme'
+        INSERT INTO objet (nom, effet, prixAchat, prixVente, description, efficacite)
+        SELECT 'heal', 'zinedine_zidane', 250, 100, 'il est 17h20 j ai la flemme', 100
         FROM DUAL
         WHERE NOT EXISTS (SELECT 1 FROM objet WHERE nom = 'heal');
         """;

@@ -3,6 +3,8 @@ package fr.eseo.gaia_projet_java.DataBaseSQL.dao;
 import fr.eseo.gaia_projet_java.Attaques.AttaqueCombat;
 import fr.eseo.gaia_projet_java.DataBaseSQL.JsonParserUtils;
 import fr.eseo.gaia_projet_java.Mystimons.Exemplemon;
+import fr.eseo.gaia_projet_java.Parchemins.Buff;
+import fr.eseo.gaia_projet_java.Parchemins.Parchemin;
 import fr.eseo.gaia_projet_java.enumerations.Effet;
 import fr.eseo.gaia_projet_java.enumerations.Types;
 
@@ -51,7 +53,7 @@ public class DAOUserMariaDB implements DAOUser {
                 HashMap<String, Integer> listeStatesConverti = TraductionStateListeMaps(listeStats);
 
                 // Créer et ajouter un nouvel objet Mystimon //, pv, listeStats
-                users.add(new Exemplemon(id, nom, listeTypesConverti, listeAttaqueConverti, 0, 5, listeStatesConverti, pv));
+                users.add(new Exemplemon(id, nom, listeTypesConverti, listeAttaqueConverti, 0, 5, 25, 25, listeStatesConverti, pv));
             }
             return users;
         }
@@ -65,13 +67,16 @@ public class DAOUserMariaDB implements DAOUser {
         try (Connection connexion = getConnection();
              Statement statement = connexion.createStatement();
              ResultSet resultat = statement.executeQuery(
-                     "SELECT id, nom, xp, lv, pv, Stat, types, attaque FROM equipe;")) {
+                     "SELECT id, nom, pv, xp, lv, ev, iv, Stat, types, attaque, objet  FROM equipe;")) {
             while (resultat.next()) {
                 int id = resultat.getInt("id");
                 String nom = resultat.getString("nom");
                 int xp = resultat.getInt("xp");
                 int lv = resultat.getInt("lv");
                 int pv = resultat.getInt("pv");
+                int iv = resultat.getInt("iv");
+                int ev = resultat.getInt("ev");
+                String objet = resultat.getString("objet");
 
                 // Récupérer et convertir Stat, types, et attaque
                 String statJson = resultat.getString("Stat");
@@ -81,19 +86,42 @@ public class DAOUserMariaDB implements DAOUser {
                 List<String> listeTypes = JsonParserUtils.parseJsonToListString(typesJson);
 
                 String attaqueJson = resultat.getString("attaque");
-                Map<Integer, String> listeAttaques = JsonParserUtils.parseJsonToMapIntString(attaqueJson);
+                //List<String> listeAttaques = JsonParserUtils.parseJsonToListString(attaqueJson);
 
                 //ArrayList<Types> listeTypesConverti = new ArrayList();
                 ArrayList<Types> listeTypesConverti=TraductionStringTypes(listeTypes);
 
                 String jsonStringList=typesJson;
 
-                ArrayList<String> listeAttaqueConverti = jsonToArrayList(jsonStringList, String.class);
+                ArrayList<String> listeAttaqueConverti = jsonToArrayList(attaqueJson, String.class);
                 HashMap<String, Integer> listeStatesConverti = TraductionStateListeMaps(listeStats);
 
-                equipe.add(new Exemplemon(id, nom, listeTypesConverti, listeAttaqueConverti, xp, lv, listeStatesConverti, pv));
+                equipe.add(new Exemplemon(id, nom, listeTypesConverti, listeAttaqueConverti, xp, lv, ev, iv, listeStatesConverti, pv));
             }
             return equipe;
+        }
+    }
+
+    //permet de recuperer les objets
+    @Override
+    public ArrayList<Buff> LectureParchemins() throws SQLException {
+        ArrayList<Buff> parchemins = new ArrayList<>();
+        try(Connection connexion = getConnection();
+            Statement statement = connexion.createStatement();
+            ResultSet resultat = statement.executeQuery(
+                    "SELECT id, nom, effet, prixAchat, prixVente, description, efficacite FROM objet;")) {
+            while (resultat.next()) {
+                int id = resultat.getInt("id");
+                String nom = resultat.getString("nom");
+                String effet = resultat.getString("effet");
+                int prixAchat = resultat.getInt("prixAchat");
+                int prixVente = resultat.getInt("prixVente");
+                String description = resultat.getString("description");
+                int efficacite = resultat.getInt("efficacite");
+
+                parchemins.add(new Buff(nom, id, effet, efficacite, description));
+            }
+            return parchemins;
         }
     }
 
@@ -103,13 +131,16 @@ public class DAOUserMariaDB implements DAOUser {
         try (Connection connexion = getConnection();
              Statement statement = connexion.createStatement();
              ResultSet resultat = statement.executeQuery(
-                     "SELECT id, nom, xp, lv, pv, Stat, types, attaque FROM equipe"+nbAdv+";")) {
+                     "SELECT id, nom, pv, xp, lv, ev, iv, Stat, types, attaque, objet FROM equipe"+nbAdv+";")) {
             while (resultat.next()) {
                 int id = resultat.getInt("id");
                 String nom = resultat.getString("nom");
                 int xp = resultat.getInt("xp");
                 int lv = resultat.getInt("lv");
                 int pv = resultat.getInt("pv");
+                int iv = resultat.getInt("iv");
+                int ev = resultat.getInt("ev");
+                String objet = resultat.getString("objet");
 
                 // Récupérer et convertir Stat, types, et attaque
                 String statJson = resultat.getString("Stat");
@@ -119,7 +150,7 @@ public class DAOUserMariaDB implements DAOUser {
                 List<String> listeTypes = JsonParserUtils.parseJsonToListString(typesJson);
 
                 String attaqueJson = resultat.getString("attaque");
-                Map<Integer, String> listeAttaques = JsonParserUtils.parseJsonToMapIntString(attaqueJson);
+                List<String> listeAttaques = JsonParserUtils.parseJsonToListString(attaqueJson);
 
                 //ArrayList<Types> listeTypesConverti = new ArrayList();
                 ArrayList<Types> listeTypesConverti=TraductionStringTypes(listeTypes);
@@ -129,7 +160,7 @@ public class DAOUserMariaDB implements DAOUser {
                 ArrayList<String> listeAttaqueConverti = jsonToArrayList(jsonStringList, String.class);
                 HashMap<String, Integer> listeStatesConverti = TraductionStateListeMaps(listeStats);
 
-                equipe.add(new Exemplemon(id, nom, listeTypesConverti, listeAttaqueConverti, xp, lv, listeStatesConverti, pv));
+                equipe.add(new Exemplemon(id, nom, listeTypesConverti, listeAttaqueConverti, xp, lv, ev, iv, listeStatesConverti, pv));
             }
             return equipe;
         }

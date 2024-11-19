@@ -4,13 +4,13 @@ public abstract class Parchemin {
     protected String nom;
     protected Integer id;
     protected String effet;
-    protected int efficaciter;
+    protected int efficacite;
 
     public Parchemin(String nom, Integer id, String effet, int efficacite) {
         this.nom = nom;
         this.id = id;
         this.effet = effet;
-        this.efficaciter = efficacite;
+        this.efficacite = efficacite;
     }
     public String getNom() {
         return nom;
@@ -30,10 +30,10 @@ public abstract class Parchemin {
     public void setEffet(String effet) {
         this.effet = effet;
     }
-    public int getEfficaciter() {
-        return efficaciter;
+    public int getEfficacite() {
+        return efficacite;
     }
-    public void setEfficaciter(int efficaciter) {
-        this.efficaciter = efficaciter;
+    public void setEfficacite(int efficacite) {
+        this.efficacite = efficacite;
     }
 }
