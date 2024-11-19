@@ -70,6 +70,18 @@ public abstract class Mystimon {
     public void setStats(HashMap<String, Integer> stats){
         this.stats = stats;
     }
+    public void setExperience(long Experience){
+        this.Experience = Experience;
+    }
+    public void setNiveau(int Niveau){
+        this.Niveau = Niveau;
+    }
+    public int getLv(){
+        return Niveau;
+    }
+    public double getXp(){
+        return Experience;
+    }
     public int getIv(){ return iv; }
     public void setIv(int iv){ this.iv = iv; }
     public int getEv(){ return ev; }
