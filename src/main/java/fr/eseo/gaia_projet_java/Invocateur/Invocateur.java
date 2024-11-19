@@ -1,18 +1,20 @@
 package fr.eseo.gaia_projet_java.Invocateur;
 
+import fr.eseo.gaia_projet_java.Mystimons.Exemplemon;
 import fr.eseo.gaia_projet_java.Mystimons.Mystimon;
 import fr.eseo.gaia_projet_java.Parchemins.Parchemin;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Invocateur {
     protected  int id;
     protected String nom;
-    protected ArrayList<Mystimon> liste_mystimons;
+    protected List<Exemplemon> liste_mystimons;
     protected ArrayList<Parchemin> liste_objet;
-    protected ArrayList<ArrayList<Integer>> position;
+    protected ArrayList<Integer> position;
 
-    public Invocateur(int id, String nom, ArrayList<Mystimon> liste_mystimons, ArrayList<Parchemin> liste_objet, ArrayList<ArrayList<Integer>> position) {
+    public Invocateur(int id, String nom, List<Exemplemon> liste_mystimons, ArrayList<Parchemin> liste_objet, ArrayList<Integer> position) {
         this.id = id;
         this.nom = nom;
         this.liste_mystimons = liste_mystimons;
@@ -26,13 +28,13 @@ public abstract class Invocateur {
     public String getNom() {
         return nom;
     }
-    public ArrayList<Mystimon> getListe_mystimons() {
+    public List<Exemplemon> getListe_mystimons() {
         return liste_mystimons;
     }
     public ArrayList<Parchemin> getListe_objet() {
         return liste_objet;
     }
-    public ArrayList<ArrayList<Integer>> getPosition() {
+    public ArrayList<Integer> getPosition() {
         return position;
     }
     public void setId(int id) {
@@ -45,7 +47,7 @@ public abstract class Invocateur {
         this.liste_objet = liste_objet;
     }
     public void setPosition(ArrayList<Integer> position) {
-        this.position.add(position);
+        this.position=position;
     }
     //Coquilles méthodes :
 

@@ -2,7 +2,10 @@ package fr.eseo.gaia_projet_java.DataBaseSQL.dao;
 
 import fr.eseo.gaia_projet_java.Attaques.AttaqueCombat;
 import fr.eseo.gaia_projet_java.DataBaseSQL.JsonParserUtils;
+import fr.eseo.gaia_projet_java.Invocateur.Adversaire;
+import fr.eseo.gaia_projet_java.Invocateur.Joueur;
 import fr.eseo.gaia_projet_java.Mystimons.Exemplemon;
+import fr.eseo.gaia_projet_java.Parchemins.Parchemin;
 import fr.eseo.gaia_projet_java.enumerations.Effet;
 import fr.eseo.gaia_projet_java.enumerations.Types;
 
@@ -65,13 +68,16 @@ public class DAOUserMariaDB implements DAOUser {
         try (Connection connexion = getConnection();
              Statement statement = connexion.createStatement();
              ResultSet resultat = statement.executeQuery(
-                     "SELECT id, nom, xp, lv, pv, Stat, types, attaque FROM equipe;")) {
+                     "SELECT id, nom, pv, xp, lv, ev, iv, Stat, types, attaque, objet  FROM equipe;")) {
             while (resultat.next()) {
                 int id = resultat.getInt("id");
                 String nom = resultat.getString("nom");
                 int xp = resultat.getInt("xp");
                 int lv = resultat.getInt("lv");
                 int pv = resultat.getInt("pv");
+                int iv = resultat.getInt("iv");
+                int ev = resultat.getInt("ev");
+                String objet = resultat.getString("objet");
 
                 // Récupérer et convertir Stat, types, et attaque
                 String statJson = resultat.getString("Stat");
@@ -81,14 +87,14 @@ public class DAOUserMariaDB implements DAOUser {
                 List<String> listeTypes = JsonParserUtils.parseJsonToListString(typesJson);
 
                 String attaqueJson = resultat.getString("attaque");
-                Map<Integer, String> listeAttaques = JsonParserUtils.parseJsonToMapIntString(attaqueJson);
+                //List<String> listeAttaques = JsonParserUtils.parseJsonToListString(attaqueJson);
 
                 //ArrayList<Types> listeTypesConverti = new ArrayList();
                 ArrayList<Types> listeTypesConverti=TraductionStringTypes(listeTypes);
 
                 String jsonStringList=typesJson;
 
-                ArrayList<String> listeAttaqueConverti = jsonToArrayList(jsonStringList, String.class);
+                ArrayList<String> listeAttaqueConverti = jsonToArrayList(attaqueJson, String.class);
                 HashMap<String, Integer> listeStatesConverti = TraductionStateListeMaps(listeStats);
 
                 equipe.add(new Exemplemon(id, nom, listeTypesConverti, listeAttaqueConverti, xp, lv, listeStatesConverti, pv));
@@ -103,13 +109,16 @@ public class DAOUserMariaDB implements DAOUser {
         try (Connection connexion = getConnection();
              Statement statement = connexion.createStatement();
              ResultSet resultat = statement.executeQuery(
-                     "SELECT id, nom, xp, lv, pv, Stat, types, attaque FROM equipe"+nbAdv+";")) {
+                     "SELECT id, nom, pv, xp, lv, ev, iv, Stat, types, attaque, objet  FROM equipedupnj"+nbAdv+";")) {
             while (resultat.next()) {
                 int id = resultat.getInt("id");
                 String nom = resultat.getString("nom");
                 int xp = resultat.getInt("xp");
                 int lv = resultat.getInt("lv");
                 int pv = resultat.getInt("pv");
+                int iv = resultat.getInt("iv");
+                int ev = resultat.getInt("ev");
+                String objet = resultat.getString("objet");
 
                 // Récupérer et convertir Stat, types, et attaque
                 String statJson = resultat.getString("Stat");
@@ -119,14 +128,14 @@ public class DAOUserMariaDB implements DAOUser {
                 List<String> listeTypes = JsonParserUtils.parseJsonToListString(typesJson);
 
                 String attaqueJson = resultat.getString("attaque");
-                Map<Integer, String> listeAttaques = JsonParserUtils.parseJsonToMapIntString(attaqueJson);
+                //List<String> listeAttaques = JsonParserUtils.parseJsonToListString(attaqueJson);
 
                 //ArrayList<Types> listeTypesConverti = new ArrayList();
                 ArrayList<Types> listeTypesConverti=TraductionStringTypes(listeTypes);
 
                 String jsonStringList =typesJson;
 
-                ArrayList<String> listeAttaqueConverti = jsonToArrayList(jsonStringList, String.class);
+                ArrayList<String> listeAttaqueConverti = jsonToArrayList(attaqueJson, String.class);
                 HashMap<String, Integer> listeStatesConverti = TraductionStateListeMaps(listeStats);
 
                 equipe.add(new Exemplemon(id, nom, listeTypesConverti, listeAttaqueConverti, xp, lv, listeStatesConverti, pv));
@@ -153,14 +162,51 @@ public class DAOUserMariaDB implements DAOUser {
 
                 Types typesTraduit = TraductionsanslisteStringTypes(types);
 
-                String attaqueJson = resultat.getString("attaque");
-                Map<Integer, String> listeAttaques = JsonParserUtils.parseJsonToMapIntString(attaqueJson);
-
-
+                //String attaqueJson = resultat.getString("attaque");
+                //Map<Integer, String> listeAttaques = JsonParserUtils.parseJsonToMapIntString(attaqueJson);
 
                 attaqueCombats.add(new AttaqueCombat(id, nom, puissance, typesTraduit, effet, aspect, pressision));
             }
             return attaqueCombats;
+        }
+    }
+
+    public Joueur readLectureJoueur() throws SQLException {
+        try (Connection connexion = getConnection();
+             Statement statement = connexion.createStatement();
+             ResultSet resultat = statement.executeQuery(
+                     "SELECT id, nom, listeDObjet, coordonner FROM promethee;")) {
+            Joueur joueur = null;
+            while (resultat.next()) {
+                int id = resultat.getInt("id");
+                String nom = resultat.getString("nom");
+
+                ArrayList<Parchemin> jsp = null;
+                ArrayList<Integer> possition = new ArrayList<>(1);
+                possition.add(2);
+                joueur = new Joueur(id, nom, readLectuceDeLequipe(), jsp, possition);
+            }
+            return joueur;
+        }
+    }
+
+    public Adversaire readLectureAdversaire() throws SQLException {
+        try (Connection connexion = getConnection();
+             Statement statement = connexion.createStatement();
+             ResultSet resultat = statement.executeQuery(
+                     "SELECT id, nom, listeDObjet, coordonner FROM promethee;"))
+                     {
+            Adversaire adversaire = null;
+            while (resultat.next()) {
+                int id = 0;//resultat.getInt("id");
+                String nom = "gerard";//resultat.getString("nom");
+
+                ArrayList<Parchemin> jsp = null;
+                ArrayList<Integer> possition = new ArrayList<>(1);
+                possition.add(2);
+                adversaire = new Adversaire(id, nom, readLectuceDeEquipeAdverse(id),  jsp,  possition);
+            }
+            return adversaire;
         }
     }
 
@@ -187,8 +233,6 @@ public class DAOUserMariaDB implements DAOUser {
                 i=0;
             }
         }
-
-
         return listeAttaqueConverti;
     }
 
