@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class combat_menu_attaque_controller {
     private Stage primaryStage;
@@ -94,6 +95,11 @@ public class combat_menu_attaque_controller {
         pvRestant.setText(String.valueOf(combat.getPvAlier()));
         barDeVieAlier.setProgress(combat.getRatioPvAlier());
         barDeVieAdv.setProgress(combat.getRatioPvAdv());
+        ArrayList<String> listeAttaque=combat.getListeAttaque();
+        Attaque1.setText(listeAttaque.get(0));
+        Attaque2.setText(listeAttaque.get(1));
+        Attaque3.setText(listeAttaque.get(2));
+        //Attaque4.setText(listeAttaque.get(3));
     }
 
 }

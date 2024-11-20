@@ -79,6 +79,10 @@ public class InvocateurVsAdversaire {
         return Double.valueOf(pvMin/pvMax);
     }
 
+    public ArrayList<String> getListeAttaque(){
+        return mystimonAllier.getListeAttaques();
+    }
+
     private double avantageDeType(Types types1,Types typesAttaque){
         double cm =1;
         switch (typesAttaque) {
