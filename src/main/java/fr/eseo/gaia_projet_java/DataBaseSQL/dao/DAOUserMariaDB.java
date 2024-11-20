@@ -134,7 +134,7 @@ public class DAOUserMariaDB implements DAOUser {
         try (Connection connexion = getConnection();
              Statement statement = connexion.createStatement();
              ResultSet resultat = statement.executeQuery(
-                     "SELECT id, nom, pv, xp, lv, ev, iv, Stat, types, attaque, objet FROM equipe"+nbAdv+";")) {
+                     "SELECT id, nom, pv, xp, lv, ev, iv, Stat, types, attaque, objet FROM equipeduPnj"+nbAdv+";")) {
             while (resultat.next()) {
                 int id = resultat.getInt("id");
                 String nom = resultat.getString("nom");

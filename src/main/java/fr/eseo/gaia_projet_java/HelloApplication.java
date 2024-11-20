@@ -18,21 +18,21 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 
-/*
+
 public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException {
         //test pour vérifier si le chemin d'accès est bien correct
-        URL fxmlLocation = HelloApplication.class.getResource("/fr/eseo/gaia_projet_java/combat-view/combat_menu_principale.fxml");
+        URL fxmlLocation = HelloApplication.class.getResource("/fr/eseo/gaia_projet_java/inventaire/inventaire.fxml");
         if (fxmlLocation == null) {
-            throw new IllegalStateException("FXML file not found: /fr/eseo/gaia_projet_java/combat-view/combat_menu_principale.fxml");
+            throw new IllegalStateException("FXML file not found: /fr/eseo/gaia_projet_java/inventaire/inventaire.fxml");
         }
 
         DatabaseInitializer databaseInitializer = new DatabaseInitializer();
         databaseInitializer.run();
 
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
-        combat_menu_principale_controller c = new combat_menu_principale_controller(primaryStage);
+        inventaire_menu c = new inventaire_menu(primaryStage);
         fxmlLoader.setController(c);
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
 
@@ -48,10 +48,7 @@ public class HelloApplication extends Application {
         primaryStage.setResizable(true);
         primaryStage.show();
     }
-    public static void main(String[] args) {
-        launch();
-    }
-}*/
+/*
 public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException {
@@ -92,7 +89,7 @@ public class HelloApplication extends Application {
         primaryStage.setResizable(true);
         primaryStage.show();
     }
-
+*/
     public static void main(String[] args) {
         launch();
     }
