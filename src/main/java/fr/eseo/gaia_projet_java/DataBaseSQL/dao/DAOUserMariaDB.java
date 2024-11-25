@@ -6,9 +6,6 @@ import fr.eseo.gaia_projet_java.Invocateur.Adversaire;
 import fr.eseo.gaia_projet_java.Invocateur.Joueur;
 import fr.eseo.gaia_projet_java.Mystimons.Exemplemon;
 import fr.eseo.gaia_projet_java.Parchemins.Buff;
-import fr.eseo.gaia_projet_java.Parchemins.Parchemin;
-import fr.eseo.gaia_projet_java.Parchemins.Parchemin;
-import fr.eseo.gaia_projet_java.enumerations.Effet;
 import fr.eseo.gaia_projet_java.enumerations.Types;
 
 import java.sql.*;
@@ -107,25 +104,32 @@ public class DAOUserMariaDB implements DAOUser {
 
     //permet de recuperer les objets
     @Override
-    public ArrayList<Buff> LectureParchemins() throws SQLException {
-        ArrayList<Buff> parchemins = new ArrayList<>();
-        try(Connection connexion = getConnection();
-            Statement statement = connexion.createStatement();
-            ResultSet resultat = statement.executeQuery(
-                    "SELECT id, nom, effet, prixAchat, prixVente, description, efficacite FROM objet;")) {
-            while (resultat.next()) {
-                int id = resultat.getInt("id");
-                String nom = resultat.getString("nom");
-                String effet = resultat.getString("effet");
-                int prixAchat = resultat.getInt("prixAchat");
-                int prixVente = resultat.getInt("prixVente");
-                String description = resultat.getString("description");
-                int efficacite = resultat.getInt("efficacite");
+    public Buff LectureParchemins(String nomObjet) throws SQLException {
+        Buff parchemin = null;
+        String requete = "SELECT id, nom, effet, prixAchat, prixVente, description, efficacite FROM objet WHERE nom = ?";
 
-                parchemins.add(new Buff(nom, id, effet, efficacite, description));
+        try (Connection connexion = getConnection();
+             PreparedStatement statement = connexion.prepareStatement(requete)) {
+
+            // On ajoute le parametre à la requête
+            statement.setString(1, nomObjet);
+
+            try (ResultSet resultat = statement.executeQuery()) {
+                while (resultat.next()) {
+                    int id = resultat.getInt("id");
+                    String nom = resultat.getString("nom");
+                    String effet = resultat.getString("effet");
+                    int prixAchat = resultat.getInt("prixAchat");
+                    int prixVente = resultat.getInt("prixVente");
+                    String description = resultat.getString("description");
+                    int efficacite = resultat.getInt("efficacite");
+
+                    // On ajoute un nouvel objet à la liste
+                    parchemin = new Buff(nom, id, effet, efficacite, description);
+                }
             }
-            return parchemins;
         }
+        return parchemin;
     }
 
     @Override
@@ -205,11 +209,13 @@ public class DAOUserMariaDB implements DAOUser {
             while (resultat.next()) {
                 int id = resultat.getInt("id");
                 String nom = resultat.getString("nom");
+                String jsonString = resultat.getString("listeDObjet");
+                //List<Integer> listeObjets = JsonParserUtils.parseJsonToListInt(jsonString);
 
-                ArrayList<Parchemin> jsp = null;
-                ArrayList<Integer> possition = new ArrayList<>(1);
-                possition.add(2);
-                joueur = new Joueur(id, nom, readLectuceDeLequipe(), jsp, possition);
+                HashMap<String, Integer> mapObjets = (HashMap<String, Integer>) JsonParserUtils.parseJsonToMapStringInt(jsonString);
+                ArrayList<Integer> position = new ArrayList<>(1);
+                position.add(2);
+                joueur = new Joueur(id, nom, readLectuceDeLequipe(), mapObjets, position);
             }
             return joueur;
         }
@@ -226,7 +232,7 @@ public class DAOUserMariaDB implements DAOUser {
                 int id = 0;//resultat.getInt("id");
                 String nom = "gerard";//resultat.getString("nom");
 
-                ArrayList<Parchemin> jsp = null;
+                HashMap<String, Integer> jsp = null;
                 ArrayList<Integer> possition = new ArrayList<>(1);
                 possition.add(2);
                 adversaire = new Adversaire(id, nom, readLectuceDeEquipeAdverse(id),  jsp,  possition);
@@ -286,7 +292,7 @@ public class DAOUserMariaDB implements DAOUser {
                     TypesConverti = fr.eseo.gaia_projet_java.enumerations.Types.fee;
                     break;
             case "foudre":
-                    TypesConverti = fr.eseo.gaia_projet_java.enumerations.Types.feu;
+                    TypesConverti = fr.eseo.gaia_projet_java.enumerations.Types.foudre;
                     break;
             case "terre":
                     TypesConverti = fr.eseo.gaia_projet_java.enumerations.Types.terre;
@@ -338,5 +344,17 @@ public class DAOUserMariaDB implements DAOUser {
             }
         }
         return listeTypesConverti;
+    }
+
+    public ArrayList<Buff> LectureMapObjets(HashMap<String, Integer> mapObjets) throws SQLException {
+        ArrayList<Buff> listeObjetsConvertie = new ArrayList();
+        for (Map.Entry<String, Integer> entry : mapObjets.entrySet()) {
+            Buff objetCherche = null;
+            objetCherche = LectureParchemins(entry.getKey());
+            if (objetCherche != null) {
+                listeObjetsConvertie.add(objetCherche);
+            }
+        }
+        return listeObjetsConvertie;
     }
 }

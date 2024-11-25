@@ -5,16 +5,17 @@ import fr.eseo.gaia_projet_java.Mystimons.Mystimon;
 import fr.eseo.gaia_projet_java.Parchemins.Parchemin;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public abstract class Invocateur {
     protected  int id;
     protected String nom;
     protected List<Exemplemon> liste_mystimons;
-    protected ArrayList<Parchemin> liste_objet;
+    protected HashMap<String, Integer> liste_objet;
     protected ArrayList<Integer> position;
 
-    public Invocateur(int id, String nom, List<Exemplemon> liste_mystimons, ArrayList<Parchemin> liste_objet, ArrayList<Integer> position) {
+    public Invocateur(int id, String nom, List<Exemplemon> liste_mystimons, HashMap<String, Integer> liste_objet, ArrayList<Integer> position) {
         this.id = id;
         this.nom = nom;
         this.liste_mystimons = liste_mystimons;
@@ -31,7 +32,7 @@ public abstract class Invocateur {
     public List<Exemplemon> getListe_mystimons() {
         return liste_mystimons;
     }
-    public ArrayList<Parchemin> getListe_objet() {
+    public HashMap<String, Integer> getListe_objet() {
         return liste_objet;
     }
     public ArrayList<Integer> getPosition() {
@@ -43,7 +44,7 @@ public abstract class Invocateur {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    public void setListe_objet(ArrayList<Parchemin> liste_objet) {
+    public void setListe_objet(HashMap<String, Integer> liste_objet) {
         this.liste_objet = liste_objet;
     }
     public void setPosition(ArrayList<Integer> position) {

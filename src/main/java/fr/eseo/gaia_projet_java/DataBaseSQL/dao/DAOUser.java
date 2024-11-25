@@ -15,6 +15,6 @@ public interface DAOUser {
 
 
     List<AttaqueCombat> LectuceDeEquipeAttaque() throws SQLException;
-    ArrayList<Buff> LectureParchemins() throws SQLException;
+    Buff LectureParchemins(String nomObjet) throws SQLException;
     //void createUser(String firstName, String lastName) throws SQLException;
 }

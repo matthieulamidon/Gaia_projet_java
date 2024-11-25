@@ -2,12 +2,12 @@ package fr.eseo.gaia_projet_java.Map;
 
 import java.util.ArrayList;
 
-public class Decore {
+public class Decor {
     private ArrayList<Integer>position;
     private String image;
     private boolean tangibilite;
 
-    public Decore(ArrayList<Integer> position, String image, boolean tangibilite) {
+    public Decor(ArrayList<Integer> position, String image, boolean tangibilite) {
         this.position = position;
         this.image = image;
         this.tangibilite = tangibilite;

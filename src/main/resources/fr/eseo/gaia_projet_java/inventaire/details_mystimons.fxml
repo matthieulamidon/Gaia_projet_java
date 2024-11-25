@@ -8,7 +8,9 @@
    <!-- Barre en haut pour le bouton "Retour" -->
    <top>
       <HBox  spacing="10" style="-fx-padding: 10;">
-         <Button fx:id="BoutonRetour" text="Retour" style="-fx-font-size: 14;" onAction="#RetourMenuI" />
+         <Button fx:id="BoutonRetour" text="Retour" onAction="#RetourMenuI"
+                 style="-fx-font-size: 16px; -fx-padding: 5px 10px; -fx-background-color: #e74c3c; -fx-text-fill: white;" />
+
       </HBox>
    </top>
 

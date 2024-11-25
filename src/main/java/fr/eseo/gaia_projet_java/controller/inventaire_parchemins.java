@@ -2,6 +2,7 @@ package fr.eseo.gaia_projet_java.controller;
 
 import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUserMariaDB;
 import fr.eseo.gaia_projet_java.HelloApplication;
+import fr.eseo.gaia_projet_java.Invocateur.Joueur;
 import fr.eseo.gaia_projet_java.Parchemins.Buff;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,13 +16,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class inventaire_parchemins {
 
     private Stage primaryStage;
+    private Joueur joueur;
 
-    inventaire_parchemins(Stage primaryStage) {
+    inventaire_parchemins(Stage primaryStage, Joueur joueur) {
         this.primaryStage = primaryStage;
+        this.joueur = joueur;
     }
 
     @FXML
@@ -50,7 +54,11 @@ public class inventaire_parchemins {
     protected void initialize() throws SQLException {
         //Initalisation de la liste des Mystimons
         DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
-        ArrayList<Buff> listeParchemins = daoUserMariaDB.LectureParchemins();
+        Joueur joueur = daoUserMariaDB.readLectureJoueur();
+
+        HashMap<String, Integer> mapObjets = joueur.getListe_objet();
+        ArrayList<Buff> listeParchemins = daoUserMariaDB.LectureMapObjets(mapObjets);
+
         ObservableList<Buff> observableList = FXCollections.observableArrayList(listeParchemins); //Convertion en liste observable
         listeViewParchemins.setItems(observableList); //on passe les items dans la listeView
 
@@ -62,7 +70,7 @@ public class inventaire_parchemins {
                 if (empty || parchemin == null) {
                     setText(null);
                 } else {
-                    setText(parchemin.getNom());
+                    setText(parchemin.getNom()+" x"+mapObjets.get(parchemin.getNom()));
                 }
             }
         });
@@ -70,13 +78,13 @@ public class inventaire_parchemins {
     }
 
     @FXML
-    private void DetailsParchemins(Buff parchemin) throws IOException {
+    private void DetailsParchemin(Buff parchemin) throws IOException {
         try {
             // Charger la scène depuis le fichier FXML
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("inventaire/details_parchemins.fxml"));
 
             // Récupérer la fenêtre actuelle (Stage) et changer la scène
-            inventaire_det_parchemins inventaire_det_parchemins = new inventaire_det_parchemins(primaryStage, parchemin);
+            inventaire_det_parchemins inventaire_det_parchemins = new inventaire_det_parchemins(primaryStage, joueur, parchemin);
             loader.setController(inventaire_det_parchemins);
             Scene scene = new Scene(loader.load());
             primaryStage.setScene(scene);
@@ -87,9 +95,12 @@ public class inventaire_parchemins {
 
     @FXML
     private void clicPourDetails() throws IOException {
+
         Buff parchemin = listeViewParchemins.getSelectionModel().getSelectedItem();
         if (parchemin != null) {
-            DetailsParchemins(parchemin);
+            DetailsParchemin(parchemin);
         }
+
     }
+
 }

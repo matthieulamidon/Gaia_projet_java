@@ -7,4 +7,7 @@ public class Buff extends Parchemin {
         super(nom, id, effet, efficacite);
         this.description = description;
     }
+    public String getDescription(){
+        return description;
+    }
 }

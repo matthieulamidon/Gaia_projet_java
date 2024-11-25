@@ -1,14 +1,16 @@
 package fr.eseo.gaia_projet_java.controller;
 
+import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUserMariaDB;
 import fr.eseo.gaia_projet_java.HelloApplication;
+import fr.eseo.gaia_projet_java.Invocateur.Joueur;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class inventaire_menu {
 
@@ -52,13 +54,15 @@ public class inventaire_menu {
     }
 
     @FXML
-    private void switchToParchemins() throws IOException {
+    private void ToParchemins(Joueur joueur) throws IOException {
+        //On extrait les données du joueur
         try {
             // Charger la scène depuis le fichier FXML
+
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("inventaire/inventaire_parchemins.fxml"));
 
             // Récupérer la fenêtre actuelle (Stage) et changer la scène
-            inventaire_parchemins inventaire_parchemins = new inventaire_parchemins(primaryStage);
+            inventaire_parchemins inventaire_parchemins = new inventaire_parchemins(primaryStage, joueur);
             loader.setController(inventaire_parchemins);
             primaryStage.setScene(new Scene(loader.load()));
         } catch (IOException e) {
@@ -71,4 +75,14 @@ public class inventaire_menu {
     private void quitter() throws IOException {
         primaryStage.close();
     }
-}
+
+    @FXML
+    private void switchToParchemins() throws IOException, SQLException {
+        DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
+        Joueur joueur = daoUserMariaDB.readLectureJoueur();
+        if (joueur != null) {
+            ToParchemins(joueur);
+        }
+    }
+    }
+

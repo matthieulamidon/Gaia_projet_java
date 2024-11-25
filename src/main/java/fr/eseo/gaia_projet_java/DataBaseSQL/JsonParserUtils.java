@@ -42,4 +42,9 @@ public class JsonParserUtils {
         Type mapType = new TypeToken<HashMap<Integer, String>>() {}.getType();
         return gson.fromJson(json, mapType);
     }
+
+    public static Map<String, Integer> parseJsonToMapStringInt(String json) {
+        Type mapType = new TypeToken<HashMap<String, Integer>>() {}.getType();
+        return gson.fromJson(json, mapType);
+    }
 }
