@@ -17,7 +17,7 @@ public class AttaqueCombat {
         this.nom = nom;
         this.puissance = puissance;
         this.types = types;
-        this.effet =effet;
+        this.effet = effet;
         this.aspect = aspect;
         this.pressision = pressision;
     }

@@ -1,14 +1,177 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2c3e50;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="mystimon1" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0">
+                     <graphic>
+                        <ImageView fx:id="imagemystimon1" fitHeight="64.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                     </graphic>
+                  </Button>
+                  <VBox prefHeight="158.0" prefWidth="386.0">
+                     <children>
+                        <HBox prefHeight="21.0" prefWidth="384.0">
+                           <children>
+                              <Label fx:id="mystimon1nom" prefHeight="17.0" prefWidth="101.0" style="-fx-text-fill: white;" text="mystimon" />
+                              <Label prefHeight="17.0" prefWidth="20.0" style="-fx-text-fill: white;" text="lv :" />
+                              <Label fx:id="mystimon1nblevel" style="-fx-text-fill: white;" text="nb de level" />
+                           </children>
+                        </HBox>
+                        <ProgressBar fx:id="mystimon1bardepv" prefWidth="200.0" progress="0.0" />
+                        <HBox prefHeight="22.0" prefWidth="384.0">
+                           <children>
+                              <Label style="-fx-text-fill: white;" text="pv :" />
+                              <Label fx:id="mystimon1nbdepv" style="-fx-text-fill: white;" text="nb de pv" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+             <HBox prefHeight="100.0" prefWidth="200.0">
+                 <children>
+                     <Button fx:id="mystimon2" mnemonicParsing="false" prefHeight="117.0" prefWidth="216.0">
+                         <graphic>
+                             <ImageView fx:id="imagemystimon2" fitHeight="54.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" style="-fx-text-fill: white;" />
+                         </graphic>
+                     </Button>
+                     <VBox prefHeight="158.0" prefWidth="386.0">
+                         <children>
+                             <HBox prefHeight="21.0" prefWidth="384.0">
+                                 <children>
+                                     <Label fx:id="mystimon2nom" prefHeight="17.0" prefWidth="101.0" style="-fx-text-fill: white;" text="mystimon" />
+                                     <Label prefHeight="17.0" prefWidth="19.0" style="-fx-text-fill: white;" text="lv :" />
+                                     <Label fx:id="mystimon2nblevel" style="-fx-text-fill: white;" text="nb de level" />
+                                 </children>
+                             </HBox>
+                             <ProgressBar fx:id="mystimon2bardepv" prefWidth="200.0" progress="0.0" />
+                             <HBox prefHeight="22.0" prefWidth="384.0">
+                                 <children>
+                                     <Label style="-fx-text-fill: white;" text="pv :" />
+                                     <Label fx:id="mystimon2nbdepv" style="-fx-text-fill: white;" text="nb de pv" />
+                                 </children>
+                             </HBox>
+                         </children>
+                     </VBox>
+                 </children>
+             </HBox>
+             <HBox prefHeight="100.0" prefWidth="200.0">
+                 <children>
+                     <Button fx:id="mystimon3" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0">
+                         <graphic>
+                             <ImageView fx:id="imagemystimon3" fitHeight="55.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                         </graphic>
+                     </Button>
+                     <VBox prefHeight="158.0" prefWidth="386.0">
+                         <children>
+                             <HBox prefHeight="21.0" prefWidth="384.0">
+                                 <children>
+                                     <Label fx:id="mystimon3nom" prefHeight="17.0" prefWidth="101.0" style="-fx-text-fill: white;" text="mystimon" />
+                                     <Label prefHeight="17.0" prefWidth="21.0" style="-fx-text-fill: white;" text="lv :" />
+                                     <Label fx:id="mystimon3nblevel" style="-fx-text-fill: white;" text="nb de level" />
+                                 </children>
+                             </HBox>
+                             <ProgressBar fx:id="mystimon3bardepv" prefWidth="200.0" progress="0.0" />
+                             <HBox prefHeight="22.0" prefWidth="384.0">
+                                 <children>
+                                     <Label style="-fx-text-fill: white;" text="pv :" />
+                                     <Label fx:id="mystimon3nbdepv" style="-fx-text-fill: white;" text="nb de pv" />
+                                 </children>
+                             </HBox>
+                         </children>
+                     </VBox>
+                 </children>
+             </HBox>
+             <HBox prefHeight="100.0" prefWidth="200.0">
+                 <children>
+                     <Button fx:id="mystimon4" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0">
+                         <graphic>
+                             <ImageView fx:id="imagemystimon4" fitHeight="60.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                         </graphic>
+                     </Button>
+                     <VBox prefHeight="158.0" prefWidth="386.0">
+                         <children>
+                             <HBox prefHeight="21.0" prefWidth="384.0">
+                                 <children>
+                                     <Label fx:id="mystimon4nom" prefHeight="17.0" prefWidth="101.0" style="-fx-text-fill: white;" text="mystimon" />
+                                     <Label prefHeight="17.0" prefWidth="20.0" style="-fx-text-fill: white;" text="lv :" />
+                                     <Label fx:id="mystimon4nblevel" style="-fx-text-fill: white;" text="nb de level" />
+                                 </children>
+                             </HBox>
+                             <ProgressBar fx:id="mystimon4bardepv" prefWidth="200.0" progress="0.0" />
+                             <HBox prefHeight="22.0" prefWidth="384.0">
+                                 <children>
+                                     <Label style="-fx-text-fill: white;" text="pv :" />
+                                     <Label fx:id="mystimon4nbdepv" style="-fx-text-fill: white;" text="nb de pv" />
+                                 </children>
+                             </HBox>
+                         </children>
+                     </VBox>
+                 </children>
+             </HBox>
+             <HBox prefHeight="100.0" prefWidth="200.0">
+                 <children>
+                     <Button fx:id="mystimon5" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0">
+                         <graphic>
+                             <ImageView fx:id="imagemystimon5" fitHeight="55.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                         </graphic>
+                     </Button>
+                     <VBox prefHeight="158.0" prefWidth="386.0">
+                         <children>
+                             <HBox prefHeight="21.0" prefWidth="384.0">
+                                 <children>
+                                     <Label fx:id="mystimon5nom" prefHeight="17.0" prefWidth="101.0" style="-fx-text-fill: white;" text="mystimon" />
+                                     <Label prefHeight="17.0" prefWidth="21.0" style="-fx-text-fill: white;" text="lv :" />
+                                     <Label fx:id="mystimon5nblevel" style="-fx-text-fill: white;" text="nb de level" />
+                                 </children>
+                             </HBox>
+                             <ProgressBar fx:id="mystimon5bardepv" prefWidth="200.0" progress="0.0" />
+                             <HBox prefHeight="22.0" prefWidth="384.0">
+                                 <children>
+                                     <Label style="-fx-text-fill: white;" text="pv :" />
+                                     <Label fx:id="mystimon5nbdepv" style="-fx-text-fill: white;" text="nb de pv" />
+                                 </children>
+                             </HBox>
+                         </children>
+                     </VBox>
+                 </children>
+             </HBox>
+             <HBox prefHeight="100.0" prefWidth="200.0">
+                 <children>
+                     <Button fx:id="mystimon6" mnemonicParsing="false" prefHeight="100.0" prefWidth="150.0">
+                         <graphic>
+                             <ImageView fx:id="imagemystimon6" fitHeight="56.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
+                         </graphic>
+                     </Button>
+                     <VBox prefHeight="158.0" prefWidth="386.0">
+                         <children>
+                             <HBox prefHeight="21.0" prefWidth="384.0">
+                                 <children>
+                                     <Label fx:id="mystimon6nom" prefHeight="17.0" prefWidth="101.0" style="-fx-text-fill: white;" text="mystimon" />
+                                     <Label prefHeight="17.0" prefWidth="20.0" style="-fx-text-fill: white;" text="lv :" />
+                                     <Label fx:id="mystimon6nblevel" style="-fx-text-fill: white;" text="nb de level" />
+                                 </children>
+                             </HBox>
+                             <ProgressBar fx:id="mystimon6bardepv" prefWidth="200.0" progress="0.0" />
+                             <HBox prefHeight="22.0" prefWidth="384.0">
+                                 <children>
+                                     <Label style="-fx-text-fill: white;" text="pv :" />
+                                     <Label fx:id="mystimon6nbdepv" style="-fx-text-fill: white;" text="nb de pv" />
+                                 </children>
+                             </HBox>
+                         </children>
+                     </VBox>
+                 </children>
+             </HBox>
+            <Button fx:id="retour" mnemonicParsing="false" onAction="#selectRetour" prefHeight="25.0" prefWidth="624.0" text="fuite" />
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

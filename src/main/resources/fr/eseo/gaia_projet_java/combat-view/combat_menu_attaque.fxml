@@ -20,6 +20,7 @@
                             </children>
                         </HBox>
                         <ProgressBar fx:id="barDeVieAdv" prefWidth="200.0" progress="1.0" />
+                        <Label fx:id="pvRestantAdv" text="pv restant" style="-fx-text-fill: white;"/>
                     </children>
                 </VBox>
 
@@ -70,10 +71,10 @@
                 <RowConstraints percentHeight="50.0" />
             </rowConstraints>
             <children>
-                <Button fx:id="Attaque1" text="Attaque 1" GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="Infinity" />
-                <Button fx:id="Attaque2" text="Attaque 2" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity" />
-                <Button fx:id="Attaque3" text="Attaque 3" GridPane.columnIndex="0" GridPane.rowIndex="1" maxWidth="Infinity" />
-                <Button fx:id="Attaque4" text="Attaque 4" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" />
+                <Button fx:id="Attaque1" onAction="#lanceAttaque1" text="Attaque 1" GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="Infinity" />
+                <Button fx:id="Attaque2" onAction="#lanceAttaque2" text="Attaque 2" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity" />
+                <Button fx:id="Attaque3" onAction="#lanceAttaque3" text="Attaque 3" GridPane.columnIndex="0" GridPane.rowIndex="1" maxWidth="Infinity" />
+                <Button fx:id="Attaque4" onAction="#lanceAttaque4" text="Attaque 4" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" />
             </children>
         </GridPane>
 

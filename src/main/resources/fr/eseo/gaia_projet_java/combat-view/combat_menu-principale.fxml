@@ -20,6 +20,7 @@
                      </children>
                   </HBox>
                   <ProgressBar fx:id="barDeVieAdv" prefWidth="200.0" progress="1.0" />
+                  <Label fx:id="pvRestantAdv" text="pv restant" style="-fx-text-fill: white;"/>
                </children>
             </VBox>
 

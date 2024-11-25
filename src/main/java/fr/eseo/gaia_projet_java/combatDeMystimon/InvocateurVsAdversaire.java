@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import static fr.eseo.gaia_projet_java.enumerations.Types.nul;
 import static java.lang.reflect.Array.get;
 
 public class InvocateurVsAdversaire {
@@ -67,15 +68,57 @@ public class InvocateurVsAdversaire {
         return mystimonAdversaire.getPv();
     }
 
+    public boolean invocateurCommence() {
+        // Gestion des nulls pour éviter les erreurs
+        Integer pvAllier = mystimonAllier.getStats().get("VIT");
+        Integer pvAdversaire = mystimonAdversaire.getStats().get("VIT");
+
+        if (pvAllier == null || pvAdversaire == null) {
+            throw new IllegalArgumentException("Les statistiques 'pv' doivent être définies pour les deux mystimons.");
+        }
+
+        return pvAllier >= pvAdversaire;
+    }
+
     public Double getRatioPvAlier(){
-        int pvMax = mystimonAllier.getStats().get("PV");
-        int pvMin = mystimonAllier.getPv();
-        return Double.valueOf(pvMin/pvMax);
+        //int pvMax = mystimonAllier.getStats().get("PV");
+        //int pvMin = mystimonAllier.getPv();
+        //return Double.valueOf(pvMin/pvMax);
+        double progress = (double) mystimonAllier.getPv() / mystimonAllier.getStats().get("PV");
+        return progress;
     }
 
     public Double getRatioPvAdv(){
-        int pvMax = mystimonAdversaire.getStats().get("PV");
-        int pvMin = mystimonAdversaire.getPv();
+        //int pvMax = mystimonAdversaire.getStats().get("PV");
+        //int pvMin = mystimonAdversaire.getPv();
+        //return Double.valueOf(pvMin/pvMax);
+        double progress = (double) mystimonAdversaire.getPv() / mystimonAdversaire.getStats().get("PV");
+        return progress;
+    }
+
+    public String getnomMystimonN(int n){
+        return listeMystimonAllier.get(n).getNom();
+    }
+
+    public String getLvMystimonN(int n){
+        return String.valueOf(listeMystimonAllier.get(n).getLv());
+    }
+
+    public String getPvMystimonN(int n){
+        return String.valueOf(listeMystimonAllier.get(n).getPv());
+    }
+
+    public Boolean mystimonNexxiste(int n){
+        if(listeMystimonAllier.size()>n){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Double getRatioPvMystimonN(int n){
+        int pvMax = listeMystimonAllier.get(n).getStats().get("PV");
+        int pvMin = listeMystimonAllier.get(n).getPv();
         return Double.valueOf(pvMin/pvMax);
     }
 
@@ -190,16 +233,16 @@ public class InvocateurVsAdversaire {
         return nombre;
     }
 
-    public void iaAttaque(Mystimon mystimonAllier, Mystimon mystimonAdversaire){
+    public void iaAttaque(){
         List<String> listeAttaques = mystimonAdversaire.getListeAttaques();
         Random random = new Random();
         String attaqueAleatoire = listeAttaques.get(random.nextInt(listeAttaques.size()));
 
         AttaqueCombat attaqueIminante = null;
         for (int i = 0; i < listeAttaque.size(); i++) {
-            if (attaqueAleatoire == listeAttaque.get(i).getNom()) {
+            if (attaqueAleatoire.equals(listeAttaque.get(i).getNom())) { // Comparaison correcte de chaînes
                 attaqueIminante = listeAttaque.get(i);
-                i = listeAttaque.size();
+                break; // Quitte la boucle dès que l'attaque correspond
             }
         }
         HashMap<String,Integer> statsMystimonAdverse =mystimonAdversaire.getStats();
@@ -211,20 +254,33 @@ public class InvocateurVsAdversaire {
                 //calcul du cm
                 double Cm = 1; //attaqueIminante.getPuissance();
                 Types types1 = mystimonAdversaire.getListeTypes().get(0);
-                Types types2 = mystimonAdversaire.getListeTypes().get(1);
+                //Types types2 = mystimonAdversaire.getListeTypes().get(1);
                 //le STAB
                 if(attaqueIminante.getTypes()==types1){
                     Cm = Cm+0.5;
                 }
-                if(attaqueIminante.getTypes()==types2){
-                    Cm = Cm+0.5;
+                if(mystimonAdversaire.getListeTypes().size()==2) {
+                    Types types2 = mystimonAdversaire.getListeTypes().get(1);
+                    //le STAB
+                    if(attaqueIminante.getTypes()==types2){
+                        Cm = Cm+0.5;
+                    }
                 }
                 Types typesAdv1 = mystimonAllier.getListeTypes().get(0);
-                Types typesAdv2 = mystimonAllier.getListeTypes().get(1);
-                Cm = Cm*(avantageDeType(typesAdv1, attaqueIminante.getTypes())+avantageDeType(typesAdv2, attaqueIminante.getTypes()));
+                //Types typesAdv2 = mystimonAllier.getListeTypes().get(1);
+                //Cm = Cm*(avantageDeType(typesAdv1, attaqueIminante.getTypes())+avantageDeType(typesAdv2, attaqueIminante.getTypes()));
+
+                int sitypedeux=0;
+                Types typesAdv2 = nul;
+                if(mystimonAllier.getListeTypes().size()==2) {
+                    typesAdv2 = mystimonAllier.getListeTypes().get(1);
+                    sitypedeux = (int) avantageDeType(typesAdv2, attaqueIminante.getTypes());
+                }
+                Cm = Cm+(avantageDeType(typesAdv1, attaqueIminante.getTypes())+sitypedeux);
+
 
                 if(estCoupCritique()){
-                    Cm=Cm*( (2*mystimonAllier.getNiveau()+5) / (mystimonAllier.getNiveau()+5) );
+                    Cm=Cm*( (2*mystimonAdversaire.getNiveau()+5) / (mystimonAdversaire.getNiveau()+5) );
                 }
                 Cm = Cm*genererNombreAleatoirePourLeCm();
 
@@ -308,18 +364,18 @@ public class InvocateurVsAdversaire {
 
                 if(attaqueIminante.getAspect()=="physique"){
                     //formule de l'enfer
-                    double pvManquant=(((((mystimonAllier.getNiveau()*0.4+2)*statsMystimonAdverse.get("ATK")*attaqueIminante.getPuissance())/statsMystimonAdverse.get("DEF"))/50)+2)*Cm;
+                    double pvManquant=(((((mystimonAdversaire.getNiveau()*0.4+2)*statsMystimonAdverse.get("ATK")*attaqueIminante.getPuissance())/statsMystimonAlier.get("DEF"))/50)+2)*Cm;
                     pvSubit = (int) Math.round(pvManquant);
                 }else{
                     //formule de l'enfer
-                    double pvManquant=(((((mystimonAllier.getNiveau()*0.4+2)*statsMystimonAdverse.get("SP_ATK")*attaqueIminante.getPuissance())/statsMystimonAdverse.get("SP_DEF"))/50)+2)*Cm;
+                    double pvManquant=(((((mystimonAdversaire.getNiveau()*0.4+2)*statsMystimonAdverse.get("SP_ATK")*attaqueIminante.getPuissance())/statsMystimonAlier.get("SP_DEF"))/50)+2)*Cm;
                     pvSubit = (int) Math.round(pvManquant);
                 }
                 if(toucher(attaqueIminante.getPressision())){
-                    if(mystimonAdversaire.getPv()-pvSubit>=0){
-                        mystimonAdversaire.setPv(mystimonAdversaire.getPv()-pvSubit);
+                    if(mystimonAllier.getPv()-pvSubit>=0){
+                        mystimonAllier.setPv(mystimonAllier.getPv()-pvSubit);
                     }else {
-                        //c'est mort
+                        mystimonAllier.setPv(0);//c'est mort
                     }
                 }
 
@@ -338,15 +394,16 @@ public class InvocateurVsAdversaire {
     }
 
 
-    public void attaquer(String attaque, Mystimon mystimonAllier, Mystimon mystimonAdversaire) {
+    public void attaquer(String attaque) {
         AttaqueCombat attaqueIminante = null;
 
         for (int i = 0; i < listeAttaque.size(); i++) {
-            if (attaque == listeAttaque.get(i).getNom()) {
+            if (attaque.equals(listeAttaque.get(i).getNom())) { // Comparaison correcte de chaînes
                 attaqueIminante = listeAttaque.get(i);
-                i = listeAttaque.size();
+                break; // Quitte la boucle dès que l'attaque correspond
             }
         }
+
         HashMap<String,Integer> statsMystimonAdverse =mystimonAdversaire.getStats();
         HashMap<String,Integer> statsMystimonAlier =mystimonAdversaire.getStats();
 
@@ -356,17 +413,25 @@ public class InvocateurVsAdversaire {
                 //calcul du cm
                 double Cm = 1; //attaqueIminante.getPuissance();
                 Types types1 = mystimonAdversaire.getListeTypes().get(0);
-                Types types2 = mystimonAdversaire.getListeTypes().get(1);
+                if(mystimonAdversaire.getListeTypes().size()==2) {
+                    Types types2 = mystimonAdversaire.getListeTypes().get(1);
+                    //le STAB
+                    if(attaqueIminante.getTypes()==types2){
+                        Cm = Cm+0.5;
+                    }
+                }
                 //le STAB
                 if(attaqueIminante.getTypes()==types1){
                     Cm = Cm+0.5;
                 }
-                if(attaqueIminante.getTypes()==types2){
-                    Cm = Cm+0.5;
-                }
+                int sitypedeux=0;
                 Types typesAdv1 = mystimonAdversaire.getListeTypes().get(0);
-                Types typesAdv2 = mystimonAdversaire.getListeTypes().get(1);
-                Cm = Cm*(avantageDeType(typesAdv1, attaqueIminante.getTypes())+avantageDeType(typesAdv2, attaqueIminante.getTypes()));
+                Types typesAdv2 = nul;
+                if(mystimonAdversaire.getListeTypes().size()==2) {
+                    typesAdv2 = mystimonAdversaire.getListeTypes().get(1);
+                    sitypedeux = (int) avantageDeType(typesAdv2, attaqueIminante.getTypes());
+                }
+                Cm = Cm+(avantageDeType(typesAdv1, attaqueIminante.getTypes())+sitypedeux);
 
                 if(estCoupCritique()){
                     Cm=Cm*( (2*mystimonAllier.getNiveau()+5) / (mystimonAllier.getNiveau()+5) );
@@ -453,11 +518,11 @@ public class InvocateurVsAdversaire {
 
                 if(attaqueIminante.getAspect()=="physique"){
                     //formule de l'enfer
-                    double pvManquant=(((((mystimonAllier.getNiveau()*0.4+2)*statsMystimonAdverse.get("ATK")*attaqueIminante.getPuissance())/statsMystimonAdverse.get("DEF"))/50)+2)*Cm;
+                    double pvManquant=(((((mystimonAllier.getNiveau()*0.4+2)*statsMystimonAlier.get("ATK")*attaqueIminante.getPuissance())/statsMystimonAdverse.get("DEF"))/50)+2)*Cm;
                     pvSubit = (int) Math.round(pvManquant);
                 }else{
                     //formule de l'enfer
-                    double pvManquant=(((((mystimonAllier.getNiveau()*0.4+2)*statsMystimonAdverse.get("SP_ATK")*attaqueIminante.getPuissance())/statsMystimonAdverse.get("SP_DEF"))/50)+2)*Cm;
+                    double pvManquant=(((((mystimonAllier.getNiveau()*0.4+2)*statsMystimonAlier.get("SP_ATK")*attaqueIminante.getPuissance())/statsMystimonAdverse.get("SP_DEF"))/50)+2)*Cm;
                     pvSubit = (int) Math.round(pvManquant);
                 }
                 if(toucher(attaqueIminante.getPressision())){
@@ -465,6 +530,7 @@ public class InvocateurVsAdversaire {
                         mystimonAdversaire.setPv(mystimonAdversaire.getPv()-pvSubit);
                     }else {
                         //c'est mort
+                        mystimonAdversaire.setPv(0);
                     }
                 }
 

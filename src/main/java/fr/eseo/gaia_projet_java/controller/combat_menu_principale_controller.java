@@ -77,6 +77,9 @@ public class combat_menu_principale_controller {
     @FXML
     private ProgressBar barDeVieAdv;
 
+    @FXML
+    private Label pvRestantAdv;
+
     public combat_menu_principale_controller(Stage primaryStage,InvocateurVsAdversaire combat) {
         this.primaryStage = primaryStage;
         this.combat = combat;
@@ -105,7 +108,7 @@ public class combat_menu_principale_controller {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu_parchemain.fxml"));
 
             // Récupérer la fenêtre actuelle (Stage) et changer la scène
-            combat_menu_parchemain_controller combat_menu_parchemain_controller = new combat_menu_parchemain_controller(primaryStage);
+            combat_menu_parchemain_controller combat_menu_parchemain_controller = new combat_menu_parchemain_controller(primaryStage,combat);
             loader.setController(combat_menu_parchemain_controller);
             Scene scene = new Scene(loader.load(), 450, 450);
             primaryStage.setScene(scene);
@@ -122,7 +125,7 @@ public class combat_menu_principale_controller {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu_parchemain.fxml"));
 
             // Récupérer la fenêtre actuelle (Stage) et changer la scène
-            combat_menu_parchemain_controller combat_menu_parchemain_controller = new combat_menu_parchemain_controller(primaryStage);
+            combat_menu_parchemain_controller combat_menu_parchemain_controller = new combat_menu_parchemain_controller(primaryStage,combat);
             loader.setController(combat_menu_parchemain_controller);
             Scene scene = new Scene(loader.load(), 450, 450);
             primaryStage.setScene(scene);
@@ -139,9 +142,9 @@ public class combat_menu_principale_controller {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu_switch.fxml"));
 
             // Récupérer la fenêtre actuelle (Stage) et changer la scène
-            combat_menu_switch_controller combat_menu_switch_controller = new combat_menu_switch_controller(primaryStage);
+            combat_menu_switch_controller combat_menu_switch_controller = new combat_menu_switch_controller(primaryStage, combat);
             loader.setController(combat_menu_switch_controller);
-            Scene scene = new Scene(loader.load());
+            Scene scene = new Scene(loader.load(), 450, 450);
             primaryStage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
@@ -159,9 +162,9 @@ public class combat_menu_principale_controller {
         parchemain.setImage(image);
         image = new Image("fr/eseo/gaia_projet_java/resource_menu/switch_mystimon.jpg");
         switch_mystimon.setImage(image);
-        image = new Image("fr/eseo/gaia_projet_java/resource_mystimon/caraquarium.png");
+        image = new Image("fr/eseo/gaia_projet_java/resource_mystimon/"+combat.getNomMystimonAlier()+".png");
         mystimonAlier.setImage(image);
-        image = new Image("fr/eseo/gaia_projet_java/resource_mystimon/pyromon.png");
+        image = new Image("fr/eseo/gaia_projet_java/resource_mystimon/"+combat.getNomMystimonAdv()+".png");
         mystimonAdverse.setImage(image);
         nomMystimonAlier.setText(combat.getNomMystimonAlier());
         nomMystimonEnemie.setText(combat.getNomMystimonAdv());
@@ -170,5 +173,6 @@ public class combat_menu_principale_controller {
         pvRestant.setText(String.valueOf(combat.getPvAlier()));
         barDeVieAlier.setProgress(combat.getRatioPvAlier());
         barDeVieAdv.setProgress(combat.getRatioPvAdv());
+        pvRestantAdv.setText(String.valueOf(combat.getPvAdv()));
     }
 }
