@@ -34,7 +34,7 @@ public class HelloApplication extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
         inventaire_menu c = new inventaire_menu(primaryStage);
         fxmlLoader.setController(c);
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load());
 
 
         Transition transition = new Transition();  //On part avec l'état init

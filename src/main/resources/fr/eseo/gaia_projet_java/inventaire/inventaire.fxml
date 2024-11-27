@@ -5,24 +5,26 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #2c3e50;">
    <children>
-      <!-- Bouton "Mystimons" -->
-      <Button fx:id="boutonMystimons" layoutX="50" layoutY="40" mnemonicParsing="false" onAction="#switchToMystimons" text="Mystimons"
-              style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px; -fx-border-radius: 5px;"
-              prefWidth="200" AnchorPane.leftAnchor="50" AnchorPane.topAnchor="40" />
+      <VBox spacing="20" alignment="CENTER" layoutX="0" layoutY="0" prefWidth="450" prefHeight="450">
+         <!-- Bouton "Mystimons" -->
+         <Button fx:id="boutonMystimons" mnemonicParsing="false" onAction="#switchToMystimons" text="Mystimons"
+                 style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px; -fx-border-radius: 5px;"
+                 prefWidth="200" />
 
-      <!-- Bouton "Parchemins" -->
-      <Button fx:id="boutonParchemins" layoutX="50" layoutY="100" mnemonicParsing="false" onAction="#switchToParchemins" text="Parchemins"
-              style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px; -fx-border-radius: 5px;"
-              prefWidth="200" AnchorPane.leftAnchor="50" AnchorPane.topAnchor="100" />
+         <!-- Bouton "Parchemins" -->
+         <Button fx:id="boutonParchemins" mnemonicParsing="false" onAction="#switchToParchemins" text="Parchemins"
+                 style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px; -fx-border-radius: 5px;"
+                 prefWidth="200" />
 
-      <!-- Bouton "Sauvegarder" -->
-      <Button layoutX="50" layoutY="160" mnemonicParsing="false" text="Sauvegarder"
-              style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px; -fx-border-radius: 5px;"
-              prefWidth="200" AnchorPane.leftAnchor="50" AnchorPane.topAnchor="160" />
+         <!-- Bouton "Sauvegarder" -->
+         <Button mnemonicParsing="false" text="Sauvegarder"
+                 style="-fx-background-color: #34495e; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px; -fx-border-radius: 5px;"
+                 prefWidth="200" />
 
-      <!-- Bouton "Quitter" -->
-      <Button layoutX="50" layoutY="220" mnemonicParsing="false" onAction="#quitter" text="Quitter"
-              style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px; -fx-border-radius: 5px;"
-              prefWidth="200" AnchorPane.leftAnchor="50" AnchorPane.topAnchor="220" />
+         <!-- Bouton "Quitter" -->
+         <Button mnemonicParsing="false" onAction="#quitter" text="Quitter"
+                 style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10px; -fx-border-radius: 5px;"
+                 prefWidth="200" />
+      </VBox>
    </children>
 </AnchorPane>

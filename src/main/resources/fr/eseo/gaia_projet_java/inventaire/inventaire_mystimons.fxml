@@ -3,44 +3,36 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane
-        prefHeight="400.0"
-        prefWidth="600.0"
-        xmlns="http://javafx.com/javafx/17.0.2-ea"
-        xmlns:fx="http://javafx.com/fxml/1"
-        style="-fx-background-color: #2c3e50;">
-
+<AnchorPane prefHeight="450" prefWidth="450" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #2c3e50;">
    <children>
       <!-- Label principal -->
       <Label
               text="Liste Mystimons"
-              layoutX="240.0"
-              layoutY="37.0"
-              prefHeight="102.0"
-              prefWidth="119.0"
+              layoutX="165.0"
+              layoutY="40.0"
+              prefHeight="30.0"
+              prefWidth="120.0"
               contentDisplay="CENTER"
               textAlignment="CENTER"
-               style="-fx-text-fill: white;
-               -fx-font-size: 16px;"/>
+              style="-fx-text-fill: white; -fx-font-size: 16px;" />
 
-      <!-- Bouton pour retourner au menu -->
+      <!-- ListView centré -->
+      <ListView fx:id="listViewMystimons"
+                layoutX="125.0"
+                layoutY="125.0"
+                prefHeight="200.0"
+                prefWidth="200.0"
+                onMouseClicked="#clicPourDetails"
+                style="-fx-background-color: #2c3e50; -fx-font-size: 16px;" />
+
+      <!-- Bouton "Retour" en bas à gauche -->
       <Button
               fx:id="BoutonRetour"
               text="Retour"
               layoutX="14.0"
-              layoutY="359.0"
+              layoutY="410.0"
               mnemonicParsing="false"
-              onAction="#RetourMenuI" />
-
-      <!-- ListView pour afficher les Mystimons -->
-      <ListView
-              fx:id="listViewMystimons"
-              layoutX="200.0"
-              layoutY="100.0"
-              prefHeight="200.0"
-              prefWidth="200.0"
-              onMouseClicked="#clicPourDetails"
-              style="-fx-background-color: #2c3e50;
-              -fx-font-size: 16px;"/>
+              onAction="#RetourMenuI"
+              style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px;" />
    </children>
 </AnchorPane>
