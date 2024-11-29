@@ -5,12 +5,14 @@ import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUserMariaDB;
 import fr.eseo.gaia_projet_java.Invocateur.Adversaire;
 import fr.eseo.gaia_projet_java.Invocateur.Joueur;
 import fr.eseo.gaia_projet_java.combatDeMystimon.InvocateurVsAdversaire;
+import fr.eseo.gaia_projet_java.controller.Map_controller;
 import fr.eseo.gaia_projet_java.controller.combat_menu_principale_controller;
 import fr.eseo.gaia_projet_java.controller.inventaire_menu;
 import fr.eseo.gaia_projet_java.machine_a_etat.init;
 import fr.eseo.gaia_projet_java.controller.Transition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -23,30 +25,40 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException {
         //test pour vérifier si le chemin d'accès est bien correct
-        URL fxmlLocation = HelloApplication.class.getResource("/fr/eseo/gaia_projet_java/inventaire/inventaire.fxml");
+        URL fxmlLocation = HelloApplication.class.getResource("/fr/eseo/gaia_projet_java/map/map.fxml");
         if (fxmlLocation == null) {
-            throw new IllegalStateException("FXML file not found: /fr/eseo/gaia_projet_java/inventaire/inventaire.fxml");
+            throw new IllegalStateException("FXML file not found: /fr/eseo/gaia_projet_java/map/map.fxml");
         }
 
         DatabaseInitializer databaseInitializer = new DatabaseInitializer();
         databaseInitializer.run();
 
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
-        inventaire_menu c = new inventaire_menu(primaryStage);
+        Map_controller c = new Map_controller(primaryStage);
         fxmlLoader.setController(c);
-        Scene scene = new Scene(fxmlLoader.load());
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+
+        c.setScene(scene);
+
+        root.setOnMouseClicked(event -> root.requestFocus());
+        System.out.println("Focus requis au lancement");
+
+        primaryStage.setTitle("Projet Gaia");
+        primaryStage.setResizable(false);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        root.requestFocus();
 
 
+        /* J'ai enlevé ça car on ne s'en sert pas et ça gênait le focus pour le déplacement du joueur
         Transition transition = new Transition();  //On part avec l'état init
         transition.setState(new init(transition));
 
+
         scene.setOnKeyPressed(event -> transition.handleKeyPress(event.getCode()));//on active les transitions dans la scene
+        */
 
-
-        primaryStage.setTitle("Projet Gaia");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(true);
-        primaryStage.show();
     }
 /*
 public class HelloApplication extends Application {

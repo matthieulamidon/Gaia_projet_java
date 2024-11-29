@@ -95,7 +95,6 @@ public class inventaire_parchemins {
 
     @FXML
     private void clicPourDetails() throws IOException {
-
         Buff parchemin = listeViewParchemins.getSelectionModel().getSelectedItem();
         if (parchemin != null) {
             DetailsParchemin(parchemin);

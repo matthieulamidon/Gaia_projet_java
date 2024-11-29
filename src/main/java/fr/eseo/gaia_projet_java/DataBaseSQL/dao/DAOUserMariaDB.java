@@ -192,7 +192,7 @@ public class DAOUserMariaDB implements DAOUser {
                 Types typesTraduit = TraductionsanslisteStringTypes(types);
 
                 //String attaqueJson = resultat.getString("attaque");
-                //Map<Integer, String> listeAttaques = JsonParserUtils.parseJsonToMapIntString(attaqueJson);
+                //Map_controller<Integer, String> listeAttaques = JsonParserUtils.parseJsonToMapIntString(attaqueJson);
 
                 attaqueCombats.add(new AttaqueCombat(id, nom, puissance, typesTraduit, effet, aspect, pressision));
             }

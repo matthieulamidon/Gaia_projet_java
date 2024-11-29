@@ -37,7 +37,7 @@ public class JsonParserUtils {
         return gson.fromJson(json, listType);
     }
 
-    // Convertit une chaîne JSON en Map<Integer, String>
+    // Convertit une chaîne JSON en Map_controller<Integer, String>
     public static Map<Integer, String> parseJsonToMapIntString(String json) {
         Type mapType = new TypeToken<HashMap<Integer, String>>() {}.getType();
         return gson.fromJson(json, mapType);
