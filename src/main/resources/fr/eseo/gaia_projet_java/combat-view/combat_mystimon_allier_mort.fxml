@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #2c3e50;">
+    <children>
+        <!-- Barre supérieure : Informations de combat -->
+        <HBox layoutY="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" spacing="20.0">
+            <children>
+                <!-- Partie gauche (Mystimon Enemi) -->
+                <VBox AnchorPane.leftAnchor="0.0" spacing="10.0">
+                    <children>
+                        <HBox spacing="5.0">
+                            <children>
+                                <Label fx:id="nomMystimonEnemie" text="Label" style="-fx-text-fill: white;" />
+                                <Label text="lv :" style="-fx-text-fill: white;" />
+                                <Label fx:id="levelEnemie" style="-fx-text-fill: white;" />
+                            </children>
+                        </HBox>
+                        <ProgressBar fx:id="barDeVieAdv" prefWidth="200.0" progress="1.0" />
+                        <Label fx:id="pvRestantAdv" text="pv restant" style="-fx-text-fill: white;" />
+                    </children>
+                </VBox>
+
+                <!-- Partie droite (Mystimon Alier) -->
+                <VBox AnchorPane.rightAnchor="0.0" spacing="10.0">
+                    <children>
+                        <HBox spacing="5.0">
+                            <children>
+                                <Label fx:id="nomMystimonAlier" text="Label" style="-fx-text-fill: white;" />
+                                <Label text="lv:" style="-fx-text-fill: white;" />
+                                <Label fx:id="levelAlier" text="lv:" style="-fx-text-fill: white;" />
+                            </children>
+                        </HBox>
+                        <ProgressBar fx:id="barDeVieAlier" prefWidth="200.0" progress="1.0" />
+                        <Label fx:id="pvRestant" text="pv restant" style="-fx-text-fill: white;" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+
+        <!-- Images des Mystimon dans des zones dédiées -->
+        <HBox layoutY="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" spacing="10.0">
+            <children>
+                <Pane prefWidth="220.0" prefHeight="220.0">
+                    <children>
+                        <ImageView fx:id="mystimonAlier" fitHeight="200.0" fitWidth="200.0" preserveRatio="true" layoutX="10.0" layoutY="10.0" />
+                    </children>
+                </Pane>
+                <Pane prefWidth="220.0" prefHeight="220.0">
+                    <children>
+                        <ImageView fx:id="mystimonAdverse" fitHeight="200.0" fitWidth="200.0" preserveRatio="true" layoutX="10.0" layoutY="10.0" />
+                    </children>
+                </Pane>
+            </children>
+        </HBox>
+
+        <!-- Bouton pour les messages de combat (au-dessus des boutons d'action) -->
+        <Button fx:id="combatMessageButton" text="Message de combat ici" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0" prefHeight="30.0" maxWidth="Infinity" />
+
+        <!-- Deux boutons prenant toute la largeur, l'un au-dessus de l'autre -->
+        <VBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" spacing="10.0">
+            <children>
+                <Button fx:id="Switch" onAction="#Switch" text="Attaque 1" maxWidth="Infinity" prefHeight="50.0" />
+                <Button fx:id="Fuite" onAction="#Fuite" text="Attaque 2" maxWidth="Infinity" prefHeight="50.0" />
+            </children>
+        </VBox>
+    </children>
+</AnchorPane>
+

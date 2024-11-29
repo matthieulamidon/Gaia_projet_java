@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+import static fr.eseo.gaia_projet_java.enumerations.Types.nul;
 import static java.lang.reflect.Array.get;
 
 public class InvocateurVsAdversaire {
@@ -23,10 +24,10 @@ public class InvocateurVsAdversaire {
     private Adversaire adversaire;
     //Mystimon allier
     private List<Exemplemon> listeMystimonAllier;
-    private Mystimon mystimonAllier;
+    private Exemplemon mystimonAllier;
     //Mystimon adversaire
     private List<Exemplemon> listeMystimonAdversaire;
-    private Mystimon mystimonAdversaire;
+    private Exemplemon mystimonAdversaire;
     //liste des attaque
     private List<AttaqueCombat> listeAttaque;
 
@@ -67,16 +68,71 @@ public class InvocateurVsAdversaire {
         return mystimonAdversaire.getPv();
     }
 
+    public void swichMystimonAllier(int n){
+        if (mystimonNexxiste(n)){
+            Exemplemon tanpon = mystimonAllier;
+            mystimonAllier = listeMystimonAllier.get(n);
+            listeMystimonAllier.set(0,mystimonAllier);
+            listeMystimonAllier.set(n,tanpon);
+        }
+    }
+
+    public boolean invocateurCommence() {
+        // Gestion des nulls pour éviter les erreurs
+        Integer pvAllier = mystimonAllier.getStats().get("VIT");
+        Integer pvAdversaire = mystimonAdversaire.getStats().get("VIT");
+
+        if (pvAllier == null || pvAdversaire == null) {
+            throw new IllegalArgumentException("Les statistiques 'pv' doivent être définies pour les deux mystimons.");
+        }
+
+        return pvAllier >= pvAdversaire;
+    }
+
     public Double getRatioPvAlier(){
-        int pvMax = mystimonAllier.getStats().get("PV");
-        int pvMin = mystimonAllier.getPv();
-        return Double.valueOf(pvMin/pvMax);
+        //int pvMax = mystimonAllier.getStats().get("PV");
+        //int pvMin = mystimonAllier.getPv();
+        //return Double.valueOf(pvMin/pvMax);
+        double progress = (double) mystimonAllier.getPv() / mystimonAllier.getStats().get("PV");
+        return progress;
     }
 
     public Double getRatioPvAdv(){
-        int pvMax = mystimonAdversaire.getStats().get("PV");
-        int pvMin = mystimonAdversaire.getPv();
-        return Double.valueOf(pvMin/pvMax);
+        //int pvMax = mystimonAdversaire.getStats().get("PV");
+        //int pvMin = mystimonAdversaire.getPv();
+        //return Double.valueOf(pvMin/pvMax);
+        double progress = (double) mystimonAdversaire.getPv() / mystimonAdversaire.getStats().get("PV");
+        return progress;
+    }
+
+    public String getnomMystimonN(int n){
+        return listeMystimonAllier.get(n).getNom();
+    }
+
+    public String getLvMystimonN(int n){
+        return String.valueOf(listeMystimonAllier.get(n).getLv());
+    }
+
+    public String getPvMystimonN(int n){
+        return String.valueOf(listeMystimonAllier.get(n).getPv());
+    }
+
+    public Boolean mystimonNexxiste(int n){
+        if(listeMystimonAllier.size()>n){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Double getRatioPvMystimonN(int n){
+
+        double progress = (double) listeMystimonAllier.get(n).getPv() / listeMystimonAllier.get(n).getStats().get("PV");
+        return progress;
+    }
+
+    public ArrayList<String> getListeAttaque(){
+        return mystimonAllier.getListeAttaques();
     }
 
     private double avantageDeType(Types types1,Types typesAttaque){
@@ -186,20 +242,25 @@ public class InvocateurVsAdversaire {
         return nombre;
     }
 
-    public void iaAttaque(Mystimon mystimonAllier, Mystimon mystimonAdversaire){
+    public ArrayList<String> iaAttaque(){
+        ArrayList<String> dialogue = new ArrayList<>();;
+        String ligneDeDialogue;
+
         List<String> listeAttaques = mystimonAdversaire.getListeAttaques();
         Random random = new Random();
         String attaqueAleatoire = listeAttaques.get(random.nextInt(listeAttaques.size()));
 
         AttaqueCombat attaqueIminante = null;
         for (int i = 0; i < listeAttaque.size(); i++) {
-            if (attaqueAleatoire == listeAttaque.get(i).getNom()) {
+            if (attaqueAleatoire.equals(listeAttaque.get(i).getNom())) { // Comparaison correcte de chaînes
                 attaqueIminante = listeAttaque.get(i);
-                i = listeAttaque.size();
+                ligneDeDialogue=mystimonAdversaire.getNom()+" attaque avec "+listeAttaque.get(i).getNom();
+                dialogue.add(ligneDeDialogue);
+                break; // Quitte la boucle dès que l'attaque correspond
             }
         }
         HashMap<String,Integer> statsMystimonAdverse =mystimonAdversaire.getStats();
-        HashMap<String,Integer> statsMystimonAlier =mystimonAdversaire.getStats();
+        HashMap<String,Integer> statsMystimonAlier =mystimonAllier.getStats();
 
         switch (attaqueIminante.getEffet()) {
             case "atk":
@@ -207,20 +268,35 @@ public class InvocateurVsAdversaire {
                 //calcul du cm
                 double Cm = 1; //attaqueIminante.getPuissance();
                 Types types1 = mystimonAdversaire.getListeTypes().get(0);
-                Types types2 = mystimonAdversaire.getListeTypes().get(1);
+                //Types types2 = mystimonAdversaire.getListeTypes().get(1);
                 //le STAB
                 if(attaqueIminante.getTypes()==types1){
                     Cm = Cm+0.5;
                 }
-                if(attaqueIminante.getTypes()==types2){
-                    Cm = Cm+0.5;
+                if(mystimonAdversaire.getListeTypes().size()==2) {
+                    Types types2 = mystimonAdversaire.getListeTypes().get(1);
+                    //le STAB
+                    if(attaqueIminante.getTypes()==types2){
+                        Cm = Cm+0.5;
+                    }
                 }
                 Types typesAdv1 = mystimonAllier.getListeTypes().get(0);
-                Types typesAdv2 = mystimonAllier.getListeTypes().get(1);
-                Cm = Cm*(avantageDeType(typesAdv1, attaqueIminante.getTypes())+avantageDeType(typesAdv2, attaqueIminante.getTypes()));
+                //Types typesAdv2 = mystimonAllier.getListeTypes().get(1);
+                //Cm = Cm*(avantageDeType(typesAdv1, attaqueIminante.getTypes())+avantageDeType(typesAdv2, attaqueIminante.getTypes()));
+
+                int sitypedeux=0;
+                Types typesAdv2 = nul;
+                if(mystimonAllier.getListeTypes().size()==2) {
+                    typesAdv2 = mystimonAllier.getListeTypes().get(1);
+                    sitypedeux = (int) avantageDeType(typesAdv2, attaqueIminante.getTypes());
+                }
+                Cm = Cm+(avantageDeType(typesAdv1, attaqueIminante.getTypes())+sitypedeux);
+
 
                 if(estCoupCritique()){
-                    Cm=Cm*( (2*mystimonAllier.getNiveau()+5) / (mystimonAllier.getNiveau()+5) );
+                    Cm=Cm*( (2*mystimonAdversaire.getNiveau()+5) / (mystimonAdversaire.getNiveau()+5) );
+                    ligneDeDialogue="coup critique";
+                    dialogue.add(ligneDeDialogue);
                 }
                 Cm = Cm*genererNombreAleatoirePourLeCm();
 
@@ -228,68 +304,102 @@ public class InvocateurVsAdversaire {
                     case feu:
                         if(typesAdv1==Types.plante||typesAdv2==Types.plante){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.tenebres||typesAdv2==Types.tenebres){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case eau:
                         if(typesAdv1==Types.feu||typesAdv2==Types.feu){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.terre||typesAdv2==Types.terre){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case plante:
                         if(typesAdv1==Types.eau||typesAdv2==Types.eau){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.terre||typesAdv2==Types.terre){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case tenebres:
                         if(typesAdv1==Types.dragon||typesAdv2==Types.dragon){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.normal||typesAdv2==Types.normal){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case dragon:
                         if(typesAdv1==Types.dragon||typesAdv2==Types.dragon){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.fee||typesAdv2==Types.fee){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case fee:
                         if(typesAdv1==Types.tenebres||typesAdv2==Types.tenebres){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.dragon||typesAdv2==Types.dragon){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case foudre:
                         if(typesAdv1==Types.feu||typesAdv2==Types.feu){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.plante||typesAdv2==Types.plante){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.terre||typesAdv2==Types.terre){
                             Cm =0;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case terre:
                         if(typesAdv1==Types.plante||typesAdv2==Types.plante){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.foudre||typesAdv2==Types.foudre){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque absorber";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case normal:
@@ -298,24 +408,30 @@ public class InvocateurVsAdversaire {
                     case lumiere:
                         if(typesAdv1==Types.tenebres||typesAdv2==Types.tenebres){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                 }
 
                 if(attaqueIminante.getAspect()=="physique"){
                     //formule de l'enfer
-                    double pvManquant=(((((mystimonAllier.getNiveau()*0.4+2)*statsMystimonAdverse.get("ATK")*attaqueIminante.getPuissance())/statsMystimonAdverse.get("DEF"))/50)+2)*Cm;
+                    double pvManquant=(((((mystimonAdversaire.getNiveau()*0.4+2)*statsMystimonAdverse.get("ATK")*attaqueIminante.getPuissance())/statsMystimonAlier.get("DEF"))/50)+2)*Cm;
                     pvSubit = (int) Math.round(pvManquant);
                 }else{
                     //formule de l'enfer
-                    double pvManquant=(((((mystimonAllier.getNiveau()*0.4+2)*statsMystimonAdverse.get("SP_ATK")*attaqueIminante.getPuissance())/statsMystimonAdverse.get("SP_DEF"))/50)+2)*Cm;
+                    double pvManquant=(((((mystimonAdversaire.getNiveau()*0.4+2)*statsMystimonAdverse.get("SP_ATK")*attaqueIminante.getPuissance())/statsMystimonAlier.get("SP_DEF"))/50)+2)*Cm;
                     pvSubit = (int) Math.round(pvManquant);
                 }
                 if(toucher(attaqueIminante.getPressision())){
-                    if(mystimonAdversaire.getPv()-pvSubit>=0){
-                        mystimonAdversaire.setPv(mystimonAdversaire.getPv()-pvSubit);
+                    if(mystimonAllier.getPv()-pvSubit>=0){
+                        mystimonAllier.setPv(mystimonAllier.getPv()-pvSubit);
+                        ligneDeDialogue="l'attaque inflige "+pvSubit+" a "+mystimonAdversaire.getNom();
+                        dialogue.add(ligneDeDialogue);
                     }else {
-                        //c'est mort
+                        mystimonAllier.setPv(0);//c'est mort
+                        ligneDeDialogue=mystimonAllier.getNom()+" est ko " ;
+                        dialogue.add(ligneDeDialogue);
                     }
                 }
 
@@ -330,19 +446,31 @@ public class InvocateurVsAdversaire {
             case "atkdeBuff":
                 break;
         }
+        return dialogue;
 
     }
 
 
-    public void attaquer(String attaque, Mystimon mystimonAllier, Mystimon mystimonAdversaire) {
+    public ArrayList<String> attaquer(String attaque) {
         AttaqueCombat attaqueIminante = null;
+        ArrayList<String> dialogue = new ArrayList<>();;
+        String ligneDeDialogue;
 
         for (int i = 0; i < listeAttaque.size(); i++) {
-            if (attaque == listeAttaque.get(i).getNom()) {
+            if (attaque.equals(listeAttaque.get(i).getNom())) { // Comparaison correcte de chaînes
                 attaqueIminante = listeAttaque.get(i);
-                i = listeAttaque.size();
+                ligneDeDialogue=mystimonAllier.getNom()+" attaque avec "+listeAttaque.get(i).getNom();
+                dialogue.add(ligneDeDialogue);
+                break; // Quitte la boucle dès que l'attaque correspond
             }
         }
+
+        // la securiter
+        if (attaqueIminante == null) {
+            dialogue.add("L'attaque spécifiée n'existe pas.");
+            return dialogue;
+        }
+
         HashMap<String,Integer> statsMystimonAdverse =mystimonAdversaire.getStats();
         HashMap<String,Integer> statsMystimonAlier =mystimonAdversaire.getStats();
 
@@ -352,20 +480,31 @@ public class InvocateurVsAdversaire {
                 //calcul du cm
                 double Cm = 1; //attaqueIminante.getPuissance();
                 Types types1 = mystimonAdversaire.getListeTypes().get(0);
-                Types types2 = mystimonAdversaire.getListeTypes().get(1);
+                if(mystimonAdversaire.getListeTypes().size()==2) {
+                    Types types2 = mystimonAdversaire.getListeTypes().get(1);
+                    //le STAB
+                    if(attaqueIminante.getTypes()==types2){
+                        Cm = Cm+0.5;
+                    }
+                }
                 //le STAB
                 if(attaqueIminante.getTypes()==types1){
                     Cm = Cm+0.5;
+
                 }
-                if(attaqueIminante.getTypes()==types2){
-                    Cm = Cm+0.5;
-                }
+                int sitypedeux=0;
                 Types typesAdv1 = mystimonAdversaire.getListeTypes().get(0);
-                Types typesAdv2 = mystimonAdversaire.getListeTypes().get(1);
-                Cm = Cm*(avantageDeType(typesAdv1, attaqueIminante.getTypes())+avantageDeType(typesAdv2, attaqueIminante.getTypes()));
+                Types typesAdv2 = nul;
+                if(mystimonAdversaire.getListeTypes().size()==2) {
+                    typesAdv2 = mystimonAdversaire.getListeTypes().get(1);
+                    sitypedeux = (int) avantageDeType(typesAdv2, attaqueIminante.getTypes());
+                }
+                Cm = Cm+(avantageDeType(typesAdv1, attaqueIminante.getTypes())+sitypedeux);
 
                 if(estCoupCritique()){
                     Cm=Cm*( (2*mystimonAllier.getNiveau()+5) / (mystimonAllier.getNiveau()+5) );
+                    ligneDeDialogue="coup critique";
+                    dialogue.add(ligneDeDialogue);
                 }
                 Cm = Cm*genererNombreAleatoirePourLeCm();
 
@@ -373,68 +512,102 @@ public class InvocateurVsAdversaire {
                     case feu:
                         if(typesAdv1==Types.plante||typesAdv2==Types.plante){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.tenebres||typesAdv2==Types.tenebres){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case eau:
                         if(typesAdv1==Types.feu||typesAdv2==Types.feu){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.terre||typesAdv2==Types.terre){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case plante:
                         if(typesAdv1==Types.eau||typesAdv2==Types.eau){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.terre||typesAdv2==Types.terre){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case tenebres:
                         if(typesAdv1==Types.dragon||typesAdv2==Types.dragon){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.normal||typesAdv2==Types.normal){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case dragon:
                         if(typesAdv1==Types.dragon||typesAdv2==Types.dragon){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.fee||typesAdv2==Types.fee){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case fee:
                         if(typesAdv1==Types.tenebres||typesAdv2==Types.tenebres){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.dragon||typesAdv2==Types.dragon){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case foudre:
                         if(typesAdv1==Types.feu||typesAdv2==Types.feu){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.plante||typesAdv2==Types.plante){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.terre||typesAdv2==Types.terre){
                             Cm =0;
+                            ligneDeDialogue="l'attaque est absorber";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case terre:
                         if(typesAdv1==Types.plante||typesAdv2==Types.plante){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         if(typesAdv1==Types.foudre||typesAdv2==Types.foudre){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                     case normal:
@@ -443,24 +616,31 @@ public class InvocateurVsAdversaire {
                     case lumiere:
                         if(typesAdv1==Types.tenebres||typesAdv2==Types.tenebres){
                             Cm =2* Cm;
+                            ligneDeDialogue="l'attaque est super efficace";
+                            dialogue.add(ligneDeDialogue);
                         }
                         break;
                 }
 
                 if(attaqueIminante.getAspect()=="physique"){
                     //formule de l'enfer
-                    double pvManquant=(((((mystimonAllier.getNiveau()*0.4+2)*statsMystimonAdverse.get("ATK")*attaqueIminante.getPuissance())/statsMystimonAdverse.get("DEF"))/50)+2)*Cm;
+                    double pvManquant=(((((mystimonAllier.getNiveau()*0.4+2)*statsMystimonAlier.get("ATK")*attaqueIminante.getPuissance())/statsMystimonAdverse.get("DEF"))/50)+2)*Cm;
                     pvSubit = (int) Math.round(pvManquant);
                 }else{
                     //formule de l'enfer
-                    double pvManquant=(((((mystimonAllier.getNiveau()*0.4+2)*statsMystimonAdverse.get("SP_ATK")*attaqueIminante.getPuissance())/statsMystimonAdverse.get("SP_DEF"))/50)+2)*Cm;
+                    double pvManquant=(((((mystimonAllier.getNiveau()*0.4+2)*statsMystimonAlier.get("SP_ATK")*attaqueIminante.getPuissance())/statsMystimonAdverse.get("SP_DEF"))/50)+2)*Cm;
                     pvSubit = (int) Math.round(pvManquant);
                 }
                 if(toucher(attaqueIminante.getPressision())){
                     if(mystimonAdversaire.getPv()-pvSubit>=0){
                         mystimonAdversaire.setPv(mystimonAdversaire.getPv()-pvSubit);
+                        ligneDeDialogue="l'attaque inflige "+pvSubit+" a "+mystimonAdversaire.getNom();
+                        dialogue.add(ligneDeDialogue);
                     }else {
                         //c'est mort
+                        mystimonAdversaire.setPv(0);
+                        ligneDeDialogue=mystimonAdversaire.getNom()+ " est ko";
+                        dialogue.add(ligneDeDialogue);
                     }
                 }
 
@@ -475,6 +655,7 @@ public class InvocateurVsAdversaire {
             case "atkdeBuff":
                 break;
         }
+        return dialogue;
 
     }
 

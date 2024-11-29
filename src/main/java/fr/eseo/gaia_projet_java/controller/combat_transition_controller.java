@@ -12,12 +12,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 
-public class combat_menu_principale_controller {
+public class combat_transition_controller {
     private Stage primaryStage;
     private InvocateurVsAdversaire combat;
+    private ArrayList<String> dialogue;
+    private int indice;
 
 
     @FXML
@@ -80,74 +82,32 @@ public class combat_menu_principale_controller {
     @FXML
     private Label pvRestantAdv;
 
-    public combat_menu_principale_controller(Stage primaryStage,InvocateurVsAdversaire combat) {
+    public combat_transition_controller(Stage primaryStage,InvocateurVsAdversaire combat, ArrayList<String> dialogue) {
         this.primaryStage = primaryStage;
         this.combat = combat;
+        this.dialogue = dialogue;
+        this.indice = 0;
     }
 
     @FXML
-    private void selectAttaque() {
-        try {
-            // Charger la scène depuis le fichier FXML
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu_attaque.fxml"));
+    private void selectPasse(){
+        if(indice >= dialogue.size()-1) {
+            indice = 0;
+            try {
+                // Charger la scène depuis le fichier FXML
+                FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu-principale.fxml"));
 
-            // Récupérer la fenêtre actuelle (Stage) et changer la scène
-            combat_menu_attaque_controller combat_menu_attaque_controller = new combat_menu_attaque_controller(primaryStage,combat);
-            loader.setController(combat_menu_attaque_controller);
-            Scene scene = new Scene(loader.load(), 450, 450);
-            primaryStage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void selectParchemain() {
-        try {
-            // Charger la scène depuis le fichier FXML
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu_parchemain.fxml"));
-
-            // Récupérer la fenêtre actuelle (Stage) et changer la scène
-            combat_menu_parchemain_controller combat_menu_parchemain_controller = new combat_menu_parchemain_controller(primaryStage,combat);
-            loader.setController(combat_menu_parchemain_controller);
-            Scene scene = new Scene(loader.load(), 450, 520);
-            primaryStage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    private void selectFuite() {
-        try {
-            // Charger la scène depuis le fichier FXML
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu_parchemain.fxml"));
-
-            // Récupérer la fenêtre actuelle (Stage) et changer la scène
-            combat_menu_parchemain_controller combat_menu_parchemain_controller = new combat_menu_parchemain_controller(primaryStage,combat);
-            loader.setController(combat_menu_parchemain_controller);
-            Scene scene = new Scene(loader.load(), 450, 520);
-            primaryStage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @FXML
-    private void selectSwitch() {
-        try {
-            // Charger la scène depuis le fichier FXML
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu_switch.fxml"));
-
-            // Récupérer la fenêtre actuelle (Stage) et changer la scène
-            combat_menu_switch_controller combat_menu_switch_controller = new combat_menu_switch_controller(primaryStage, combat, true);
-            loader.setController(combat_menu_switch_controller);
-            Scene scene = new Scene(loader.load(), 450, 520);
-            primaryStage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
+                // Récupérer la fenêtre actuelle (Stage) et changer la scène
+                combat_menu_principale_controller combat_menu_principale_controller = new combat_menu_principale_controller(primaryStage,combat);
+                loader.setController(combat_menu_principale_controller);
+                Scene scene = new Scene(loader.load(), 450, 520);
+                primaryStage.setScene(scene);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            indice++;
+            combatMessageButton.setText(dialogue.get(indice));
         }
     }
 
@@ -182,6 +142,8 @@ public class combat_menu_principale_controller {
         levelAlier.setText(combat.getlvAlier());
         levelEnemie.setText(combat.getlvAdv());
         pvRestant.setText(String.valueOf(combat.getPvAlier()));
+        barDeVieAlier.setProgress(combat.getRatioPvAlier());
+        barDeVieAdv.setProgress(combat.getRatioPvAdv());
         if (combat.getRatioPvAlier() <= 0.3) {
             pvRestant.setStyle("-fx-text-fill: red;");
             barDeVieAlier.setStyle("-fx-accent: #e74c3c;");
@@ -191,8 +153,7 @@ public class combat_menu_principale_controller {
             pvRestantAdv.setStyle("-fx-text-fill: red;");
             barDeVieAdv.setStyle("-fx-accent: #e74c3c;");
         }
-        barDeVieAlier.setProgress(combat.getRatioPvAlier());
-        barDeVieAdv.setProgress(combat.getRatioPvAdv());
         pvRestantAdv.setText(String.valueOf(combat.getPvAdv()));
+        combatMessageButton.setText(dialogue.get(0));
     }
 }

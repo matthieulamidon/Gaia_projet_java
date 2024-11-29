@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.image.ImageView?>
 
+
+<?import javafx.scene.image.ImageView?>
 <AnchorPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" style="-fx-background-color: #2c3e50;">
     <children>
         <!-- Barre supérieure : Informations de combat -->
@@ -57,28 +61,41 @@
             </children>
         </HBox>
 
-        <!-- Bouton pour les messages de combat (au-dessus du GridPane) -->
-        <Button fx:id="combatMessageButton" text="Message de combat ici" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="300.0" prefHeight="30.0" maxWidth="Infinity" />
 
-        <!-- Grille de boutons d'action -->
-        <GridPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="40.0" hgap="10.0" vgap="10.0">
-            <columnConstraints>
-                <ColumnConstraints percentWidth="50.0" />
-                <ColumnConstraints percentWidth="50.0" />
-            </columnConstraints>
-            <rowConstraints>
-                <RowConstraints percentHeight="50.0" />
-                <RowConstraints percentHeight="50.0" />
-            </rowConstraints>
-            <children>
-                <Button fx:id="Attaque1" onAction="#lanceAttaque1" text="Attaque 1" GridPane.columnIndex="0" GridPane.rowIndex="0" maxWidth="Infinity" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ecf0f1; -fx-background-color: linear-gradient(to bottom, #34495e, #2c3e50); -fx-text-fill: white;"/>
-                <Button fx:id="Attaque2" onAction="#lanceAttaque2" text="Attaque 2" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ecf0f1; -fx-background-color: linear-gradient(to bottom, #34495e, #2c3e50); -fx-text-fill: white;"/>
-                <Button fx:id="Attaque3" onAction="#lanceAttaque3" text="Attaque 3" GridPane.columnIndex="0" GridPane.rowIndex="1" maxWidth="Infinity" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ecf0f1; -fx-background-color: linear-gradient(to bottom, #34495e, #2c3e50); -fx-text-fill: white;"/>
-                <Button fx:id="Attaque4" onAction="#lanceAttaque4" text="Attaque 4" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ecf0f1; -fx-background-color: linear-gradient(to bottom, #34495e, #2c3e50); -fx-text-fill: white;"/>
-            </children>
-        </GridPane>
 
-        <!-- Bouton pour retourner en arrière -->
-        <Button fx:id="RetourButton" onAction="#selectRetour" text="Retour" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" maxWidth="Infinity" />
+        <!-- Boutons d'action -->
+        <!-- Boutons d'action -->
+        <VBox AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="0.0" spacing="0">
+            <!-- Label pour les messages de combat -->
+            <Button fx:id="combatMessageButton" layoutY="280.0" prefHeight="30.0" maxWidth="Infinity" text="Message de combat ici" />
+
+            <!-- Bouton Attaquer au-dessus des autres -->
+            <Button fx:id="AttaqueButton" mnemonicParsing="false" onAction="#selectPasse" maxWidth="Infinity"  style="-fx-background-color: transparent; -fx-border-color: transparent;-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 10, 0.3, 0, 0);">
+                <graphic>
+                    <ImageView fx:id="attaque" fitHeight="50.0" fitWidth="100.0" preserveRatio="true" />
+                </graphic>
+            </Button>
+
+            <!-- HBox pour les autres boutons -->
+            <HBox spacing="0.0">
+                <!-- Chaque bouton prend 1/3 de la largeur -->
+                <Button fx:id="ParchemainButton" mnemonicParsing="false" onAction="#selectPasse" maxWidth="Infinity" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: transparent;-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 10, 0.3, 0, 0);">
+                    <graphic>
+                        <ImageView fx:id="parchemain" fitHeight="50.0" fitWidth="100.0" preserveRatio="true" />
+                    </graphic>
+                </Button>
+                <Button fx:id="FuiteButton" mnemonicParsing="false" onAction="#selectPasse" maxWidth="Infinity" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: transparent;-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 10, 0.3, 0, 0);">
+                    <graphic>
+                        <ImageView fx:id="fuite" fitHeight="50.0" fitWidth="100.0" preserveRatio="true" />
+                    </graphic>
+                </Button>
+                <Button fx:id="SwitchButton" mnemonicParsing="false" onAction="#selectPasse" maxWidth="Infinity" HBox.hgrow="ALWAYS" style="-fx-background-color: transparent; -fx-border-color: transparent;-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 10, 0.3, 0, 0);">
+                    <graphic>
+                        <ImageView fx:id="switch_mystimon" fitHeight="50.0" fitWidth="100.0" preserveRatio="true" />
+                    </graphic>
+                </Button>
+            </HBox>
+        </VBox>
     </children>
 </AnchorPane>
+

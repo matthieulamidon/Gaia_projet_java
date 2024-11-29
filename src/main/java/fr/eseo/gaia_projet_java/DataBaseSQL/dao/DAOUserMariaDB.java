@@ -307,10 +307,11 @@ public class DAOUserMariaDB implements DAOUser {
         return TypesConverti;
     }
 
-    ArrayList<Types> TraductionStringTypes(List<String> listeTypes){
-        ArrayList<Types> listeTypesConverti = new ArrayList();
-        for (int i = 0; i < listeTypes.size(); i++) {
-            switch (listeTypes.get(i)) {
+    ArrayList<Types> TraductionStringTypes(List<String> listeTypes) {
+        ArrayList<Types> listeTypesConverti = new ArrayList<>();
+
+        for (String type : listeTypes) {
+            switch (type.toLowerCase()) { // Gestion insensible à la casse
                 case "feu":
                     listeTypesConverti.add(Types.feu);
                     break;
@@ -320,7 +321,7 @@ public class DAOUserMariaDB implements DAOUser {
                 case "plante":
                     listeTypesConverti.add(Types.plante);
                     break;
-                case "tenebres":
+                case "tenebre":
                     listeTypesConverti.add(Types.tenebres);
                     break;
                 case "dragon":
@@ -340,9 +341,13 @@ public class DAOUserMariaDB implements DAOUser {
                     break;
                 case "lumiere":
                     listeTypesConverti.add(Types.lumiere);
-
+                    break;
+                default:
+                    System.err.println("Type inconnu : " + type); // Avertissement pour les cas non gérés
+                    break;
             }
         }
+
         return listeTypesConverti;
     }
 
