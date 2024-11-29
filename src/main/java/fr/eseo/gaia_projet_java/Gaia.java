@@ -42,7 +42,7 @@ public class Gaia  extends Application {
         fxmlLoader.setController(c);
 
         // Configuration de la scène
-        Scene scene = new Scene(fxmlLoader.load(), 450, 450);
+        Scene scene = new Scene(fxmlLoader.load(), 450, 520);
 
         // Gestion de la transition d'état
         Transition transition = new Transition();  // On part avec l'état init
