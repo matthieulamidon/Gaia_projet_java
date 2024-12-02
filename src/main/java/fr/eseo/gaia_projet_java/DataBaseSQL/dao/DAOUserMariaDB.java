@@ -221,21 +221,19 @@ public class DAOUserMariaDB implements DAOUser {
         }
     }
 
-    public Adversaire readLectureAdversaire() throws SQLException {
+    public Adversaire readLectureAdversaire(int idAdv) throws SQLException {
+        String requete = "SELECT id, nom, coordonner FROM adversaire WHERE id = " + idAdv;
         try (Connection connexion = getConnection();
              Statement statement = connexion.createStatement();
-             ResultSet resultat = statement.executeQuery(
-                     "SELECT id, nom, listeDObjet, coordonner FROM promethee;"))
-                     {
+             ResultSet resultat = statement.executeQuery(requete)) {
             Adversaire adversaire = null;
             while (resultat.next()) {
-                int id = 0;//resultat.getInt("id");
-                String nom = "gerard";//resultat.getString("nom");
+                int id = resultat.getInt("id");
+                String nom = resultat.getString("nom");
 
-                HashMap<String, Integer> jsp = null;
-                ArrayList<Integer> possition = new ArrayList<>(1);
-                possition.add(2);
-                adversaire = new Adversaire(id, nom, readLectuceDeEquipeAdverse(id),  jsp,  possition);
+                ArrayList<Integer> position = new ArrayList<>(1);
+                position.add(2);
+                adversaire = new Adversaire(id, nom, readLectuceDeEquipeAdverse(id), null, position);
             }
             return adversaire;
         }
