@@ -490,4 +490,15 @@ public class DAOUserMariaDB implements DAOUser {
         }
         return listeObjetsConvertie;
     }
+
+    public void MiseAJourCoo( ArrayList<String> listeCoo) throws SQLException {
+        String updateQuery = "UPDATE promethee SET coordonner = ? WHERE nom = ?";
+
+        try (Connection connexion = getConnection();
+             PreparedStatement insertStatement = connexion.prepareStatement(updateQuery)) {
+            insertStatement.setString(1, TraductionArrayListStringEnJson(listeCoo));
+            insertStatement.setString(2, "promethee");
+            insertStatement.executeUpdate();
+        }
+    }
 }

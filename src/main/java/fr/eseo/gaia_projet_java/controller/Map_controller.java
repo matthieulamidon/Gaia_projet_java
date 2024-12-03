@@ -148,7 +148,7 @@ public void initialize() {
     //pnjView1.setUserData(1);
 }
 
-public void deplacementJoueur(){
+public void deplacementJoueur() {
     double nextX = joueurX;
     double nextY = joueurY;
     boolean deplacementHaut = touchesAppuyees.contains(KeyCode.UP) || touchesAppuyees.contains(KeyCode.Z);
@@ -235,6 +235,7 @@ public void deplacementJoueur(){
 
     joueurView.setLayoutX(joueurX);
     joueurView.setLayoutY(joueurY);
+
 }
 
     @FXML
@@ -264,6 +265,7 @@ public void deplacementJoueur(){
     @FXML
     public void CombatPnj() throws SQLException, IOException {
         DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
+        miseAjourCooDB();//Mise à jour des coordonnees dans la base de données
         Adversaire Pnj = daoUserMariaDB.readLectureAdversaire(0);
         InvocateurVsAdversaire combat = new InvocateurVsAdversaire(joueur, Pnj);
 
@@ -283,9 +285,19 @@ public void deplacementJoueur(){
         }
     }
 
+    //permet d'initialise la position avant d'afficher la scène
     public void defPositionInitiale() {
         joueurView.setLayoutX(joueurX);
         joueurView.setLayoutY(joueurY);
+    }
+
+    //Fonction pour mettre la position à jour dans la base de données
+    public void miseAjourCooDB() throws SQLException {
+        ArrayList<String> listeCoo = new ArrayList<>();
+        listeCoo.add(String.valueOf(joueurX));
+        listeCoo.add(String.valueOf(joueurY));
+        DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
+        daoUserMariaDB.MiseAJourCoo(listeCoo);
     }
 
 

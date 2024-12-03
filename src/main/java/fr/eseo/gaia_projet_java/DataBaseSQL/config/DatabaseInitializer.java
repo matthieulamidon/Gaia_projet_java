@@ -9,7 +9,7 @@ public class DatabaseInitializer {
     private static final String url = "jdbc:mariadb://localhost:3306";
     private static final String database = "Gaia_test_1";
     private static final String username = "root";
-    private static final String password = "V1v@3str3spubl1c@";
+    private static final String password = "javaishardiguess";
 
     public DatabaseInitializer() throws SQLException {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
