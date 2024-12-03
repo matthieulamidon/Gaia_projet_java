@@ -1,20 +1,14 @@
 package fr.eseo.gaia_projet_java.DataBaseSQL;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import fr.eseo.gaia_projet_java.Mystimons.Mystimon;
 
 import java.lang.reflect.Type;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import static fr.eseo.gaia_projet_java.DataBaseSQL.config.DatabaseInitializer.getConnection;
 
 public class JsonParserUtils {
 
@@ -47,4 +41,6 @@ public class JsonParserUtils {
         Type mapType = new TypeToken<HashMap<String, Integer>>() {}.getType();
         return gson.fromJson(json, mapType);
     }
+
+
 }

@@ -18,6 +18,7 @@ import java.util.Random;
 import static fr.eseo.gaia_projet_java.enumerations.Types.nul;
 import static java.lang.reflect.Array.get;
 
+//heavy as the crouwn
 public class InvocateurVsAdversaire {
     private DAOUser daoUser;
     private Joueur joueur;
@@ -41,6 +42,21 @@ public class InvocateurVsAdversaire {
         //recuperation de l'équipe de l'adversaire
         this.listeMystimonAdversaire = daoUser.readLectuceDeEquipeAdverse(adversaire.getId());
         this.mystimonAdversaire = listeMystimonAdversaire.get(0);
+        this.listeAttaque = daoUser.LectuceDeEquipeAttaque();
+    }
+    public InvocateurVsAdversaire(Joueur joueur,String nom, int lv) throws SQLException {
+        this.joueur = joueur;
+        //this.adversaire = adversaire("gerard",mystimonAdversaire);
+        daoUser = new DAOUserMariaDB();
+        //recuperation de l'équipe du joueur
+        this.listeMystimonAllier = daoUser.readLectuceDeLequipe();
+        this.mystimonAllier = listeMystimonAllier.get(0);
+        //recuperation de l'équipe de l'adversaire
+        this.mystimonAdversaire = new Exemplemon(nom,lv);
+        List<Exemplemon> listeMystimonAdversairetanpon = null;
+        listeMystimonAdversairetanpon.add(mystimonAdversaire);
+        this.listeMystimonAdversaire =listeMystimonAdversairetanpon;
+        this.adversaire = new Adversaire("gerard",listeMystimonAdversaire);
         this.listeAttaque = daoUser.LectuceDeEquipeAttaque();
     }
 
@@ -123,6 +139,18 @@ public class InvocateurVsAdversaire {
         }else{
             return false;
         }
+    }
+
+    public Boolean mystimonNexxisteAdv(int n){
+        if(listeMystimonAdversaire.size()>n){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public String getPvMystimonNAdv(int n){
+        return String.valueOf(listeMystimonAdversaire.get(n).getPv());
     }
 
     public Double getRatioPvMystimonN(int n){
@@ -450,7 +478,6 @@ public class InvocateurVsAdversaire {
 
     }
 
-
     public ArrayList<String> attaquer(String attaque) {
         AttaqueCombat attaqueIminante = null;
         ArrayList<String> dialogue = new ArrayList<>();;
@@ -657,6 +684,36 @@ public class InvocateurVsAdversaire {
         }
         return dialogue;
 
+    }
+
+    public void gainXp(){//bah oui sans objet c'est ridicule
+        int b=100;
+        int N =mystimonAdversaire.getLv();
+        int xp=(b*N)/7;
+        xp+=mystimonAllier.getExperience();
+        if(xp>=(mystimonAllier.getLv()*mystimonAllier.getLv()*mystimonAllier.getLv())){
+            xp-=(mystimonAllier.getLv()*mystimonAllier.getLv()*mystimonAllier.getLv());
+            mystimonAllier.setExperience(xp);
+            mystimonAllier.setLv(mystimonAllier.getLv()+1);
+            levelUp();
+        }
+    }
+
+    public void levelUp(){
+        HashMap<String,Integer> state=new HashMap<>();
+        int pv=((((2*mystimonAllier.getStats().get("PV"))+mystimonAllier.getIv()+(mystimonAllier.getEv()/4))*mystimonAllier.getLv())/100)+mystimonAllier.getLv()+10;
+        int atk=((((2*mystimonAllier.getStats().get("ATK"))+mystimonAllier.getIv()+(mystimonAllier.getEv()/4))*mystimonAllier.getLv())/100);
+        int sp_atk=((((2*mystimonAllier.getStats().get("SP_ATK"))+mystimonAllier.getIv()+(mystimonAllier.getEv()/4))*mystimonAllier.getLv())/100);
+        int def=((((2*mystimonAllier.getStats().get("DEF"))+mystimonAllier.getIv()+(mystimonAllier.getEv()/4))*mystimonAllier.getLv())/100);
+        int sp_def=((((2*mystimonAllier.getStats().get("SP_DEF"))+mystimonAllier.getIv()+(mystimonAllier.getEv()/4))*mystimonAllier.getLv())/100);
+        int vit=((((2*mystimonAllier.getStats().get("VIT"))+mystimonAllier.getIv()+(mystimonAllier.getEv()/4))*mystimonAllier.getLv())/100);
+        state.put("PV",pv);
+        state.put("ATK",atk);
+        state.put("SP_ATK",sp_atk);
+        state.put("DEF",def);
+        state.put("SP_DEF",sp_def);
+        state.put("VIT",vit);
+        mystimonAllier.setStats(state);
     }
 
 }

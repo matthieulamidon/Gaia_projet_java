@@ -1,5 +1,6 @@
 package fr.eseo.gaia_projet_java.DataBaseSQL.dao;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.eseo.gaia_projet_java.Attaques.AttaqueCombat;
 import fr.eseo.gaia_projet_java.DataBaseSQL.JsonParserUtils;
 import fr.eseo.gaia_projet_java.Invocateur.Adversaire;
@@ -21,7 +22,7 @@ public class DAOUserMariaDB implements DAOUser {
 
 
     @Override
-    public List<Exemplemon> nouveauMystimon() throws SQLException {
+    public List<Exemplemon> nouveauMystimon(int lvS) throws SQLException {
         List<Exemplemon> users = new ArrayList<>();
         try (Connection connexion = getConnection();
              Statement statement = connexion.createStatement();
@@ -48,7 +49,7 @@ public class DAOUserMariaDB implements DAOUser {
                 //ArrayList<Types> listeTypesConverti = new ArrayList();
                 ArrayList<Types> listeTypesConverti=TraductionStringTypes(listeTypes);
 
-                ArrayList<String> listeAttaqueConverti = TraductionStringAttaques(listeAttaques,5);
+                ArrayList<String> listeAttaqueConverti = TraductionStringAttaques(listeAttaques,lvS);
 
                 HashMap<String, Integer> listeStatesConverti = TraductionStateListeMaps(listeStats);
 
@@ -58,6 +59,51 @@ public class DAOUserMariaDB implements DAOUser {
             return users;
         }
 
+    }
+
+    private void replaceTableEquipe(Connection connection, List<Exemplemon> nouvellesEquipes) throws SQLException {
+        String deleteQuery = "DELETE FROM equipe"; // Supprime toutes les données existantes
+        String insertQuery = """
+        INSERT INTO equipe (nom, pv, xp, lv, ev, iv, Stat, types, attaque, objet)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    """;
+
+        try (Statement deleteStatement = connection.createStatement();
+             PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
+
+            // Supprime toutes les données existantes dans la table
+            deleteStatement.executeUpdate(deleteQuery);
+
+            // Insère les nouvelles données dans la table
+            for (Exemplemon equipe : nouvellesEquipes) {
+                insertStatement.setString(1, equipe.getNom());
+                insertStatement.setInt(2, equipe.getPv());
+                int n = (int) equipe.getXp();
+                insertStatement.setInt(3, n);
+                insertStatement.setInt(4, equipe.getLv());
+                insertStatement.setInt(5, equipe.getEv());
+                insertStatement.setInt(6, equipe.getIv());
+                insertStatement.setString(7, TraductionStateEnJson(equipe.getStats())); // Conversion en JSON si nécessaire
+                insertStatement.setString(8, TraductionTypesEnJson(equipe.getListeTypes())); // Conversion en JSON si nécessaire
+                insertStatement.setString(9, TraductionArrayListStringEnJson(equipe.getListeAttaques())); // Conversion en JSON si nécessaire
+                insertStatement.setString(10, equipe.getObjet());
+
+                insertStatement.addBatch(); // Ajoute cette commande dans un lot
+            }
+
+            insertStatement.executeBatch(); // Exécute toutes les commandes d'insertion en une seule fois
+        }
+    }
+
+    public String TraductionStateEnJson(HashMap<String, Integer> statsMap) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            // Convertit la HashMap en une chaîne JSON
+            return objectMapper.writeValueAsString(statsMap);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "{}"; // Retourne un JSON vide en cas d'erreur
+        }
     }
 
     //revoie toute l'equipe de mystimon
@@ -255,6 +301,82 @@ public class DAOUserMariaDB implements DAOUser {
         return listeStatesConverti;
     }
 
+    List<Integer> TraductionStateJsonEnListe(HashMap<String, Integer> statsMap) {
+        List<Integer> listeStats = new ArrayList<>();
+        // Ajoute les valeurs dans l'ordre des clés attendues
+        listeStats.add(statsMap.getOrDefault("PV", 0)); // Ajoute la valeur pour "PV", ou 0 si la clé n'existe pas
+        listeStats.add(statsMap.getOrDefault("ATK", 0));
+        listeStats.add(statsMap.getOrDefault("SP_ATK", 0));
+        listeStats.add(statsMap.getOrDefault("DEF", 0));
+        listeStats.add(statsMap.getOrDefault("SP_DEF", 0));
+        listeStats.add(statsMap.getOrDefault("VIT", 0));
+        return listeStats;
+    }
+
+    public String TraductionTypesEnJson(ArrayList<Types> listeTypes) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<String> listeTypesString = new ArrayList<>();
+
+        // Conversion des Types en chaînes de caractères
+        for (Types type : listeTypes) {
+            switch (type) {
+                case feu:
+                    listeTypesString.add("feu");
+                    break;
+                case eau:
+                    listeTypesString.add("eau");
+                    break;
+                case plante:
+                    listeTypesString.add("plante");
+                    break;
+                case tenebres:
+                    listeTypesString.add("tenebre");
+                    break;
+                case dragon:
+                    listeTypesString.add("dragon");
+                    break;
+                case fee:
+                    listeTypesString.add("fee");
+                    break;
+                case foudre:
+                    listeTypesString.add("foudre");
+                    break;
+                case terre:
+                    listeTypesString.add("terre");
+                    break;
+                case normal:
+                    listeTypesString.add("normal");
+                    break;
+                case lumiere:
+                    listeTypesString.add("lumiere");
+                    break;
+                default:
+                    System.err.println("Type inconnu : " + type); // Avertissement pour les cas non gérés
+                    break;
+            }
+        }
+
+        try {
+            // Convertit la liste de chaînes en JSON
+            return objectMapper.writeValueAsString(listeTypesString);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "[]"; // Retourne une liste JSON vide en cas d'erreur
+        }
+    }
+
+    public String TraductionArrayListStringEnJson(ArrayList<String> listeStrings) {
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        try {
+            // Convertit l'ArrayList en JSON
+            return objectMapper.writeValueAsString(listeStrings);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "[]"; // Retourne une liste JSON vide en cas d'erreur
+        }
+    }
+
     ArrayList<String> TraductionStringAttaques(Map<Integer, String> listeAttaques,int lv){
         ArrayList<String> listeAttaqueConverti = new ArrayList<>();
         int j=0 ;
@@ -350,7 +472,6 @@ public class DAOUserMariaDB implements DAOUser {
                     break;
             }
         }
-
         return listeTypesConverti;
     }
 

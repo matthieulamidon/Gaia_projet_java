@@ -101,11 +101,11 @@ public class combat_mystimon_adverse_mort_controller {
     private void Switch(){
         try {
             // Charger la scène depuis le fichier FXML
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu-principale.fxml"));
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu_switch.fxml"));
 
             // Récupérer la fenêtre actuelle (Stage) et changer la scène
-            combat_menu_principale_controller combat_menu_principale_controller = new combat_menu_principale_controller(primaryStage,combat);
-            loader.setController(combat_menu_principale_controller);
+            combat_menu_switch_controller combat_menu_switch_controller = new combat_menu_switch_controller(primaryStage, combat, true);
+            loader.setController(combat_menu_switch_controller);
             Scene scene = new Scene(loader.load(), 450, 520);
             primaryStage.setScene(scene);
         } catch (IOException e) {

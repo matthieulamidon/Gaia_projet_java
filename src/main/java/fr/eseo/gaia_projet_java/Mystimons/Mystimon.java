@@ -1,11 +1,17 @@
 package fr.eseo.gaia_projet_java.Mystimons;
 
 import fr.eseo.gaia_projet_java.Attaques.Attaque;
+import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUser;
+import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUserMariaDB;
 import fr.eseo.gaia_projet_java.Parchemins.Parchemin;
+import fr.eseo.gaia_projet_java.enumerations.Stat;
 import fr.eseo.gaia_projet_java.enumerations.Types;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 public abstract class Mystimon {
     protected int ID;
@@ -33,6 +39,27 @@ public abstract class Mystimon {
         this.iv = iv;
         this.ev = ev;
         this.Objet = Objet;
+
+    }
+
+    public Mystimon( String Nom, int lv) throws SQLException {
+        DAOUser dao= new DAOUserMariaDB();
+        List<Exemplemon> mystidex = dao.nouveauMystimon(lv);
+        for(Exemplemon exemplemon : mystidex){
+            if(exemplemon.getNom().equals(Nom)){
+                this.liste_types=exemplemon.getListeTypes();
+                this.stats =exemplemon.getStats();
+                this.pv=exemplemon.getStats().get("PV");
+            }
+        }
+        this.ID =0;
+        this.Nom = Nom;
+        this.liste_attaques = liste_attaques;
+        this.Experience = Experience;
+        this.Niveau = lv;
+        this.iv = crééIv();
+        this.ev = crééEv();
+        this.Objet = null;
 
     }
     //gets et sets
@@ -90,21 +117,32 @@ public abstract class Mystimon {
     public void setObjet(String Objet){ this.Objet = Objet; }
 
     //methodes mères
+    public void setLv(int i) {
+        this.Niveau = i;
+    }
+
+    public int crééEv() {
+        Random random = new Random();
+        // Génère un entier aléatoire entre 0 et 31 inclus
+        return random.nextInt(510); // 32 car la borne supérieure est exclusive
+    }
+
+    public int crééIv(){
+        Random random = new Random();
+        // Génère un entier aléatoire entre 0 et 31 inclus
+        return random.nextInt(32); // 32 car la borne supérieure est exclusive
+    }
 
     public void subirAttaque(Attaque attaque){
-
     }
 
     public void attaquer(Attaque attaque, Mystimon ennemi){
-
     }
 
     public void fuite(Mystimon ennemi){
-
     }
 
     public void usageParchemin(Parchemin parchemin){
-
     }
 
     public ArrayList<String> ConvertionTypes() {
@@ -115,6 +153,7 @@ public abstract class Mystimon {
         }
         return listeTypes;
     }
+
 
 }
 
