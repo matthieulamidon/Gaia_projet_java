@@ -32,9 +32,12 @@ public class HelloApplication extends Application {
 
         DatabaseInitializer databaseInitializer = new DatabaseInitializer();
         databaseInitializer.run();
+        // On récupère les données du joueur dans la base de donnée
+        DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
+        Joueur joueur =  daoUserMariaDB.readLectureJoueur();
 
         FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
-        Map_controller c = new Map_controller(primaryStage);
+        Map_controller c = new Map_controller(primaryStage, joueur);
         fxmlLoader.setController(c);
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);

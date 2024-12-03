@@ -24,6 +24,7 @@ public class DatabaseInitializer {
             createTableInvocateur(connection);
             createTableAttaque(connection);
             createTableObjet(connection);
+            createTablePnj(connection);
         }
     }
     private void createDatabase(Connection connection) throws SQLException {
@@ -178,6 +179,25 @@ public class DatabaseInitializer {
         SELECT 'heal', 'zinedine_zidane', 250, 100, 'il est 17h20 j ai la flemme', 100
         FROM DUAL
         WHERE NOT EXISTS (SELECT 1 FROM objet WHERE nom = 'heal');
+        """;
+            statement.executeUpdate(insertDefaultScoreQuery);
+        }
+    }
+
+    private void createTablePnj(Connection connection) throws SQLException {
+        try (Statement statement = connection.createStatement()) {
+            String createTableQuery = """
+        CREATE TABLE IF NOT EXISTS Pnj (
+            id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            nom VARCHAR(50) NOT NULL,
+            coordonnees JSON NOT NULL
+        );""";
+            statement.executeUpdate(createTableQuery);
+            String insertDefaultScoreQuery = """
+        INSERT INTO Pnj (nom, coordonnees)
+        SELECT 'Gérard', '[10,10]'
+        FROM DUAL
+        WHERE NOT EXISTS (SELECT 1 FROM Pnj WHERE nom = 'Gérard');
         """;
             statement.executeUpdate(insertDefaultScoreQuery);
         }

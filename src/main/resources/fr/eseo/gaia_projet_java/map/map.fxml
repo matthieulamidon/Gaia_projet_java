@@ -28,5 +28,18 @@
                    layoutX="375.0"
                    layoutY="50.0"
                    style="-fx-background-color: transparent;"/>
+
+        <!-- ImageView pour le personnage -->
+        <ImageView fx:id="pnjView1"
+                   fitWidth="40.0"
+                   fitHeight="40.0"
+                   preserveRatio="true"
+                   smooth="true"
+                   onMouseClicked="#CombatPnj"
+                   layoutX="10.0"
+                   layoutY="10.0"
+                   style="-fx-background-color: transparent;"/>
+
+
     </children>
 </AnchorPane>
