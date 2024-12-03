@@ -198,7 +198,7 @@ public class DatabaseInitializer {
         INSERT INTO Pnj (nom, coordonnees)
         SELECT 'Gérard', '[10,10]'
         FROM DUAL
-        WHERE NOT EXISTS (SELECT 1 FROM Pnj WHERE nom = 'Gérard');
+        WHERE NOT EXISTS (SELECT 0 FROM Pnj WHERE nom = 'Gérard');
         """;
             statement.executeUpdate(insertDefaultScoreQuery);
         }

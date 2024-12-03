@@ -388,7 +388,7 @@ public class DAOUserMariaDB implements DAOUser {
             if(j==4){
                 i=0;
             }
-        }
+    }
 
 
         return listeAttaqueConverti;

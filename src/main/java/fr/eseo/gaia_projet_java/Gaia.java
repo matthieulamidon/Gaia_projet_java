@@ -33,7 +33,7 @@ public class Gaia  extends Application {
         //initialisation du combat
         DAOUserMariaDB daoUser = new DAOUserMariaDB();
         Joueur joueur = daoUser.readLectureJoueur();
-        Adversaire adversaire = daoUser.readLectureAdversaire();
+        Adversaire adversaire = daoUser.readLectureAdversaire(0);
         InvocateurVsAdversaire combat = new InvocateurVsAdversaire(joueur,adversaire);
 
         // Chargement du fichier FXML
