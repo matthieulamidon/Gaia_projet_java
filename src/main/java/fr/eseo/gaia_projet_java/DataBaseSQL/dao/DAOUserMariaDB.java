@@ -259,8 +259,10 @@ public class DAOUserMariaDB implements DAOUser {
                 //List<Integer> listeObjets = JsonParserUtils.parseJsonToListInt(jsonString);
 
                 HashMap<String, Integer> mapObjets = (HashMap<String, Integer>) JsonParserUtils.parseJsonToMapStringInt(jsonString);
-                ArrayList<Integer> position = new ArrayList<>(1);
-                position.add(2);
+                String jsonString1 = resultat.getString("coordonner");
+                List<Integer> positionList = JsonParserUtils.parseJsonToListInt(jsonString1);
+                ArrayList<Integer> position = new ArrayList<>(positionList);
+
                 joueur = new Joueur(id, nom, readLectuceDeLequipe(), mapObjets, position);
             }
             return joueur;
@@ -280,8 +282,9 @@ public class DAOUserMariaDB implements DAOUser {
                 while (resultat.next()) {
                     int id = resultat.getInt("id");
                     String nom = resultat.getString("nom");
-                    ArrayList<Integer> position = new ArrayList<>(1);
-                    position.add(2);
+                    String jsonString1 = resultat.getString("coordonnees");
+                    List<Integer> positionList = JsonParserUtils.parseJsonToListInt(jsonString1);
+                    ArrayList<Integer> position = new ArrayList<>(positionList);
                     adversaire = new Adversaire(id, nom, readLectuceDeEquipeAdverse(id), null, position);
                 }
             }

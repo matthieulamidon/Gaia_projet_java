@@ -9,7 +9,7 @@ public class DatabaseInitializer {
     private static final String url = "jdbc:mariadb://localhost:3306";
     private static final String database = "Gaia_test_1";
     private static final String username = "root";
-    private static final String password = "V1v@3str3spubl1c@";
+    private static final String password = "javaishardiguess";
 
     public DatabaseInitializer() throws SQLException {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
@@ -52,7 +52,7 @@ public class DatabaseInitializer {
             // Nouvelle version de la requête INSERT avec LEFT JOIN
             String insertDefaultScoreQuery = """
         INSERT INTO mystidex (nom, pv, Stat, types, attaque, evolution, description)
-        SELECT 'kuro', 20, '[10,10,10,10,10,10]', '["tenebre"]', '{"0": "charge", "2": "toileColante", "5": "crosEmpoisonner"}', '[18,2]', 'C est le mystimon 1, celui qu on retient'
+        SELECT 'kuro', 20, '[10,10,10,10,10,10]', '["tenebre"]', '{"0": "Charge", "2": "toileColante", "5": "crosEmpoisonner"}', '[18,2]', 'C est le mystimon 1, celui qu on retient'
         FROM DUAL
         WHERE NOT EXISTS (SELECT 1 FROM mystidex WHERE nom = 'kuro');
         """;

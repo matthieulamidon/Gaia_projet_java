@@ -40,6 +40,9 @@ public class HelloApplication extends Application {
         Map_controller c = new Map_controller(primaryStage, joueur);
         fxmlLoader.setController(c);
         Parent root = fxmlLoader.load();
+        c.joueurX = joueur.getPosition().get(0);
+        c.joueurY = joueur.getPosition().get(1);
+        c.defPositionInitiale();
         Scene scene = new Scene(root);
 
         c.setScene(scene);

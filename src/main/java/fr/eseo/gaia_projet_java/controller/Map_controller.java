@@ -30,6 +30,9 @@ public class Map_controller {
 
     public Joueur joueur;
 
+    public double joueurX;
+    public double joueurY;
+
 public Map_controller(Stage primaryStage, Joueur joueur) {
     this.MapStage = primaryStage;
     this.joueur = joueur;
@@ -45,8 +48,7 @@ private ImageView joueurView;
 private ImageView pnjView1;
 
 
-private double joueurX = 375.0;
-private double joueurY = 50.0;
+
 private ArrayList<Rectangle> obstacles = new ArrayList<>();
 private static int IndiceDeplacement = 0;// Permet de savoir quelle image utiliser pour le joueur en déplacement
 private static int IndiceMap = 0;//Permet de savoir quelle image utiliser pour la map
@@ -279,6 +281,11 @@ public void deplacementJoueur(){
         catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void defPositionInitiale() {
+        joueurView.setLayoutX(joueurX);
+        joueurView.setLayoutY(joueurY);
     }
 
 
