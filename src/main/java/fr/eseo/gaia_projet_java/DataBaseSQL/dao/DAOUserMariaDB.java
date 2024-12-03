@@ -222,22 +222,27 @@ public class DAOUserMariaDB implements DAOUser {
     }
 
     public Adversaire readLectureAdversaire(int idAdv) throws SQLException {
-        String requete = "SELECT id, nom, coordonner FROM adversaire WHERE id = " + idAdv;
+        String requete = "SELECT id, nom, coordonnees FROM pnj WHERE id = ?";
+        Adversaire adversaire = null;
         try (Connection connexion = getConnection();
-             Statement statement = connexion.createStatement();
-             ResultSet resultat = statement.executeQuery(requete)) {
-            Adversaire adversaire = null;
-            while (resultat.next()) {
-                int id = resultat.getInt("id");
-                String nom = resultat.getString("nom");
+             PreparedStatement statement = connexion.prepareStatement(requete)) {
 
-                ArrayList<Integer> position = new ArrayList<>(1);
-                position.add(2);
-                adversaire = new Adversaire(id, nom, readLectuceDeEquipeAdverse(id), null, position);
+            // On ajoute le parametre à la requête
+            statement.setInt(1, idAdv);
+
+            try (ResultSet resultat = statement.executeQuery()) {
+                while (resultat.next()) {
+                    int id = resultat.getInt("id");
+                    String nom = resultat.getString("nom");
+                    ArrayList<Integer> position = new ArrayList<>(1);
+                    position.add(2);
+                    adversaire = new Adversaire(id, nom, readLectuceDeEquipeAdverse(id), null, position);
+                }
             }
-            return adversaire;
         }
-    }
+        return adversaire;
+        }
+
 
     HashMap<String, Integer> TraductionStateListeMaps(List<Integer> listeStats){
         HashMap<String, Integer> listeStatesConverti = new HashMap<>();

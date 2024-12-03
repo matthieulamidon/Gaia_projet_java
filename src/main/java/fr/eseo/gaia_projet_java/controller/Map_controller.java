@@ -14,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -33,6 +32,7 @@ public class Map_controller {
 
 public Map_controller(Stage primaryStage, Joueur joueur) {
     this.MapStage = primaryStage;
+    this.joueur = joueur;
 }
 
 @FXML
@@ -260,10 +260,26 @@ public void deplacementJoueur(){
     }
 
     @FXML
-    public void CombatPnj() throws SQLException {
+    public void CombatPnj() throws SQLException, IOException {
         DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
-        Adversaire Pnj = daoUserMariaDB.readLectureAdversaire(1);
+        Adversaire Pnj = daoUserMariaDB.readLectureAdversaire(0);
         InvocateurVsAdversaire combat = new InvocateurVsAdversaire(joueur, Pnj);
+
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("fr/eseo/gaia_projet_java/combat-view/combat_menu-principale.fxml"));
+            combat_menu_principale_controller c = new combat_menu_principale_controller(MapStage, combat);
+            loader.setController(c);
+
+            // Configuration de la scène
+            Scene scene1 = new Scene(loader.load(), 450, 520);
+
+            // Configuration de la fenêtre principale
+            MapStage.setResizable(false);
+            MapStage.setScene(scene1);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
