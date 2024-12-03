@@ -145,7 +145,7 @@ public void initialize() {
     joueurView.setImage(joueurImage);
 
     pnjView1.setImage(joueurImage);
-    pnjView1.setUserData(1);
+    //pnjView1.setUserData(1);
 }
 
 public void deplacementJoueur(){

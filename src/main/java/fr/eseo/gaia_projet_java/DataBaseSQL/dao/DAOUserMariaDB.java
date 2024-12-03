@@ -61,15 +61,15 @@ public class DAOUserMariaDB implements DAOUser {
 
     }
 
-    private void replaceTableEquipe(Connection connection, List<Exemplemon> nouvellesEquipes) throws SQLException {
+    private void replaceTableEquipe( List<Exemplemon> nouvellesEquipes) throws SQLException {
         String deleteQuery = "DELETE FROM equipe"; // Supprime toutes les données existantes
         String insertQuery = """
         INSERT INTO equipe (nom, pv, xp, lv, ev, iv, Stat, types, attaque, objet)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """;
 
-        try (Statement deleteStatement = connection.createStatement();
-             PreparedStatement insertStatement = connection.prepareStatement(insertQuery)) {
+            try (Connection connexion = getConnection();Statement deleteStatement = connexion.createStatement();
+             PreparedStatement insertStatement = connexion.prepareStatement(insertQuery)) {
 
             // Supprime toutes les données existantes dans la table
             deleteStatement.executeUpdate(deleteQuery);
@@ -93,6 +93,7 @@ public class DAOUserMariaDB implements DAOUser {
 
             insertStatement.executeBatch(); // Exécute toutes les commandes d'insertion en une seule fois
         }
+
     }
 
     public String TraductionStateEnJson(HashMap<String, Integer> statsMap) {

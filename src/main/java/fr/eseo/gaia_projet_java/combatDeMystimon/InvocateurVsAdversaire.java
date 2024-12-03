@@ -715,4 +715,8 @@ public class InvocateurVsAdversaire {
         state.put("VIT",vit);
         mystimonAllier.setStats(state);
     }
+
+    public void victoire(){
+
+    }
 }
