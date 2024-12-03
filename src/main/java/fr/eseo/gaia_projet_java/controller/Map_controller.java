@@ -266,16 +266,15 @@ public void deplacementJoueur(){
         InvocateurVsAdversaire combat = new InvocateurVsAdversaire(joueur, Pnj);
 
         try {
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("fr/eseo/gaia_projet_java/combat-view/combat_menu-principale.fxml"));
-            combat_menu_principale_controller c = new combat_menu_principale_controller(MapStage, combat);
-            loader.setController(c);
-
-            // Configuration de la scène
-            Scene scene1 = new Scene(loader.load(), 450, 520);
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu-principale.fxml"));
+            // Récupérer la fenêtre actuelle (Stage) et changer la scène
+            combat_menu_principale_controller combat_menu_principale_controller = new combat_menu_principale_controller(MapStage,combat);
+            loader.setController(combat_menu_principale_controller);
+            Scene scene = new Scene(loader.load(), 450, 520);
 
             // Configuration de la fenêtre principale
             MapStage.setResizable(false);
-            MapStage.setScene(scene1);
+            MapStage.setScene(scene);
         }
         catch (IOException e) {
             e.printStackTrace();
