@@ -1,6 +1,10 @@
 package fr.eseo.gaia_projet_java.controller;
 
 import fr.eseo.gaia_projet_java.HelloApplication;
+import fr.eseo.gaia_projet_java.Invocateur.Adversaire;
+import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUserMariaDB;
+import fr.eseo.gaia_projet_java.Invocateur.Joueur;
+import fr.eseo.gaia_projet_java.combatDeMystimon.InvocateurVsAdversaire;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -16,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +29,9 @@ public class Map_controller {
 
     public Stage MapStage;
 
-public Map_controller(Stage primaryStage) {
+    public Joueur joueur;
+
+public Map_controller(Stage primaryStage, Joueur joueur) {
     this.MapStage = primaryStage;
 }
 
@@ -35,7 +42,7 @@ private ImageView mapView;
 private ImageView joueurView;
 
 @FXML
-private ImageView pnjView;
+private ImageView pnjView1;
 
 
 private double joueurX = 375.0;
@@ -135,7 +142,8 @@ public void initialize() {
     Image joueurImage = Bas.get(0);
     joueurView.setImage(joueurImage);
 
-    pnjView.setImage(joueurImage);
+    pnjView1.setImage(joueurImage);
+    pnjView1.setUserData(1);
 }
 
 public void deplacementJoueur(){
@@ -249,6 +257,13 @@ public void deplacementJoueur(){
     public void AlterneMapImage(){
         IndiceMap = (IndiceMap + 1) % 2;
         mapView.setImage(MapImage.get(IndiceMap)); // Alterner l'image
+    }
+
+    @FXML
+    public void CombatPnj() throws SQLException {
+        DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
+        Adversaire Pnj = daoUserMariaDB.readLectureAdversaire(1);
+        InvocateurVsAdversaire combat = new InvocateurVsAdversaire(joueur, Pnj);
     }
 
 
