@@ -144,6 +144,11 @@ public class combat_menu_attaque_controller {
 
     @FXML
     private void lanceAttaque1(){
+        ArrayList<String> listeAttaque = combat.getListeAttaque();
+        transition(listeAttaque.get(0));
+
+        /*
+
         if(combat.invocateurCommence()) {
             dialogue = combat.iaAttaque();
             ArrayList<String> listeAttaque = combat.getListeAttaque();
@@ -155,22 +160,13 @@ public class combat_menu_attaque_controller {
             ArrayList<String> dialogue2 = combat.iaAttaque();
             dialogue.addAll(dialogue2);
         }
-        transition();/*
-        try {
-            // Charger la scène depuis le fichier FXML
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu-principale.fxml"));
-
-            // Récupérer la fenêtre actuelle (Stage) et changer la scène
-            combat_menu_principale_controller combat_menu_principale_controller = new combat_menu_principale_controller(primaryStage,combat);
-            loader.setController(combat_menu_principale_controller);
-            Scene scene = new Scene(loader.load(), 450, 450);
-            primaryStage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
+        transition();*/
     }
+
     @FXML
     private void lanceAttaque2(){
+        ArrayList<String> listeAttaque = combat.getListeAttaque();
+        transition(listeAttaque.get(1));/*
         if(combat.invocateurCommence()) {
             dialogue = combat.iaAttaque();
             ArrayList<String> listeAttaque = combat.getListeAttaque();
@@ -182,10 +178,12 @@ public class combat_menu_attaque_controller {
             ArrayList<String> dialogue2 = combat.iaAttaque();
             dialogue.addAll(dialogue2);
         }
-        transition();
+        transition();*/
     }
     @FXML
     private void lanceAttaque3(){
+        ArrayList<String> listeAttaque = combat.getListeAttaque();
+        transition(listeAttaque.get(2));/*
         if(combat.invocateurCommence()) {
             dialogue = combat.iaAttaque();
             ArrayList<String> listeAttaque = combat.getListeAttaque();
@@ -197,10 +195,12 @@ public class combat_menu_attaque_controller {
             ArrayList<String> dialogue2 = combat.iaAttaque();
             dialogue.addAll(dialogue2);
         }
-        transition();
+        transition();*/
     }
     @FXML
     private void lanceAttaque4(){
+        ArrayList<String> listeAttaque = combat.getListeAttaque();
+        transition(listeAttaque.get(3));/*
         if(combat.invocateurCommence()) {
             dialogue = combat.iaAttaque();
             ArrayList<String> listeAttaque = combat.getListeAttaque();
@@ -212,17 +212,17 @@ public class combat_menu_attaque_controller {
             ArrayList<String> dialogue2 = combat.iaAttaque();
             dialogue.addAll(dialogue2);
         }
-        transition();
+        transition();*/
     }
 
     @FXML
-    private void transition(){
+    private void transition(String attaque){
         try {
             // Charger la scène depuis le fichier FXML
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_transition.fxml"));
 
             // Récupérer la fenêtre actuelle (Stage) et changer la scène
-            combat_transition_controller combat_transition_controller = new combat_transition_controller(primaryStage,combat,dialogue);
+            combat_transition_controller combat_transition_controller = new combat_transition_controller(primaryStage,combat,attaque);
             loader.setController(combat_transition_controller);
             Scene scene = new Scene(loader.load(), 450, 520);
             primaryStage.setScene(scene);
@@ -230,4 +230,5 @@ public class combat_menu_attaque_controller {
             e.printStackTrace();
         }
     }
+
 }

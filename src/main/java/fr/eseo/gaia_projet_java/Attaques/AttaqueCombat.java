@@ -63,5 +63,4 @@ public class AttaqueCombat {
     public void setPressision(int pressision) {
         this.pressision = pressision;
     }
-
 }

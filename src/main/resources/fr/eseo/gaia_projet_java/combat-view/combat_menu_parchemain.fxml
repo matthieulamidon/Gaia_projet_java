@@ -1,31 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ProgressBar?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
 <AnchorPane prefHeight="520.0" prefWidth="450.0" style="-fx-background-color: #2c3e50;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
 
     <children>
         <HBox>
             <children>
                 <!-- Conteneur principal -->
-                <VBox spacing="10.0" prefHeight="495.0" prefWidth="450.0" AnchorPane.topAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.bottomAnchor="25.0">
+                <VBox prefHeight="495.0" prefWidth="450.0" spacing="10.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <!-- Mystimons uniformisés -->
-                        <HBox spacing="10.0" alignment="CENTER" prefHeight="80.0" prefWidth="450.0">
+                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="450.0" spacing="10.0">
                             <children>
-                                <Button fx:id="mystimon1" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0">
+                                <Button fx:id="mystimon1" onAction="#selectMystimon1" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0">
                                     <graphic>
                                         <ImageView fx:id="imagemystimon1" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
                                     </graphic>
                                 </Button>
-                                <VBox spacing="5.0" prefWidth="370.0">
-                                    <HBox spacing="5.0" alignment="CENTER_LEFT">
+                                <VBox prefWidth="370.0" spacing="5.0">
+                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
                                         <children>
                                             <Label fx:id="mystimon1nom" style="-fx-text-fill: white;" text="Mystimon" />
                                             <Label style="-fx-text-fill: white;" text="lv :" />
@@ -33,7 +29,7 @@
                                         </children>
                                     </HBox>
                                     <ProgressBar fx:id="mystimon1bardepv" prefWidth="370.0" progress="0.5" />
-                                    <HBox spacing="5.0" alignment="CENTER_LEFT">
+                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
                                         <children>
                                             <Label style="-fx-text-fill: white;" text="pv :" />
                                             <Label fx:id="mystimon1nbdepv" style="-fx-text-fill: white;" text="50/100" />
@@ -43,15 +39,15 @@
                             </children>
                         </HBox>
 
-                        <HBox spacing="10.0" alignment="CENTER" prefHeight="80.0" prefWidth="450.0">
+                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="450.0" spacing="10.0">
                             <children>
-                                <Button fx:id="mystimon2" onAction="#selectMystimon2" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0">
+                                <Button fx:id="mystimon2" mnemonicParsing="false" onAction="#selectMystimon2" prefHeight="70.0" prefWidth="70.0">
                                     <graphic>
                                         <ImageView fx:id="imagemystimon2" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
                                     </graphic>
                                 </Button>
-                                <VBox spacing="5.0" prefWidth="370.0">
-                                    <HBox spacing="5.0" alignment="CENTER_LEFT">
+                                <VBox prefWidth="370.0" spacing="5.0">
+                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
                                         <children>
                                             <Label fx:id="mystimon2nom" style="-fx-text-fill: white;" text="Mystimon" />
                                             <Label style="-fx-text-fill: white;" text="lv :" />
@@ -59,7 +55,7 @@
                                         </children>
                                     </HBox>
                                     <ProgressBar fx:id="mystimon2bardepv" prefWidth="370.0" progress="0.75" />
-                                    <HBox spacing="5.0" alignment="CENTER_LEFT">
+                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
                                         <children>
                                             <Label style="-fx-text-fill: white;" text="pv :" />
                                             <Label fx:id="mystimon2nbdepv" style="-fx-text-fill: white;" text="75/100" />
@@ -69,15 +65,15 @@
                             </children>
                         </HBox>
 
-                        <HBox spacing="10.0" alignment="CENTER" prefHeight="80.0" prefWidth="450.0">
+                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="450.0" spacing="10.0">
                             <children>
-                                <Button fx:id="mystimon3" onAction="#selectMystimon3" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0">
+                                <Button fx:id="mystimon3" mnemonicParsing="false" onAction="#selectMystimon3" prefHeight="70.0" prefWidth="70.0">
                                     <graphic>
                                         <ImageView fx:id="imagemystimon3" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
                                     </graphic>
                                 </Button>
-                                <VBox spacing="5.0" prefWidth="370.0">
-                                    <HBox spacing="5.0" alignment="CENTER_LEFT">
+                                <VBox prefWidth="370.0" spacing="5.0">
+                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
                                         <children>
                                             <Label fx:id="mystimon3nom" style="-fx-text-fill: white;" text="Mystimon" />
                                             <Label style="-fx-text-fill: white;" text="lv :" />
@@ -85,7 +81,7 @@
                                         </children>
                                     </HBox>
                                     <ProgressBar fx:id="mystimon3bardepv" prefWidth="370.0" progress="0.25" />
-                                    <HBox spacing="5.0" alignment="CENTER_LEFT">
+                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
                                         <children>
                                             <Label style="-fx-text-fill: white;" text="pv :" />
                                             <Label fx:id="mystimon3nbdepv" style="-fx-text-fill: white;" text="25/100" />
@@ -95,15 +91,15 @@
                             </children>
                         </HBox>
 
-                        <HBox spacing="10.0" alignment="CENTER" prefHeight="80.0" prefWidth="450.0">
+                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="450.0" spacing="10.0">
                             <children>
-                                <Button fx:id="mystimon4" onAction="#selectMystimon4" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0">
+                                <Button fx:id="mystimon4" mnemonicParsing="false" onAction="#selectMystimon4" prefHeight="70.0" prefWidth="70.0">
                                     <graphic>
                                         <ImageView fx:id="imagemystimon4" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
                                     </graphic>
                                 </Button>
-                                <VBox spacing="5.0" prefWidth="370.0">
-                                    <HBox spacing="5.0" alignment="CENTER_LEFT">
+                                <VBox prefWidth="370.0" spacing="5.0">
+                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
                                         <children>
                                             <Label fx:id="mystimon4nom" style="-fx-text-fill: white;" text="Mystimon" />
                                             <Label style="-fx-text-fill: white;" text="lv :" />
@@ -111,7 +107,7 @@
                                         </children>
                                     </HBox>
                                     <ProgressBar fx:id="mystimon4bardepv" prefWidth="370.0" progress="0.9" />
-                                    <HBox spacing="5.0" alignment="CENTER_LEFT">
+                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
                                         <children>
                                             <Label style="-fx-text-fill: white;" text="pv :" />
                                             <Label fx:id="mystimon4nbdepv" style="-fx-text-fill: white;" text="90/100" />
@@ -120,15 +116,15 @@
                                 </VBox>
                             </children>
                         </HBox>
-                        <HBox spacing="10.0" alignment="CENTER" prefHeight="80.0" prefWidth="450.0">
+                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="450.0" spacing="10.0">
                             <children>
-                                <Button fx:id="mystimon5" onAction="#selectMystimon5" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0">
+                                <Button fx:id="mystimon5" mnemonicParsing="false" onAction="#selectMystimon5" prefHeight="70.0" prefWidth="70.0">
                                     <graphic>
                                         <ImageView fx:id="imagemystimon5" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
                                     </graphic>
                                 </Button>
-                                <VBox spacing="5.0" prefWidth="370.0">
-                                    <HBox spacing="5.0" alignment="CENTER_LEFT">
+                                <VBox prefWidth="370.0" spacing="5.0">
+                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
                                         <children>
                                             <Label fx:id="mystimon5nom" style="-fx-text-fill: white;" text="Mystimon" />
                                             <Label style="-fx-text-fill: white;" text="lv :" />
@@ -136,7 +132,7 @@
                                         </children>
                                     </HBox>
                                     <ProgressBar fx:id="mystimon5bardepv" prefWidth="370.0" progress="0.9" />
-                                    <HBox spacing="5.0" alignment="CENTER_LEFT">
+                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
                                         <children>
                                             <Label style="-fx-text-fill: white;" text="pv :" />
                                             <Label fx:id="mystimon5nbdepv" style="-fx-text-fill: white;" text="90/100" />
@@ -145,15 +141,15 @@
                                 </VBox>
                             </children>
                         </HBox>
-                        <HBox spacing="10.0" alignment="CENTER" prefHeight="80.0" prefWidth="450.0">
+                        <HBox alignment="CENTER" prefHeight="80.0" prefWidth="450.0" spacing="10.0">
                             <children>
-                                <Button fx:id="mystimon6" onAction="#selectMystimon6" mnemonicParsing="false" prefHeight="70.0" prefWidth="70.0">
+                                <Button fx:id="mystimon6" mnemonicParsing="false" onAction="#selectMystimon6" prefHeight="70.0" prefWidth="70.0">
                                     <graphic>
                                         <ImageView fx:id="imagemystimon6" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
                                     </graphic>
                                 </Button>
-                                <VBox spacing="5.0" prefWidth="370.0">
-                                    <HBox spacing="5.0" alignment="CENTER_LEFT">
+                                <VBox prefWidth="370.0" spacing="5.0">
+                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
                                         <children>
                                             <Label fx:id="mystimon6nom" style="-fx-text-fill: white;" text="Mystimon" />
                                             <Label style="-fx-text-fill: white;" text="lv :" />
@@ -161,7 +157,7 @@
                                         </children>
                                     </HBox>
                                     <ProgressBar fx:id="mystimon6bardepv" prefWidth="370.0" progress="0.9" />
-                                    <HBox spacing="5.0" alignment="CENTER_LEFT">
+                                    <HBox alignment="CENTER_LEFT" spacing="5.0">
                                         <children>
                                             <Label style="-fx-text-fill: white;" text="pv :" />
                                             <Label fx:id="mystimon6nbdepv" style="-fx-text-fill: white;" text="90/100" />
@@ -193,15 +189,13 @@
                         </HBox>
 
                         <!-- ListView avec un gestionnaire d'événements -->
-                        <ListView fx:id="listeViewParchemins"
-                                  onMouseClicked="#clicPourDetails"
-                                  style="-fx-background-color: #2c3e50; -fx-font-size: 16px;" />
+                        <ListView fx:id="listeViewParchemins" onMouseClicked="#clicPourDetails" prefHeight="321.0" prefWidth="258.0" style="-fx-background-color: #2c3e50; -fx-font-size: 16px;" />
                     </children>
                 </VBox>
             </children>
         </HBox>
 
         <!-- Bouton retour en bas -->
-        <Button fx:id="retour" mnemonicParsing="false" onAction="#selectRetour" text="Retour" prefHeight="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+        <Button fx:id="retour" mnemonicParsing="false" onAction="#selectRetour" prefHeight="25.0" text="Retour" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
     </children>
 </AnchorPane>

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface DAOUser {
-    List<Exemplemon> nouveauMystimon() throws SQLException;
+    List<Exemplemon> nouveauMystimon(int lvS) throws SQLException;
     List<Exemplemon> readLectuceDeLequipe() throws SQLException;
     List<Exemplemon> readLectuceDeEquipeAdverse(int nbAdv) throws SQLException;
 

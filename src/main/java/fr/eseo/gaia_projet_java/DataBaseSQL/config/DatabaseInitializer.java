@@ -1,9 +1,9 @@
 package fr.eseo.gaia_projet_java.DataBaseSQL.config;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import fr.eseo.gaia_projet_java.Mystimons.Exemplemon;
+
+import java.sql.*;
+import java.util.List;
 
 public class DatabaseInitializer {
     private static final String url = "jdbc:mariadb://localhost:3306";
@@ -86,6 +86,7 @@ public class DatabaseInitializer {
             statement.executeUpdate(insertDefaultScoreQuery);
         }
     }
+
     private void createTableEquipePnj(Connection connection, int nbPnj) throws SQLException {
         // Utilisation de `String.format` pour faciliter la lecture et la substitution de `nbPnj`
         String tableName = "equipeduPnj" + nbPnj;

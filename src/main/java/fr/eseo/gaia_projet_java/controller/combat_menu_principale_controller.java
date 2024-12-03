@@ -85,6 +85,8 @@ public class combat_menu_principale_controller {
         this.combat = combat;
     }
 
+
+
     @FXML
     private void selectAttaque() {
         try {
@@ -101,6 +103,7 @@ public class combat_menu_principale_controller {
         }
     }
 
+
     @FXML
     private void selectParchemain() {
         try {
@@ -110,7 +113,7 @@ public class combat_menu_principale_controller {
             // Récupérer la fenêtre actuelle (Stage) et changer la scène
             combat_menu_parchemain_controller combat_menu_parchemain_controller = new combat_menu_parchemain_controller(primaryStage,combat);
             loader.setController(combat_menu_parchemain_controller);
-            Scene scene = new Scene(loader.load(), 450, 520);
+            Scene scene = new Scene(loader.load(), 700, 520);
             primaryStage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
@@ -120,18 +123,7 @@ public class combat_menu_principale_controller {
 
     @FXML
     private void selectFuite() {
-        try {
-            // Charger la scène depuis le fichier FXML
-            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu_parchemain.fxml"));
-
-            // Récupérer la fenêtre actuelle (Stage) et changer la scène
-            combat_menu_parchemain_controller combat_menu_parchemain_controller = new combat_menu_parchemain_controller(primaryStage,combat);
-            loader.setController(combat_menu_parchemain_controller);
-            Scene scene = new Scene(loader.load(), 450, 520);
-            primaryStage.setScene(scene);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        game_over();
     }
 
 
@@ -194,5 +186,19 @@ public class combat_menu_principale_controller {
         barDeVieAlier.setProgress(combat.getRatioPvAlier());
         barDeVieAdv.setProgress(combat.getRatioPvAdv());
         pvRestantAdv.setText(String.valueOf(combat.getPvAdv()));
+    }
+
+    private void game_over() {
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_game_over.fxml"));
+            combat_game_over_controller controller = new combat_game_over_controller(primaryStage, combat);
+            loader.setController(controller);
+
+            Scene scene = new Scene(loader.load(), 400, 600);
+            primaryStage.setScene(scene);
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement du menu principal : " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

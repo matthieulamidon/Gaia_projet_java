@@ -104,7 +104,7 @@ public class combat_menu_switch_controller {
 
     @FXML
     private void selectRetour() {
-        //if (retourPossible) {
+        if (retourPossible) {
             try {
                 // Charger la scène depuis le fichier FXML
                 FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu-principale.fxml"));
@@ -117,7 +117,7 @@ public class combat_menu_switch_controller {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        //}
+        }
     }
     @FXML
     private void selectMystimon1() {
@@ -128,6 +128,9 @@ public class combat_menu_switch_controller {
         if(combat.mystimonNexxiste(1)&& !combat.getPvMystimonN(1).equals("0")) {
             combat.swichMystimonAllier(1);
             resetscene();
+            if(!retourPossible) {
+                retourPossible = true;
+            }
         }
     }
     @FXML
@@ -135,6 +138,9 @@ public class combat_menu_switch_controller {
         if(combat.mystimonNexxiste(2)&& !combat.getPvMystimonN(2).equals("0")) {
             combat.swichMystimonAllier(2);
             resetscene();
+            if(!retourPossible) {
+                retourPossible = true;
+            }
         }
     }
     @FXML
@@ -142,6 +148,9 @@ public class combat_menu_switch_controller {
         if(combat.mystimonNexxiste(3)&& !combat.getPvMystimonN(3).equals("0")) {
             combat.swichMystimonAllier(3);
             resetscene();
+            if(!retourPossible) {
+                retourPossible = true;
+            }
         }
     }
     @FXML
@@ -149,6 +158,9 @@ public class combat_menu_switch_controller {
         if(combat.mystimonNexxiste(4)&& !combat.getPvMystimonN(4).equals("0")) {
             combat.swichMystimonAllier(4);
             resetscene();
+            if(!retourPossible) {
+                retourPossible = true;
+            }
         }
     }
     @FXML
@@ -156,6 +168,9 @@ public class combat_menu_switch_controller {
         if(combat.mystimonNexxiste(5)&& !combat.getPvMystimonN(5).equals("0")) {
             combat.swichMystimonAllier(5);
             resetscene();
+            if(!retourPossible) {
+                retourPossible = true;
+            }
         }
     }
 

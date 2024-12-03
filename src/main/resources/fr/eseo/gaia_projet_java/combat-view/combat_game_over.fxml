@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            prefHeight="400.0" prefWidth="600.0">
+        <!-- ImageView pour la carte -->
+        <ImageView fx:id="imageGameOver"
+                   fitWidth="400.0"
+                   fitHeight="600.0"
+                   preserveRatio="false"
+                   smooth="true"
+                   layoutX="0.0"
+                   layoutY="0.0"
+                   style="-fx-background-color: #000000;" />
+</AnchorPane>
