@@ -5,6 +5,7 @@ module fr.eseo.gaia_projet_java {
     requires com.google.gson;
     requires java.desktop;
     requires com.fasterxml.jackson.databind;
+    requires javafx.media;
 
     opens fr.eseo.gaia_projet_java to javafx.fxml;
     exports fr.eseo.gaia_projet_java;
