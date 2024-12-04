@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -51,6 +52,12 @@ private ImageView joueurView;
 
 @FXML
 private ImageView pnjView1;
+
+@FXML
+private ImageView pnjView2;
+
+@FXML
+private ImageView pnjView3;
 
 
 
@@ -163,6 +170,8 @@ public void initialize() {
     joueurView.setImage(joueurImage);
 
     pnjView1.setImage(joueurImage);
+    pnjView2.setImage(joueurImage);
+    pnjView3.setImage(joueurImage);
     //On passe combat déclenché à false
     combatDeclenche = false;
     IndiceDeplacement = 0; // Réinitialise au début d'une séquence d'animation
@@ -294,7 +303,18 @@ public void deplacementJoueur() throws SQLException, IOException {
     }
 
     @FXML
-    public void CombatPnj() throws SQLException, IOException {
+    public void CombatPnj(MouseEvent event) throws SQLException, IOException {
+        ImageView pnjchoisi = (ImageView) event.getSource();
+        int id;
+        if(pnjchoisi == pnjView1){
+            id = 0;
+        }
+        else if(pnjchoisi == pnjView2){
+            id = 1;
+        }
+        else if(pnjchoisi == pnjView3){
+            id = 2;
+        }
         DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
         miseAjourCooDB();//Mise à jour des coordonnees dans la base de données
         Adversaire Pnj = daoUserMariaDB.readLectureAdversaire(0);
@@ -362,7 +382,5 @@ public void deplacementJoueur() throws SQLException, IOException {
     Exemplemon exemplemon = listeExemplemon.get(rand.nextInt(listeExemplemon.size()));
     return exemplemon;
     }
-
-
 }
 

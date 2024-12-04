@@ -25,19 +25,19 @@ import java.util.Random;
 import static fr.eseo.gaia_projet_java.enumerations.Types.nul;
 import static java.lang.reflect.Array.get;
 
-//heavy as the crouwn
+
 public class InvocateurVsAdversaire {
-    private DAOUser daoUser;
-    private Joueur joueur;
-    private Adversaire adversaire;
+    private final DAOUser daoUser;
+    private final Joueur joueur;
+    private final Adversaire adversaire;
     //Mystimon allier
-    private List<Exemplemon> listeMystimonAllier;
+    private final List<Exemplemon> listeMystimonAllier;
     private Exemplemon mystimonAllier;
     //Mystimon adversaire
-    private List<Exemplemon> listeMystimonAdversaire;
-    private Exemplemon mystimonAdversaire;
+    private final List<Exemplemon> listeMystimonAdversaire;
+    private final Exemplemon mystimonAdversaire;
     //liste des attaque
-    private List<AttaqueCombat> listeAttaque;
+    private final List<AttaqueCombat> listeAttaque;
 
     public InvocateurVsAdversaire(Joueur joueur, Adversaire adversaire) throws SQLException {
         this.joueur = joueur;

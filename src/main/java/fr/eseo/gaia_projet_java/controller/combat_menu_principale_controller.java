@@ -110,7 +110,7 @@ public class combat_menu_principale_controller {
 
 
     @FXML
-    private void selectParchemain() {
+    private void selectParchemin() {
         try {
             // Charger la scène depuis le fichier FXML
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu_parchemain.fxml"));

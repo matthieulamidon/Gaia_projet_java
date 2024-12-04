@@ -24,7 +24,6 @@
                    fitWidth="40.0"
                    fitHeight="40.0"
                    preserveRatio="true"
-                   smooth="true"
                    style="-fx-background-color: transparent;"/>
 
         <!-- ImageView pour le personnage -->
@@ -32,10 +31,29 @@
                    fitWidth="40.0"
                    fitHeight="40.0"
                    preserveRatio="true"
-                   smooth="true"
+                   onMouseClicked="#CombatPnj"
+                   layoutX="545"
+                   layoutY="300"
+                   style="-fx-background-color: transparent;"/>
+
+        <!-- ImageView pour le personnage -->
+        <ImageView fx:id="pnjView2"
+                   fitWidth="40.0"
+                   fitHeight="40.0"
+                   preserveRatio="true"
                    onMouseClicked="#CombatPnj"
                    layoutX="10.0"
                    layoutY="10.0"
+                   style="-fx-background-color: transparent;"/>
+
+        <!-- ImageView pour le personnage -->
+        <ImageView fx:id="pnjView3"
+                   fitWidth="40.0"
+                   fitHeight="40.0"
+                   preserveRatio="true"
+                   onMouseClicked="#CombatPnj"
+                   layoutX="400"
+                   layoutY="400"
                    style="-fx-background-color: transparent;"/>
 
 

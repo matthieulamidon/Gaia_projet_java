@@ -139,7 +139,6 @@ public class combat_menu_attaque_controller {
                 Attaque4.setText(listeAttaque.get(3));
                 break;
         }
-
     }
 
     @FXML
