@@ -1,9 +1,12 @@
 package fr.eseo.gaia_projet_java.controller;
 
+import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUserMariaDB;
 import fr.eseo.gaia_projet_java.HelloApplication;
+import fr.eseo.gaia_projet_java.Invocateur.Joueur;
 import fr.eseo.gaia_projet_java.combatDeMystimon.InvocateurVsAdversaire;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +17,8 @@ import javafx.stage.Stage;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
 
 public class combat_menu_principale_controller {
     private Stage primaryStage;
@@ -122,8 +127,40 @@ public class combat_menu_principale_controller {
 
 
     @FXML
-    private void selectFuite() {
-        game_over();
+    private void selectFuite() throws SQLException, IOException {
+        //victoire();
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("/fr/eseo/gaia_projet_java/map/map.fxml"));
+            DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
+            daoUserMariaDB.replaceTableEquipe( combat.getListeMystimonAllier());
+
+            Joueur joueur =  daoUserMariaDB.readLectureJoueur();
+            Map_controller controller = new Map_controller(primaryStage,joueur );
+            loader.setController(controller);
+
+            //Scene scene = new Scene(loader.load());
+            Map_controller c = new Map_controller(primaryStage, joueur);
+            loader.setController(c);
+            Parent root = loader.load();
+            c.joueurX = joueur.getPosition().get(0);
+            c.joueurY = joueur.getPosition().get(1);
+            c.defPositionInitiale();
+            Scene scene = new Scene(root);
+
+            c.setScene(scene);
+            root.setOnMouseClicked(event -> root.requestFocus());
+            System.out.println("Focus requis au lancement");
+
+            primaryStage.setTitle("Projet Gaia");
+            primaryStage.setResizable(false);
+            primaryStage.setScene(scene);
+            root.requestFocus();
+
+        } catch (IOException e) {
+            System.err.println("Erreur lors du chargement du menu principal : " + e.getMessage());
+            e.printStackTrace();
+        }
+        //game_over();
     }
 
 
@@ -136,7 +173,7 @@ public class combat_menu_principale_controller {
             // Récupérer la fenêtre actuelle (Stage) et changer la scène
             combat_menu_switch_controller combat_menu_switch_controller = new combat_menu_switch_controller(primaryStage, combat, true);
             loader.setController(combat_menu_switch_controller);
-            Scene scene = new Scene(loader.load(), 450, 520);
+            Scene scene = new Scene(loader.load());
             primaryStage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
@@ -200,5 +237,27 @@ public class combat_menu_principale_controller {
             System.err.println("Erreur lors du chargement du menu principal : " + e.getMessage());
             e.printStackTrace();
         }
+    }
+    public void victoire() throws SQLException, IOException {
+        URL fxmlLocation = HelloApplication.class.getResource("/fr/eseo/gaia_projet_java/map/map.fxml");
+        if (fxmlLocation == null) {
+            throw new IllegalStateException("FXML file not found: /fr/eseo/gaia_projet_java/map/map.fxml");
+        }
+
+        // On récupère les données du joueur dans la base de donnée
+        DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
+        daoUserMariaDB.replaceTableEquipe( combat.getListeMystimonAllier());
+        Joueur joueur =  daoUserMariaDB.readLectureJoueur();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
+        Map_controller c = new Map_controller(primaryStage, joueur);
+        fxmlLoader.setController(c);
+        Parent root = fxmlLoader.load();
+        c.joueurX = joueur.getPosition().get(0);
+        c.joueurY = joueur.getPosition().get(1);
+        c.defPositionInitiale();
+        Scene scene = new Scene(root);
+
+        c.setScene(scene);
     }
 }

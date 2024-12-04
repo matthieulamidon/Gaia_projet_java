@@ -1,9 +1,14 @@
 package fr.eseo.gaia_projet_java.controller;
 
+import fr.eseo.gaia_projet_java.DataBaseSQL.config.DatabaseInitializer;
+import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUserMariaDB;
 import fr.eseo.gaia_projet_java.HelloApplication;
+import fr.eseo.gaia_projet_java.Invocateur.Joueur;
+import fr.eseo.gaia_projet_java.Mystimons.Exemplemon;
 import fr.eseo.gaia_projet_java.combatDeMystimon.InvocateurVsAdversaire;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,6 +19,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class combat_transition_controller {
@@ -286,5 +293,27 @@ public class combat_transition_controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void victoire() throws SQLException, IOException {
+        URL fxmlLocation = HelloApplication.class.getResource("/fr/eseo/gaia_projet_java/map/map.fxml");
+        if (fxmlLocation == null) {
+            throw new IllegalStateException("FXML file not found: /fr/eseo/gaia_projet_java/map/map.fxml");
+        }
+
+        // On récupère les données du joueur dans la base de donnée
+        DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
+        daoUserMariaDB.replaceTableEquipe( combat.getListeMystimonAllier());
+        Joueur joueur =  daoUserMariaDB.readLectureJoueur();
+
+        FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
+        Map_controller c = new Map_controller(primaryStage, joueur);
+        fxmlLoader.setController(c);
+        Parent root = fxmlLoader.load();
+        c.joueurX = joueur.getPosition().get(0);
+        c.joueurY = joueur.getPosition().get(1);
+        c.defPositionInitiale();
+        Scene scene = new Scene(root);
+
+        c.setScene(scene);
     }
 }

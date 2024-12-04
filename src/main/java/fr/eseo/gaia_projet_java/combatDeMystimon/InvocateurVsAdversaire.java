@@ -1,14 +1,21 @@
 package fr.eseo.gaia_projet_java.combatDeMystimon;
 
 import fr.eseo.gaia_projet_java.Attaques.AttaqueCombat;
+import fr.eseo.gaia_projet_java.DataBaseSQL.config.DatabaseInitializer;
 import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUser;
 import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUserMariaDB;
+import fr.eseo.gaia_projet_java.HelloApplication;
 import fr.eseo.gaia_projet_java.Invocateur.Adversaire;
 import fr.eseo.gaia_projet_java.Invocateur.Joueur;
 import fr.eseo.gaia_projet_java.Mystimons.Exemplemon;
 import fr.eseo.gaia_projet_java.Mystimons.Mystimon;
+import fr.eseo.gaia_projet_java.controller.Map_controller;
 import fr.eseo.gaia_projet_java.enumerations.Types;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -157,6 +164,10 @@ public class InvocateurVsAdversaire {
 
         double progress = (double) listeMystimonAllier.get(n).getPv() / listeMystimonAllier.get(n).getStats().get("PV");
         return progress;
+    }
+
+    public List<Exemplemon> getListeMystimonAllier(){
+        return listeMystimonAllier;
     }
 
     public ArrayList<String> getListeAttaque(){
@@ -716,7 +727,5 @@ public class InvocateurVsAdversaire {
         mystimonAllier.setStats(state);
     }
 
-    public void victoire(){
 
-    }
 }

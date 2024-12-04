@@ -61,49 +61,57 @@ public class DAOUserMariaDB implements DAOUser {
 
     }
 
-    private void replaceTableEquipe( List<Exemplemon> nouvellesEquipes) throws SQLException {
+    public void replaceTableEquipe(List<Exemplemon> nouvellesEquipes) throws SQLException {
         String deleteQuery = "DELETE FROM equipe"; // Supprime toutes les données existantes
         String insertQuery = """
         INSERT INTO equipe (nom, pv, xp, lv, ev, iv, Stat, types, attaque, objet)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     """;
 
-            try (Connection connexion = getConnection();Statement deleteStatement = connexion.createStatement();
+        try (Connection connexion = getConnection();
+             Statement deleteStatement = connexion.createStatement();
              PreparedStatement insertStatement = connexion.prepareStatement(insertQuery)) {
 
             // Supprime toutes les données existantes dans la table
             deleteStatement.executeUpdate(deleteQuery);
 
-            // Insère les nouvelles données dans la table
-            for (Exemplemon equipe : nouvellesEquipes) {
-                insertStatement.setString(1, equipe.getNom());
-                insertStatement.setInt(2, equipe.getPv());
-                int n = (int) equipe.getXp();
-                insertStatement.setInt(3, n);
-                insertStatement.setInt(4, equipe.getLv());
-                insertStatement.setInt(5, equipe.getEv());
-                insertStatement.setInt(6, equipe.getIv());
-                insertStatement.setString(7, TraductionStateEnJson(equipe.getStats())); // Conversion en JSON si nécessaire
-                insertStatement.setString(8, TraductionTypesEnJson(equipe.getListeTypes())); // Conversion en JSON si nécessaire
-                insertStatement.setString(9, TraductionArrayListStringEnJson(equipe.getListeAttaques())); // Conversion en JSON si nécessaire
-                insertStatement.setString(10, equipe.getObjet());
+            // Vérifie que la liste n'est pas vide avant d'insérer
+            if (nouvellesEquipes != null && !nouvellesEquipes.isEmpty()) {
+                // Insère les nouvelles données dans la table
+                for (Exemplemon equipe : nouvellesEquipes) {
+                    if (equipe != null) { // Assure que l'objet n'est pas null
+                        insertStatement.setString(1, equipe.getNom());
+                        insertStatement.setInt(2, equipe.getPv());
+                        insertStatement.setInt(3, (int) equipe.getXp()); // Cast explicit pour éviter les problèmes
+                        insertStatement.setInt(4, equipe.getLv());
+                        insertStatement.setInt(5, equipe.getEv());
+                        insertStatement.setInt(6, equipe.getIv());
+                        insertStatement.setString(7, TraductionStateEnJson(equipe.getStats())); // Conversion en JSON
+                        insertStatement.setString(8, TraductionTypesEnJson(equipe.getListeTypes())); // Conversion en JSON
+                        insertStatement.setString(9, TraductionArrayListStringEnJson(equipe.getListeAttaques())); // Conversion en JSON
+                        insertStatement.setString(10, equipe.getObjet() != null ? equipe.getObjet() : "NULL"); // Gestion des objets null
 
-                insertStatement.addBatch(); // Ajoute cette commande dans un lot
+                        insertStatement.addBatch(); // Ajoute cette commande dans un lot
+                    }
+                }
+
+                insertStatement.executeBatch(); // Exécute toutes les commandes d'insertion en une seule fois
             }
-
-            insertStatement.executeBatch(); // Exécute toutes les commandes d'insertion en une seule fois
+        } catch (SQLException e) {
+            e.printStackTrace(); // Log des erreurs SQL
+            throw e; // Relance l'exception pour le gestionnaire d'appels
         }
-
     }
+
 
     public String TraductionStateEnJson(HashMap<String, Integer> statsMap) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            // Convertit la HashMap en une chaîne JSON
-            return objectMapper.writeValueAsString(statsMap);
+            // Convertit uniquement les valeurs Integer en JSON
+            return objectMapper.writeValueAsString(new ArrayList<>(statsMap.values()));
         } catch (Exception e) {
             e.printStackTrace();
-            return "{}"; // Retourne un JSON vide en cas d'erreur
+            return "[]"; // Retourne un tableau JSON vide en cas d'erreur
         }
     }
 
