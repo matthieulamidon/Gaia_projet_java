@@ -51,7 +51,7 @@ public class InvocateurVsAdversaire {
         this.mystimonAdversaire = listeMystimonAdversaire.get(0);
         this.listeAttaque = daoUser.LectuceDeEquipeAttaque();
     }
-    public InvocateurVsAdversaire(Joueur joueur,String nom, int lv) throws SQLException {
+    public InvocateurVsAdversaire(Joueur joueur,Exemplemon mystimonAdversaire, int lv) throws SQLException {
         this.joueur = joueur;
         //this.adversaire = adversaire("gerard",mystimonAdversaire);
         daoUser = new DAOUserMariaDB();
@@ -59,10 +59,10 @@ public class InvocateurVsAdversaire {
         this.listeMystimonAllier = daoUser.readLectuceDeLequipe();
         this.mystimonAllier = listeMystimonAllier.get(0);
         //recuperation de l'équipe de l'adversaire
-        this.mystimonAdversaire = new Exemplemon(nom,lv);
-        List<Exemplemon> listeMystimonAdversairetanpon = null;
-        listeMystimonAdversairetanpon.add(mystimonAdversaire);
-        this.listeMystimonAdversaire =listeMystimonAdversairetanpon;
+        ArrayList<Exemplemon> listeMystimonAdversairetampon = new ArrayList<>();
+        this.mystimonAdversaire=mystimonAdversaire;
+        listeMystimonAdversairetampon.add(this.mystimonAdversaire);
+        this.listeMystimonAdversaire =listeMystimonAdversairetampon;
         this.adversaire = new Adversaire("gerard",listeMystimonAdversaire);
         this.listeAttaque = daoUser.LectuceDeEquipeAttaque();
     }

@@ -22,18 +22,18 @@ public class DAOUserMariaDB implements DAOUser {
 
 
     @Override
-    public List<Exemplemon> nouveauMystimon(int lvS) throws SQLException {
-        List<Exemplemon> users = new ArrayList<>();
+    public ArrayList<Exemplemon> nouveauMystimon(int lvS) throws SQLException {
+        ArrayList<Exemplemon> users = new ArrayList<>();
         try (Connection connexion = getConnection();
              Statement statement = connexion.createStatement();
              ResultSet resultat = statement.executeQuery(
-                     "SELECT id, nom, xp, lv, pv, Stat, types, attaque FROM mystidex;")) {
+                     "SELECT id, nom, pv, Stat, types, attaque FROM mystidex;")) {
 
             while (resultat.next()) {
                 int id = resultat.getInt("id");
                 String nom = resultat.getString("nom");
-                int xp = resultat.getInt("xp");
-                int lv = resultat.getInt("lv");
+                int xp = 0;
+                int lv = lvS;
                 int pv = resultat.getInt("pv");
 
                 // Récupérer et convertir Stat, types, et attaque
@@ -54,7 +54,7 @@ public class DAOUserMariaDB implements DAOUser {
                 HashMap<String, Integer> listeStatesConverti = TraductionStateListeMaps(listeStats);
 
                 // Créer et ajouter un nouvel objet Mystimon //, pv, listeStats
-                users.add(new Exemplemon(id, nom, listeTypesConverti, listeAttaqueConverti, 0, 5, 25, 25, listeStatesConverti, pv));
+                users.add(new Exemplemon(id, nom, listeTypesConverti, listeAttaqueConverti, xp, lvS, 25, 25, listeStatesConverti, pv));
             }
             return users;
         }

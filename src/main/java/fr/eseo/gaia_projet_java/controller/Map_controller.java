@@ -4,6 +4,7 @@ import fr.eseo.gaia_projet_java.HelloApplication;
 import fr.eseo.gaia_projet_java.Invocateur.Adversaire;
 import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUserMariaDB;
 import fr.eseo.gaia_projet_java.Invocateur.Joueur;
+import fr.eseo.gaia_projet_java.Mystimons.Exemplemon;
 import fr.eseo.gaia_projet_java.combatDeMystimon.InvocateurVsAdversaire;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -22,7 +23,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
+
+import static java.lang.Integer.valueOf;
+import static java.lang.Math.round;
 
 public class Map_controller {
 
@@ -50,15 +55,25 @@ private ImageView pnjView1;
 
 
 private ArrayList<Rectangle> obstacles = new ArrayList<>();
+private ArrayList<Rectangle> zoneRencontres = new ArrayList<>();
 private static int IndiceDeplacement = 0;// Permet de savoir quelle image utiliser pour le joueur en déplacement
 private static int IndiceMap = 0;//Permet de savoir quelle image utiliser pour la map
 private int compteurDeplacement = 0; // Compte le nombre de déplacements successifs
 private final int SEUIL_ALTERNANCE = 3; // Nombre de déplacements avant changement d'image
 private final Set<KeyCode> touchesAppuyees = new HashSet<>();//HashSet pour permettre de rendre plus fluides les déplacements
-private final Timeline timeline = new Timeline(new KeyFrame(Duration.millis(30), event -> deplacementJoueur())); //Timeline permettant de rendre les mouvements bien plus fluides
-private final Timeline mapTimeline = new Timeline(new KeyFrame(Duration.millis(500), event -> AlterneMapImage()));
-private boolean inventaireOuvert = false; //Booléen pour éviter que l'inventaire ne s'ouvre à l'infini à cause de la timeline.
+private final Timeline timeline = new Timeline(new KeyFrame(Duration.millis(30), event -> {
+    try {
+        deplacementJoueur();
+    } catch (SQLException e) {
+        throw new RuntimeException(e);
+    } catch (IOException e) {
+        throw new RuntimeException(e);
+    }
+})); //Timeline permettant de rendre les mouvements bien plus fluides, je dois faire la gestion d'Exception ici sinon il n'est pas content
 
+private final Timeline mapTimeline = new Timeline(new KeyFrame(Duration.millis(500), event -> AlterneMapImage()));
+private boolean inventaireOuvert = false;//Booléen pour éviter que l'inventaire ne s'ouvre à l'infini à cause de la timeline.
+private boolean combatDeclenche = false;//Booléan pour éviter qu'un combat ne se déclenche à l'infini
 
 @FXML
 private ArrayList<Image> Bas = new ArrayList<>();
@@ -113,6 +128,9 @@ public void initialize() {
     obstacles.add(new Rectangle(0, 95, 254, 28));
     obstacles.add(new Rectangle(320, 95, 95, 29));
     obstacles.add(new Rectangle(415, 95, 2, 163));
+    //On initialise les zones de rencontre
+    zoneRencontres.add(new Rectangle(0, 159, 92, 184));
+    zoneRencontres.add(new Rectangle(35, 348, 64, 32));
     //On initalise les listes des déplacements
     Gauche.add(new Image("fr/eseo/gaia_projet_java/resource_map/gauche0.png"));
     Gauche.add(new Image("fr/eseo/gaia_projet_java/resource_map/gauche1.png"));
@@ -135,8 +153,8 @@ public void initialize() {
     Haut.add(new Image("fr/eseo/gaia_projet_java/resource_map/haut2.png"));
 
     //On initalise map et l'imageview du joueur
-    MapImage.add(new Image("fr/eseo/gaia_projet_java/resource_map/Map0.png"));
-    MapImage.add(new Image("fr/eseo/gaia_projet_java/resource_map/Map1.png"));
+    MapImage.add(new Image("fr/eseo/gaia_projet_java/resource_map/MapSauv.png"));
+    MapImage.add(new Image("fr/eseo/gaia_projet_java/resource_map/MapSauv.png"));
     mapView.setImage(MapImage.get(0));
     mapTimeline.setCycleCount(Timeline.INDEFINITE);//On lance la timeline qui permet d'alterner les images de la map
     mapTimeline.play();
@@ -145,10 +163,13 @@ public void initialize() {
     joueurView.setImage(joueurImage);
 
     pnjView1.setImage(joueurImage);
-    //pnjView1.setUserData(1);
+    //On passe combat déclenché à false
+    combatDeclenche = false;
+    IndiceDeplacement = 0; // Réinitialise au début d'une séquence d'animation
+    compteurDeplacement = 0; // Réinitialise le compteur
 }
 
-public void deplacementJoueur() {
+public void deplacementJoueur() throws SQLException, IOException {
     double nextX = joueurX;
     double nextY = joueurY;
     boolean deplacementHaut = touchesAppuyees.contains(KeyCode.UP) || touchesAppuyees.contains(KeyCode.Z);
@@ -157,10 +178,9 @@ public void deplacementJoueur() {
     boolean deplacementDroite = touchesAppuyees.contains(KeyCode.RIGHT) || touchesAppuyees.contains(KeyCode.D);
 
     if (deplacementHaut) {
-        if(deplacementGauche || deplacementDroite){//si diagonale
+        if (deplacementGauche || deplacementDroite) {//si diagonale
             nextY -= 3.5;
-        }
-        else{
+        } else {
             nextY -= 5;
         }
         compteurDeplacement++;
@@ -171,10 +191,9 @@ public void deplacementJoueur() {
         }
     }
     if (deplacementBas) {
-        if(deplacementGauche || deplacementDroite){ //si diagonale
+        if (deplacementGauche || deplacementDroite) { //si diagonale
             nextY += 3.5;
-        }
-        else{
+        } else {
             nextY += 5;
         }
         compteurDeplacement++;
@@ -185,10 +204,9 @@ public void deplacementJoueur() {
         }
     }
     if (deplacementGauche) {
-        if(deplacementHaut || deplacementBas){//si diagonale
+        if (deplacementHaut || deplacementBas) {//si diagonale
             nextX -= 3.5;
-        }
-        else{
+        } else {
             nextX -= 5;
         }
         compteurDeplacement++;
@@ -199,10 +217,9 @@ public void deplacementJoueur() {
         }
     }
     if (deplacementDroite) {
-        if(deplacementHaut || deplacementBas){//si il y a une diagonale
+        if (deplacementHaut || deplacementBas) {//si il y a une diagonale
             nextX += 3.5;
-        }
-        else{ //sinon
+        } else { //sinon
             nextX += 5;
         }
         compteurDeplacement++;
@@ -223,11 +240,24 @@ public void deplacementJoueur() {
 
     for (Rectangle obstacle : obstacles) {
         // Vérification si le joueur se déplace dans la zone de l'obstacle
-         if (new Rectangle(nextX + 4, nextY + 25, 19, 10).intersects(obstacle.getBoundsInLocal())) {
-             System.out.println("Collision detectee, deplacement annule.");
-             return;
-         }
+        if (new Rectangle(nextX + 4, nextY + 25, 19, 10).intersects(obstacle.getBoundsInLocal())) {
+            System.out.println("Collision detectee, deplacement annule.");
+            return;
+        }
         // Ne pas déplacer le joueur s'il y a collision
+    }
+
+    for (Rectangle rencontre : zoneRencontres) {
+        // Vérification si le joueur se déplace dans la zone de l'obstacle
+        if (new Rectangle(nextX + 4, nextY + 25, 19, 10).intersects(rencontre.getBoundsInLocal())) {
+            if(combatDeclenche){
+                return;
+            }
+            else if (Math.random() < 0.02) {
+                combatDeclenche = true;
+                CombatMysti();
+            }
+        }
     }
 
     joueurX = nextX;
@@ -235,6 +265,7 @@ public void deplacementJoueur() {
 
     joueurView.setLayoutX(joueurX);
     joueurView.setLayoutY(joueurY);
+
 
 }
 
@@ -285,6 +316,29 @@ public void deplacementJoueur() {
         }
     }
 
+    //Fonction pour lancer des combats sauvages
+    public void CombatMysti() throws SQLException, IOException {
+        DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
+        miseAjourCooDB();//Mise à jour des coordonnees dans la base de données
+        Exemplemon mystimon = adversaireRand();
+        InvocateurVsAdversaire combat = new InvocateurVsAdversaire(joueur, mystimon, 5);
+
+        try {
+            FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu-principale.fxml"));
+            // Récupérer la fenêtre actuelle (Stage) et changer la scène
+            combat_menu_principale_controller combat_menu_principale_controller = new combat_menu_principale_controller(MapStage,combat);
+            loader.setController(combat_menu_principale_controller);
+            Scene scene = new Scene(loader.load(), 450, 520);
+
+            // Configuration de la fenêtre principale
+            MapStage.setResizable(false);
+            MapStage.setScene(scene);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     //permet d'initialise la position avant d'afficher la scène
     public void defPositionInitiale() {
         joueurView.setLayoutX(joueurX);
@@ -294,10 +348,19 @@ public void deplacementJoueur() {
     //Fonction pour mettre la position à jour dans la base de données
     public void miseAjourCooDB() throws SQLException {
         ArrayList<String> listeCoo = new ArrayList<>();
-        listeCoo.add(String.valueOf(joueurX));
-        listeCoo.add(String.valueOf(joueurY));
+        listeCoo.add(String.valueOf(round(joueurX)));
+        listeCoo.add(String.valueOf(round(joueurY)));
         DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
         daoUserMariaDB.MiseAJourCoo(listeCoo);
+    }
+
+    //Fonction pour appeler un mystimon aléatoire
+    public Exemplemon adversaireRand() throws SQLException {
+    Random rand = new Random();
+    DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
+    ArrayList<Exemplemon> listeExemplemon = daoUserMariaDB.nouveauMystimon(5);
+    Exemplemon exemplemon = listeExemplemon.get(rand.nextInt(listeExemplemon.size()));
+    return exemplemon;
     }
 
 
