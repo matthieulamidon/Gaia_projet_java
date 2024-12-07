@@ -144,25 +144,25 @@ public void initialize() {
     zoneRencontres.add(new Rectangle(0, 159, 92, 184));
     zoneRencontres.add(new Rectangle(35, 348, 64, 32));
     //On initalise les listes des déplacements
-    Gauche.add(new Image("fr/eseo/gaia_projet_java/resource_map/gauche0.png"));
-    Gauche.add(new Image("fr/eseo/gaia_projet_java/resource_map/gauche1.png"));
-    Gauche.add(new Image("fr/eseo/gaia_projet_java/resource_map/gauche0.png"));
-    Gauche.add(new Image("fr/eseo/gaia_projet_java/resource_map/gauche2.png"));
+    Gauche.add(new Image("fr/eseo/gaia_projet_java/resource_map/royg0.png"));
+    Gauche.add(new Image("fr/eseo/gaia_projet_java/resource_map/royg1.png"));
+    Gauche.add(new Image("fr/eseo/gaia_projet_java/resource_map/royg0.png"));
+    Gauche.add(new Image("fr/eseo/gaia_projet_java/resource_map/royg2.png"));
 
-    Droite.add(new Image("fr/eseo/gaia_projet_java/resource_map/droite0.png"));
-    Droite.add(new Image("fr/eseo/gaia_projet_java/resource_map/droite1.png"));
-    Droite.add(new Image("fr/eseo/gaia_projet_java/resource_map/droite0.png"));
-    Droite.add(new Image("fr/eseo/gaia_projet_java/resource_map/droite1.png"));
+    Droite.add(new Image("fr/eseo/gaia_projet_java/resource_map/royd0.png"));
+    Droite.add(new Image("fr/eseo/gaia_projet_java/resource_map/royd1.png"));
+    Droite.add(new Image("fr/eseo/gaia_projet_java/resource_map/royd0.png"));
+    Droite.add(new Image("fr/eseo/gaia_projet_java/resource_map/royd2.png"));
 
-    Bas.add(new Image("fr/eseo/gaia_projet_java/resource_map/bas0.png"));
-    Bas.add(new Image("fr/eseo/gaia_projet_java/resource_map/bas1.png"));
-    Bas.add(new Image("fr/eseo/gaia_projet_java/resource_map/bas0.png"));
-    Bas.add(new Image("fr/eseo/gaia_projet_java/resource_map/bas2.png"));
+    Bas.add(new Image("fr/eseo/gaia_projet_java/resource_map/royb0.png"));
+    Bas.add(new Image("fr/eseo/gaia_projet_java/resource_map/royb1.png"));
+    Bas.add(new Image("fr/eseo/gaia_projet_java/resource_map/royb0.png"));
+    Bas.add(new Image("fr/eseo/gaia_projet_java/resource_map/royb2.png"));
 
-    Haut.add(new Image("fr/eseo/gaia_projet_java/resource_map/haut0.png"));
-    Haut.add(new Image("fr/eseo/gaia_projet_java/resource_map/haut1.png"));
-    Haut.add(new Image("fr/eseo/gaia_projet_java/resource_map/haut0.png"));
-    Haut.add(new Image("fr/eseo/gaia_projet_java/resource_map/haut2.png"));
+    Haut.add(new Image("fr/eseo/gaia_projet_java/resource_map/royh0.png"));
+    Haut.add(new Image("fr/eseo/gaia_projet_java/resource_map/royh1.png"));
+    Haut.add(new Image("fr/eseo/gaia_projet_java/resource_map/royh0.png"));
+    Haut.add(new Image("fr/eseo/gaia_projet_java/resource_map/royh2.png"));
 
     //On initalise map et l'imageview du joueur
     MapImage.add(new Image("fr/eseo/gaia_projet_java/resource_map/MapSauv.png"));
@@ -175,8 +175,8 @@ public void initialize() {
     joueurView.setImage(joueurImage);
 
     pnjView1.setImage(joueurImage);
-    pnjView2.setImage(joueurImage);
-    pnjView3.setImage(joueurImage);
+    pnjView2.setImage(new Image("fr/eseo/gaia_projet_java/resource_map/royd0.png"));
+    pnjView3.setImage(new Image("fr/eseo/gaia_projet_java/resource_map/royh0.png"));
     //On passe combat déclenché à false
     combatDeclenche = false;
     IndiceDeplacement = 0; // Réinitialise au début d'une séquence d'animation
