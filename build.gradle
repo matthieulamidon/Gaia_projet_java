@@ -60,3 +60,15 @@ jlink {
 jlinkZip {
     group = 'distribution'
 }
+sourceSets {
+    test {
+        java {
+            srcDirs = ['src/test/java']
+        }
+        resources {
+            srcDirs = ['src/test/resources']
+        }
+    }
+}
+project.mkdir "src/test/java"
+project.mkdir "src/test/resources"

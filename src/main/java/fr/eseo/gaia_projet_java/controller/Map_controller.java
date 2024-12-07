@@ -15,7 +15,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -70,6 +69,8 @@ private ImageView arbreView;
 @FXML
 private ImageView arbreView2;
 
+@FXML
+private ImageView toitView;
 
 
 private ArrayList<Rectangle> obstacles = new ArrayList<>();
@@ -135,7 +136,7 @@ public void initialize() {
     obstacles.add(new Rectangle(0, 0, 2, 600));//pour ne pas sortir à gauche
     obstacles.add(new Rectangle(0, 0, 800, 2));//pour ne pas sortir en haut
     obstacles.add(new Rectangle(798, 0, 2, 600));//pour ne pas sortir à gauche
-    obstacles.add(new Rectangle(479, 0, 128, 190));
+    obstacles.add(new Rectangle(479, 26, 128, 164));
     obstacles.add(new Rectangle(767, 0, 37, 600));//océan est
     obstacles.add(new Rectangle(0, 479, 800, 121));//océan sud
     obstacles.add(new Rectangle(257, 254, 158, 2));
@@ -192,6 +193,11 @@ public void initialize() {
     pnjView3.setImage(new Image("fr/eseo/gaia_projet_java/resource_map/ennemi3.png"));
     arbreView.setImage(new Image("fr/eseo/gaia_projet_java/resource_map/feuilles.png"));
     arbreView2.setImage(new Image("fr/eseo/gaia_projet_java/resource_map/feuilles.png"));
+    toitView.setImage(new Image("fr/eseo/gaia_projet_java/resource_map/toit.png"));
+    pnjView1.toBack();
+    pnjView2.toBack();
+    pnjView3.toBack();
+    mapView.toBack();
     //On passe combat déclenché à false
     combatDeclenche = false;
     IndiceDeplacement = 0; // Réinitialise au début d'une séquence d'animation
@@ -399,6 +405,10 @@ public void deplacementJoueur() throws SQLException, IOException {
         daoUserMariaDB.MiseAJourCoo(listeCoo);
     }
 
+    /**
+     * @return
+     * @throws SQLException
+     */
     //Fonction pour appeler un mystimon aléatoire
     public Exemplemon adversaireRand() throws SQLException {
     Random rand = new Random();
@@ -410,17 +420,17 @@ public void deplacementJoueur() throws SQLException, IOException {
 
     //Methode pour verifier les collisions avec les pnj
     private boolean CollisionPnj(double nextX, double nextY) throws SQLException, IOException {
-        Rectangle playerBounds = new Rectangle(nextX + 4, nextY + 25, 19, 10);
+        Rectangle joueurBounds = new Rectangle(nextX + 4, nextY + 25, 19, 10);
 
-        if (playerBounds.intersects(pnjView1.getBoundsInParent())) {
+        if (joueurBounds.intersects(pnjView1.getBoundsInParent())) {
             CombatPnj(pnjView1);
             return true;
         }
-        if (playerBounds.intersects(pnjView2.getBoundsInParent())) {
+        if (joueurBounds.intersects(pnjView2.getBoundsInParent())) {
             CombatPnj(pnjView2);
             return true;
         }
-        if (playerBounds.intersects(pnjView3.getBoundsInParent())) {
+        if (joueurBounds.intersects(pnjView3.getBoundsInParent())) {
             CombatPnj(pnjView3);
             return true;
         }

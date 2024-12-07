@@ -20,7 +20,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 /**
-* controller qui gere la scene du choix de l'action voulu
+* controller qui gere la scene du choix de l'action voulue
 * @author Matthieu Lamidon
 * @version
 * @since

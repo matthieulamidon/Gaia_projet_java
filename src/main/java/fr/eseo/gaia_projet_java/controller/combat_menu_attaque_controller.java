@@ -75,7 +75,7 @@ public class combat_menu_attaque_controller {
 
 
     /**
-     * Appuis du bouton retour
+     * Appui du bouton retour
      */
     @FXML
     private void selectRetour() {

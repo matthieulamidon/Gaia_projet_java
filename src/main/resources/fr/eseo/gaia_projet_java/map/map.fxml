@@ -71,6 +71,14 @@
                    layoutY="320"
                    style="-fx-background-color: transparent;"/>
 
+        <!-- ImageView pour le toit -->
+        <ImageView fx:id="toitView"
+                   fitWidth="128.0"
+                   fitHeight="64.0"
+                   preserveRatio="true"
+                   layoutX="480"
+                   style="-fx-background-color: transparent;"/>
+
 
     </children>
 </AnchorPane>

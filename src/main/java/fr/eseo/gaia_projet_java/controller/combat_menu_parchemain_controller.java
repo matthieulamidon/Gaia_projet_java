@@ -78,7 +78,7 @@ public class combat_menu_parchemain_controller {
 
 
     /**
-     * Appuis du bouton retour
+     * Appui du bouton retour
      */
     // Navigation retour
     @FXML
@@ -95,21 +95,21 @@ public class combat_menu_parchemain_controller {
     }
 
     /**
-     * Appuis du bouton Mystimon 1 et enclanche le switch de mystimon
+     * Appui du bouton Mystimon 1 et enclenche le switch de mystimon
      */
     @FXML
     private void selectMystimon1() {
         System.out.println("Mystimon 1 sélectionné !");
     }
     /**
-     * Appuis du bouton Mystimon 2 et enclanche le switch de mystimon
+     * Appui du bouton Mystimon 2 et enclenche le switch de mystimon
      */
     @FXML
     private void selectMystimon2() {
         System.out.println("Mystimon 2 sélectionné !");
     }
     /**
-     * Appuis du bouton Mystimon 3 et enclanche le switch de mystimon
+     * Appuis du bouton Mystimon 3 et enclenche le switch de mystimon
      */
     @FXML
     private void selectMystimon3() {
@@ -117,7 +117,7 @@ public class combat_menu_parchemain_controller {
     }
 
     /**
-     * Appuis du bouton Mystimon 4 et enclanche le switch de mystimon
+     * Appuis du bouton Mystimon 4 et enclenche le switch de mystimon
      */
     @FXML
     private void selectMystimon4() {
@@ -125,7 +125,7 @@ public class combat_menu_parchemain_controller {
     }
 
     /**
-     * Appuis du bouton Mystimon 5 et enclanche le switch de mystimon
+     * Appuis du bouton Mystimon 5 et enclenche le switch de mystimon
      */
     @FXML
     private void selectMystimon5() {
@@ -133,7 +133,7 @@ public class combat_menu_parchemain_controller {
     }
 
     /**
-     * Appuis du bouton Mystimon 6 et enclanche le switch de mystimon
+     * Appuis du bouton Mystimon 6 et enclenche le switch de mystimon
      */
     @FXML
     private void selectMystimon6() {
@@ -141,7 +141,7 @@ public class combat_menu_parchemain_controller {
     }
 
     /**
-     * Appuis du sur l'un des item de la liste en gros toujours en beta
+     * Appui du joueur sur l'un des item de la liste en gros toujours en beta
      */
     @FXML
     private void clicPourDetails(javafx.scene.input.MouseEvent event) {
@@ -152,21 +152,21 @@ public class combat_menu_parchemain_controller {
     }
 
     /**
-     * Appuis du sur l'un l'item 1 de la liste en gros toujours en beta
+     * Appui du joueur sur l'un l'item 1 de la liste en gros toujours en beta
      */
     @FXML
     private void selectItemType1() {
         System.out.println("Potion sélectionnée !");
     }
     /**
-     * Appuis du sur l'un l'item 2 de la liste en gros toujours en beta
+     * Appuis du joueur sur l'un l'item 2 de la liste en gros toujours en beta
      */
     @FXML
     private void selectItemType2() {
         System.out.println("Buff sélectionné !");
     }
     /**
-     * Appuis du sur l'un l'item 3 de la liste en gros toujours en beta
+     * Appuis du joueur sur l'un l'item 3 de la liste en gros toujours en beta
      */
     @FXML
     private void selectItemType3() {

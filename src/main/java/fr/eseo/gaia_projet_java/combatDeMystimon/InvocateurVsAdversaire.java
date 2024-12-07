@@ -26,7 +26,7 @@ import static fr.eseo.gaia_projet_java.enumerations.Types.nul;
 import static java.lang.reflect.Array.get;
 
 /**
- * c'est notre classe majeur qui gere toute la logique du combat et discute avec tout les controller de combat
+ * c'est notre classe majeure qui gere toute la logique du combat et discute avec tous les controller de combat
  * @author Matthieu Lamidon
  * @version
  * @since
