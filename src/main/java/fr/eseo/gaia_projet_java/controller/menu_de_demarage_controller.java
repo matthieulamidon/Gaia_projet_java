@@ -15,7 +15,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-
+/*
+c'est le controller qui permet de voire le menu de démarage
+@author Matthieu Lamidon
+@version
+@since
+*/
 public class menu_de_demarage_controller {
     private Stage primaryStage;
 

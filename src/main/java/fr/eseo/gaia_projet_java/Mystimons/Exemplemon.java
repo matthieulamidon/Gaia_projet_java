@@ -1,12 +1,16 @@
 package fr.eseo.gaia_projet_java.Mystimons;
 
-import fr.eseo.gaia_projet_java.Attaques.Attaque;
 import fr.eseo.gaia_projet_java.enumerations.Types;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/*
+voici notre classe de mystimon qui est la version utilisée dans notre code
+@author Lamidon Matthieu
+@version
+@since
+*/
 public class Exemplemon extends Mystimon {
 
     public Exemplemon(int ID, String Nom, ArrayList<Types> liste_types, ArrayList<String> liste_attaques, long Experience, int Niveau, int ev, int iv, HashMap<String, Integer> stats, int pv) {

@@ -11,7 +11,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
+/*
+c'est le controller de l'inventaire mais depuis le menu
+@author Barthelemy Coutard
+@version
+@since
+*/
 public class inventaire_menu {
 
     private Stage primaryStage;

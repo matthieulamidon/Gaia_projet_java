@@ -7,7 +7,12 @@ import fr.eseo.gaia_projet_java.Parchemins.Parchemin;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+/*
+c'est notre class abstraite qui permet de mettre en commun des demandes entre alié et adversaire
+@author Lamidon Matthieu
+@version
+@since
+*/
 public abstract class Invocateur {
     protected  int id;
     protected String nom;

@@ -22,7 +22,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+/*
+controller qui gere tout ce qui est victoire, game over, degat subit ... en gros c'est la logique derriere les combat
+@author Matthieu Lamidon
+@version
+@since
+*/
 public class combat_transition_controller {
     private Stage primaryStage;
     private InvocateurVsAdversaire combat;

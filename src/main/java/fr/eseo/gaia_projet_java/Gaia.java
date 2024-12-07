@@ -10,7 +10,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
+/*
+c'est le lancer du jeu
+@author Matthieu Lamidon
+@version
+@since
+*/
 public class Gaia  extends Application {
 
     @Override

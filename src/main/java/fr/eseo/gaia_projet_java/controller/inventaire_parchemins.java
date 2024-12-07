@@ -17,7 +17,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/*
+c'est le controller les objets mais depuis le menu
+@author Barthelemy Coutard
+@version
+@since
+*/
 public class inventaire_parchemins {
 
     private Stage primaryStage;

@@ -22,7 +22,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/*
+controller qui gere la scene du choix d'objet
+@author Matthieu Lamidon
+@version
+@since
+*/
 public class combat_menu_parchemain_controller {
     private Stage primaryStage;
     private InvocateurVsAdversaire combat;

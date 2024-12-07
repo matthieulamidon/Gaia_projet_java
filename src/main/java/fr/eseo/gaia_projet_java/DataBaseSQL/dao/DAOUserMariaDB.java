@@ -18,10 +18,21 @@ import java.util.Map;
 import static fr.eseo.gaia_projet_java.DataBaseSQL.JsonParserUtils.jsonToArrayList;
 import static fr.eseo.gaia_projet_java.DataBaseSQL.config.DatabaseInitializer.getConnection;
 
+/*
+c'est notre pont vers notre bases de données
+@author Lamidon Matthieu, Barthelemy Coutard
+@version
+@since
+*/
 public class DAOUserMariaDB implements DAOUser {
 
 
     @Override
+    /*
+    montre la liste de tous les mystimon qui sont dans la base de donnée du mystidex
+    @param lvS level du nouveau mystimon voulut
+    @return ArrayListe de tous les exemplemon du mystidex
+     */
     public ArrayList<Exemplemon> nouveauMystimon(int lvS) throws SQLException {
         ArrayList<Exemplemon> users = new ArrayList<>();
         try (Connection connexion = getConnection();
@@ -61,6 +72,10 @@ public class DAOUserMariaDB implements DAOUser {
 
     }
 
+    /*
+    permet d'enregistrer l'equipe du protagoniste dans la base de données
+    @param ArrayList d'exemplemon de notre protagoniste
+     */
     public void replaceTableEquipe(List<Exemplemon> nouvellesEquipes) throws SQLException {
         String deleteQuery = "DELETE FROM equipe"; // Supprime toutes les données existantes
         String insertQuery = """
@@ -103,7 +118,11 @@ public class DAOUserMariaDB implements DAOUser {
         }
     }
 
-
+    /*
+    traduit les Hashmap de stat en Json
+    @param la Hashmap de Stat
+    @return version Json des Stat
+     */
     public String TraductionStateEnJson(HashMap<String, Integer> statsMap) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -115,8 +134,12 @@ public class DAOUserMariaDB implements DAOUser {
         }
     }
 
-    //revoie toute l'equipe de mystimon
+
     @Override
+    /*
+    revoie toute l'equipe de mystimon
+    @return ArrayListe de tous les exemplemon de l'equipe
+     */
     public List<Exemplemon> readLectuceDeLequipe() throws SQLException {
         List<Exemplemon> equipe = new ArrayList<>();
         try (Connection connexion = getConnection();
@@ -159,6 +182,11 @@ public class DAOUserMariaDB implements DAOUser {
 
     //permet de recuperer les objets
     @Override
+    /*
+    revoie le parchemin demander
+    @param le nom de l'objet
+    @return l'objet sous dans une class Buff
+    */
     public Buff LectureParchemins(String nomObjet) throws SQLException {
         Buff parchemin = null;
         String requete = "SELECT id, nom, effet, prixAchat, prixVente, description, efficacite FROM objet WHERE nom = ?";
@@ -188,6 +216,11 @@ public class DAOUserMariaDB implements DAOUser {
     }
 
     @Override
+    /*
+    revoie l'equipe de l'advesaire demander qui est stoquer dans la base de données
+    @param l'id de l'adversaire
+    @return ArraiList d'exemplemon de l'equipe adverse
+    */
     public List<Exemplemon> readLectuceDeEquipeAdverse(int nbAdv) throws SQLException {
         List<Exemplemon> equipe = new ArrayList<>();
         try (Connection connexion = getConnection();
@@ -229,6 +262,10 @@ public class DAOUserMariaDB implements DAOUser {
     }
 
     @Override
+    /*
+    revoie toutes les attaques stoquer dans la base de données
+    @return la List des attaques stoquer dans la base de données
+    */
     public List<AttaqueCombat> LectuceDeEquipeAttaque() throws SQLException {
         List<AttaqueCombat> attaqueCombats = new ArrayList<>();
         try (Connection connexion = getConnection();
@@ -255,6 +292,10 @@ public class DAOUserMariaDB implements DAOUser {
         }
     }
 
+    /*
+    revoie le Joueur qui est stoquer dans la base de données
+    @return le Joueur
+    */
     public Joueur readLectureJoueur() throws SQLException {
         try (Connection connexion = getConnection();
              Statement statement = connexion.createStatement();
@@ -278,6 +319,11 @@ public class DAOUserMariaDB implements DAOUser {
         }
     }
 
+    /*
+    revoie l'advesaire demander qui est stoquer dans la base de données
+    @param l'id de l'adversaire
+    @return L'adversaire
+    */
     public Adversaire readLectureAdversaire(int idAdv) throws SQLException {
         String requete = "SELECT id, nom, coordonnees FROM pnj WHERE id = ?";
         Adversaire adversaire = null;
@@ -301,8 +347,12 @@ public class DAOUserMariaDB implements DAOUser {
         return adversaire;
         }
 
-
-    HashMap<String, Integer> TraductionStateListeMaps(List<Integer> listeStats){
+    /*
+    système de traduction list de stat vers Hashmap de stat
+    @param List de stat
+    @return HashMap de stat
+    */
+    private HashMap<String, Integer> TraductionStateListeMaps(List<Integer> listeStats){
         HashMap<String, Integer> listeStatesConverti = new HashMap<>();
         listeStatesConverti.put("PV",listeStats.get(0));
         listeStatesConverti.put("ATK",listeStats.get(1));
@@ -313,7 +363,12 @@ public class DAOUserMariaDB implements DAOUser {
         return listeStatesConverti;
     }
 
-    List<Integer> TraductionStateJsonEnListe(HashMap<String, Integer> statsMap) {
+    /*
+    système de traduction list de stat vers Hashmap de stat
+    @param HashMap de stat
+    @return List de stat
+    */
+    private List<Integer> TraductionStateJsonEnListe(HashMap<String, Integer> statsMap) {
         List<Integer> listeStats = new ArrayList<>();
         // Ajoute les valeurs dans l'ordre des clés attendues
         listeStats.add(statsMap.getOrDefault("PV", 0)); // Ajoute la valeur pour "PV", ou 0 si la clé n'existe pas
@@ -325,6 +380,11 @@ public class DAOUserMariaDB implements DAOUser {
         return listeStats;
     }
 
+    /*
+    système de traduction de la liste de type vers une version String
+    @param ArrayList de type
+    @return String de type
+    */
     public String TraductionTypesEnJson(ArrayList<Types> listeTypes) {
         ObjectMapper objectMapper = new ObjectMapper();
         List<String> listeTypesString = new ArrayList<>();
@@ -376,7 +436,11 @@ public class DAOUserMariaDB implements DAOUser {
             return "[]"; // Retourne une liste JSON vide en cas d'erreur
         }
     }
-
+    /*
+    système de traduction ArrayList de type vers Json
+    @param ArrayList de type
+    @return version Json de type
+    */
     public String TraductionArrayListStringEnJson(ArrayList<String> listeStrings) {
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -389,6 +453,11 @@ public class DAOUserMariaDB implements DAOUser {
         }
     }
 
+    /*
+    système de traduction ArrayList de type vers Json
+    @param ArrayList de type
+    @return version Json de type
+    */
     ArrayList<String> TraductionStringAttaques(Map<Integer, String> listeAttaques,int lv){
         ArrayList<String> listeAttaqueConverti = new ArrayList<>();
         int j=0 ;
@@ -401,11 +470,13 @@ public class DAOUserMariaDB implements DAOUser {
                 i=0;
             }
     }
-
-
         return listeAttaqueConverti;
     }
-
+    /*
+    système de traduction String vers type
+    @param String de type
+    @return Type
+    */
     Types TraductionsanslisteStringTypes(String Types){
         Types TypesConverti = null;
 
@@ -444,6 +515,11 @@ public class DAOUserMariaDB implements DAOUser {
         return TypesConverti;
     }
 
+    /*
+    système de traduction List de type vers ArrayList de type
+    @param List de type
+    @return ArrayList de type
+    */
     ArrayList<Types> TraductionStringTypes(List<String> listeTypes) {
         ArrayList<Types> listeTypesConverti = new ArrayList<>();
 
@@ -487,6 +563,11 @@ public class DAOUserMariaDB implements DAOUser {
         return listeTypesConverti;
     }
 
+    /*
+    système de traduction de la Hashmap d'objet de la base de données vers une ArrayList de buff
+    @param Hashmap sortie de la base de données
+    @return ArrayList de buff
+    */
     public ArrayList<Buff> LectureMapObjets(HashMap<String, Integer> mapObjets) throws SQLException {
         ArrayList<Buff> listeObjetsConvertie = new ArrayList();
         for (Map.Entry<String, Integer> entry : mapObjets.entrySet()) {
@@ -499,6 +580,10 @@ public class DAOUserMariaDB implements DAOUser {
         return listeObjetsConvertie;
     }
 
+    /*
+    enregistre les coordonnées dans la base de données
+    @param ArrayListe de coordonnées
+    */
     public void MiseAJourCoo( ArrayList<String> listeCoo) throws SQLException {
         String updateQuery = "UPDATE promethee SET coordonner = ? WHERE nom = ?";
 

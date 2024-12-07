@@ -1,10 +1,8 @@
 package fr.eseo.gaia_projet_java.Mystimons;
 
-import fr.eseo.gaia_projet_java.Attaques.Attaque;
 import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUser;
 import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUserMariaDB;
 import fr.eseo.gaia_projet_java.Parchemins.Parchemin;
-import fr.eseo.gaia_projet_java.enumerations.Stat;
 import fr.eseo.gaia_projet_java.enumerations.Types;
 
 import java.sql.SQLException;
@@ -12,7 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-
+/*
+version abstraite de nos mystimon
+@author Lamidon Matthieu
+@version
+@since
+*/
 public abstract class Mystimon {
     protected int ID;
     protected String Nom;
@@ -133,11 +136,7 @@ public abstract class Mystimon {
         return random.nextInt(32); // 32 car la borne supérieure est exclusive
     }
 
-    public void subirAttaque(Attaque attaque){
-    }
 
-    public void attaquer(Attaque attaque, Mystimon ennemi){
-    }
 
     public void fuite(Mystimon ennemi){
     }

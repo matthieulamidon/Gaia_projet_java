@@ -2,7 +2,12 @@ package fr.eseo.gaia_projet_java.Attaques;
 
 import fr.eseo.gaia_projet_java.enumerations.Effet;
 import fr.eseo.gaia_projet_java.enumerations.Types;
-
+/*
+il permet de stoquer les attaques dans une classe et de de sortir les info demander par la classe qui gere les combat
+@author Matthieu Lamidon
+@version
+@since
+*/
 public class AttaqueCombat {
     private int id;
     private String nom;
@@ -12,6 +17,9 @@ public class AttaqueCombat {
     private String aspect;
     private int pressision;
 
+    /*
+    constructeur
+    */
     public AttaqueCombat(int id, String nom, int puissance, Types types, String effet, String aspect, int pressision) {
         this.id = id;
         this.nom = nom;

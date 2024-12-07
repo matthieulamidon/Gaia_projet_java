@@ -14,7 +14,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 
-
+/*
+en vrai elle est à barth et elle sert à lancer une version debug du programme sans le menu
+@author Matthieu Lamidon, Barthelemy Coutard
+@version
+@since
+*/
 public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException {

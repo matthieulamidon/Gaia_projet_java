@@ -14,7 +14,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
+/*
+controller qui gere la scene du choix de si on veux fuir ou changer de mystimon
+@author Matthieu Lamidon
+@version
+@since
+*/
 public class combat_mystimon_allier_mort_controller {
     private Stage primaryStage;
     private InvocateurVsAdversaire combat;

@@ -15,7 +15,12 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
-
+/*
+controller qui gere la scene du choix de mystimon a échanger
+@author Matthieu Lamidon
+@version
+@since
+*/
 public class combat_menu_switch_controller {
     private Stage primaryStage;
     private InvocateurVsAdversaire combat;

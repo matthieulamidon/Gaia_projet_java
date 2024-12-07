@@ -9,6 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+c'est l'interface pour notre Dao
+@author Barthelemy Coutard
+@version
+@since
+*/
 public interface DAOUser {
     List<Exemplemon> nouveauMystimon(int lvS) throws SQLException;
     List<Exemplemon> readLectuceDeLequipe() throws SQLException;

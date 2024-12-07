@@ -17,7 +17,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-
+/*
+c'est le controller de les mystimon mais depuis le menu
+@author Barthelemy Coutard
+@version
+@since
+*/
 public class inventaire_mystimons {
     private Stage primaryStage;
 

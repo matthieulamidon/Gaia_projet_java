@@ -19,7 +19,12 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-
+/*
+controller qui gere la scene du choix de l'action voulu
+@author Matthieu Lamidon
+@version
+@since
+*/
 public class combat_menu_principale_controller {
     private Stage primaryStage;
     private InvocateurVsAdversaire combat;

@@ -5,7 +5,12 @@ import javafx.fxml.FXML;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
+/*
+controller qui gere la scene de game over
+@author Matthieu Lamidon
+@version
+@since
+*/
 public class combat_game_over_controller {
     private Stage primaryStage;
     private InvocateurVsAdversaire combat;

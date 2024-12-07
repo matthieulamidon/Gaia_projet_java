@@ -29,7 +29,12 @@ import java.util.Set;
 
 import static java.lang.Integer.valueOf;
 import static java.lang.Math.round;
-
+/*
+c'est le controller de la map
+@author Barthelemy Coutard
+@version
+@since
+*/
 public class Map_controller {
 
     public Stage MapStage;

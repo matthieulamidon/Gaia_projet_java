@@ -17,6 +17,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
+/*
+controller qui gere la scene du choix d'attaque
+@author Matthieu Lamidon
+@version
+@since
+*/
 public class combat_menu_attaque_controller {
     private Stage primaryStage;
     private InvocateurVsAdversaire combat;
