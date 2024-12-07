@@ -210,24 +210,23 @@ public class combat_menu_principale_controller {
     }
     public void victoire() throws SQLException, IOException {
         try {
+
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("/fr/eseo/gaia_projet_java/map/map.fxml"));
             DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
-            daoUserMariaDB.replaceTableEquipe( combat.getListeMystimonAllier());
+            daoUserMariaDB.replaceTableEquipe(combat.getListeMystimonAllier());
 
-            Joueur joueur =  daoUserMariaDB.readLectureJoueur();
-            Map_controller controller = new Map_controller(primaryStage,joueur );
+            Joueur joueur = daoUserMariaDB.readLectureJoueur();
+            Map_controller controller = new Map_controller(primaryStage, joueur);
             loader.setController(controller);
 
-            //Scene scene = new Scene(loader.load());
-            Map_controller c = new Map_controller(primaryStage, joueur);
-            loader.setController(c);
             Parent root = loader.load();
-            c.joueurX = joueur.getPosition().get(0);
-            c.joueurY = joueur.getPosition().get(1);
-            c.defPositionInitiale();
-            Scene scene = new Scene(root);
+            controller.joueurX = joueur.getPosition().get(0);
+            controller.joueurY = joueur.getPosition().get(1);
+            controller.defPositionInitiale();
 
-            c.setScene(scene);
+            Scene scene = new Scene(root);
+            controller.setScene(scene);
+
             root.setOnMouseClicked(event -> root.requestFocus());
             System.out.println("Focus requis au lancement");
 
@@ -235,7 +234,6 @@ public class combat_menu_principale_controller {
             primaryStage.setResizable(false);
             primaryStage.setScene(scene);
             root.requestFocus();
-
         } catch (IOException e) {
             System.err.println("Erreur lors du chargement du menu principal : " + e.getMessage());
             e.printStackTrace();

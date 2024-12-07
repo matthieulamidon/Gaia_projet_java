@@ -31,7 +31,6 @@
                    fitWidth="40.0"
                    fitHeight="40.0"
                    preserveRatio="true"
-                   onMouseClicked="#CombatPnj"
                    layoutX="545"
                    layoutY="300"
                    style="-fx-background-color: transparent;"/>
@@ -41,7 +40,6 @@
                    fitWidth="40.0"
                    fitHeight="40.0"
                    preserveRatio="true"
-                   onMouseClicked="#CombatPnj"
                    layoutX="10.0"
                    layoutY="10.0"
                    style="-fx-background-color: transparent;"/>
@@ -51,9 +49,26 @@
                    fitWidth="40.0"
                    fitHeight="40.0"
                    preserveRatio="true"
-                   onMouseClicked="#CombatPnj"
                    layoutX="400"
                    layoutY="400"
+                   style="-fx-background-color: transparent;"/>
+
+        <!-- ImageView pour l'arbre -->
+        <ImageView fx:id="arbreView"
+                   fitWidth="64.0"
+                   fitHeight="64.0"
+                   preserveRatio="true"
+                   layoutX="160"
+                   layoutY="192"
+                   style="-fx-background-color: transparent;"/>
+
+        <!-- ImageView pour l'arbre -->
+        <ImageView fx:id="arbreView2"
+                   fitWidth="64.0"
+                   fitHeight="64.0"
+                   preserveRatio="true"
+                   layoutX="576"
+                   layoutY="320"
                    style="-fx-background-color: transparent;"/>
 
 

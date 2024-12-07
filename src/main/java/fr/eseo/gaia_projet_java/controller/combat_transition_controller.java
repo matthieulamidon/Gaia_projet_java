@@ -338,8 +338,6 @@ public class combat_transition_controller {
             daoUserMariaDB.replaceTableEquipe( combat.getListeMystimonAllier());
 
             Joueur joueur =  daoUserMariaDB.readLectureJoueur();
-            Map_controller controller = new Map_controller(primaryStage,joueur );
-            loader.setController(controller);
 
             //Scene scene = new Scene(loader.load());
             Map_controller c = new Map_controller(primaryStage, joueur);

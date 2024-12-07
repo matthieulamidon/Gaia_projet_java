@@ -59,6 +59,12 @@ private ImageView pnjView2;
 @FXML
 private ImageView pnjView3;
 
+@FXML
+private ImageView arbreView;
+
+@FXML
+private ImageView arbreView2;
+
 
 
 private ArrayList<Rectangle> obstacles = new ArrayList<>();
@@ -68,7 +74,7 @@ private static int IndiceMap = 0;//Permet de savoir quelle image utiliser pour l
 private int compteurDeplacement = 0; // Compte le nombre de déplacements successifs
 private final int SEUIL_ALTERNANCE = 3; // Nombre de déplacements avant changement d'image
 private final Set<KeyCode> touchesAppuyees = new HashSet<>();//HashSet pour permettre de rendre plus fluides les déplacements
-private final Timeline timeline = new Timeline(new KeyFrame(Duration.millis(30), event -> {
+private final Timeline timeline = new Timeline(new KeyFrame(Duration.millis(40), event -> {
     try {
         deplacementJoueur();
     } catch (SQLException e) {
@@ -136,10 +142,12 @@ public void initialize() {
     obstacles.add(new Rectangle(320, 95, 95, 29));
     obstacles.add(new Rectangle(415, 95, 2, 163));
     obstacles.add(new Rectangle(415, 95, 2, 163));
-    obstacles.add(new Rectangle(545, 300, 30, 50));
-    obstacles.add(new Rectangle(545, 300, 30, 52));//Pnj1
-    obstacles.add(new Rectangle(10, 10, 30, 52));//Pnj2
-    obstacles.add(new Rectangle(400, 400, 30, 52));//Pnj2
+    //obstacles.add(new Rectangle(545, 300, 30, 50));
+    //obstacles.add(new Rectangle(545, 300, 30, 52));//Pnj1
+    //obstacles.add(new Rectangle(10, 10, 30, 52));//Pnj2
+    //obstacles.add(new Rectangle(400, 400, 30, 52));//Pnj2
+    obstacles.add(new Rectangle(185, 257, 16, 20));//Tronc Arbre
+    obstacles.add(new Rectangle(601, 385, 16, 20));//Tronc Arbre 2
     //On initialise les zones de rencontre
     zoneRencontres.add(new Rectangle(0, 159, 92, 184));
     zoneRencontres.add(new Rectangle(35, 348, 64, 32));
@@ -165,8 +173,8 @@ public void initialize() {
     Haut.add(new Image("fr/eseo/gaia_projet_java/resource_map/royh2.png"));
 
     //On initalise map et l'imageview du joueur
-    MapImage.add(new Image("fr/eseo/gaia_projet_java/resource_map/MapSauv.png"));
-    MapImage.add(new Image("fr/eseo/gaia_projet_java/resource_map/MapSauv.png"));
+    MapImage.add(new Image("fr/eseo/gaia_projet_java/resource_map/Mapf0.png"));
+    MapImage.add(new Image("fr/eseo/gaia_projet_java/resource_map/Mapf1.png"));
     mapView.setImage(MapImage.get(0));
     mapTimeline.setCycleCount(Timeline.INDEFINITE);//On lance la timeline qui permet d'alterner les images de la map
     mapTimeline.play();
@@ -174,9 +182,11 @@ public void initialize() {
     Image joueurImage = Bas.get(0);
     joueurView.setImage(joueurImage);
 
-    pnjView1.setImage(joueurImage);
-    pnjView2.setImage(new Image("fr/eseo/gaia_projet_java/resource_map/royd0.png"));
-    pnjView3.setImage(new Image("fr/eseo/gaia_projet_java/resource_map/royh0.png"));
+    pnjView1.setImage(new Image("fr/eseo/gaia_projet_java/resource_map/ennemi4.png"));
+    pnjView2.setImage(new Image("fr/eseo/gaia_projet_java/resource_map/ennemi0.png"));
+    pnjView3.setImage(new Image("fr/eseo/gaia_projet_java/resource_map/ennemi3.png"));
+    arbreView.setImage(new Image("fr/eseo/gaia_projet_java/resource_map/feuilles.png"));
+    arbreView2.setImage(new Image("fr/eseo/gaia_projet_java/resource_map/feuilles.png"));
     //On passe combat déclenché à false
     combatDeclenche = false;
     IndiceDeplacement = 0; // Réinitialise au début d'une séquence d'animation
@@ -274,6 +284,8 @@ public void deplacementJoueur() throws SQLException, IOException {
         }
     }
 
+    if (CollisionPnj(nextX, nextY)) return;
+
     joueurX = nextX;
     joueurY = nextY;
 
@@ -307,9 +319,8 @@ public void deplacementJoueur() throws SQLException, IOException {
         mapView.setImage(MapImage.get(IndiceMap)); // Alterner l'image
     }
 
-    @FXML
-    public void CombatPnj(MouseEvent event) throws SQLException, IOException {
-        ImageView pnjchoisi = (ImageView) event.getSource();
+
+    public void CombatPnj(ImageView pnjchoisi) throws SQLException, IOException {
         int id = 0;
         if(pnjchoisi == pnjView1){
             id = 0;
@@ -326,6 +337,8 @@ public void deplacementJoueur() throws SQLException, IOException {
         InvocateurVsAdversaire combat = new InvocateurVsAdversaire(joueur, Pnj);
 
         try {
+            timeline.stop();
+            mapTimeline.stop();
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu-principale.fxml"));
             // Récupérer la fenêtre actuelle (Stage) et changer la scène
             combat_menu_principale_controller combat_menu_principale_controller = new combat_menu_principale_controller(MapStage,combat);
@@ -349,6 +362,8 @@ public void deplacementJoueur() throws SQLException, IOException {
         InvocateurVsAdversaire combat = new InvocateurVsAdversaire(joueur, mystimon, 5);
 
         try {
+            timeline.stop();
+            mapTimeline.stop();
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu-principale.fxml"));
             // Récupérer la fenêtre actuelle (Stage) et changer la scène
             combat_menu_principale_controller combat_menu_principale_controller = new combat_menu_principale_controller(MapStage,combat);
@@ -386,6 +401,26 @@ public void deplacementJoueur() throws SQLException, IOException {
     ArrayList<Exemplemon> listeExemplemon = daoUserMariaDB.nouveauMystimon(5);
     Exemplemon exemplemon = listeExemplemon.get(rand.nextInt(listeExemplemon.size()));
     return exemplemon;
+    }
+
+    //Methode pour verifier les collisions avec les pnj
+    private boolean CollisionPnj(double nextX, double nextY) throws SQLException, IOException {
+        Rectangle playerBounds = new Rectangle(nextX + 4, nextY + 25, 19, 10);
+
+        if (playerBounds.intersects(pnjView1.getBoundsInParent())) {
+            CombatPnj(pnjView1);
+            return true;
+        }
+        if (playerBounds.intersects(pnjView2.getBoundsInParent())) {
+            CombatPnj(pnjView2);
+            return true;
+        }
+        if (playerBounds.intersects(pnjView3.getBoundsInParent())) {
+            CombatPnj(pnjView3);
+            return true;
+        }
+
+        return false; // No collision detected
     }
 }
 
