@@ -14,11 +14,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-/*
-c'est le controller de l'inventaire mais depuis le menu
-@author Barthelemy Coutard
-@version
-@since
+/**
+* c'est le controller de l'inventaire mais depuis le menu
+* @author Barthelemy Coutard
+* @version
+* @since
 */
 public class inventaire_det_parchemins {
     private Stage primaryStage;
@@ -46,6 +46,9 @@ public class inventaire_det_parchemins {
         this.parchemin = parchemin;
     }
 
+    /** Appuis bouton de retour
+     * @throws IOException
+     */
     @FXML
     private void RetourMenuI() throws IOException {
         try {
@@ -62,6 +65,9 @@ public class inventaire_det_parchemins {
         }
     }
 
+    /**
+     * initialisation
+     */
     @FXML
     protected void initialize(){
         labelNom.setText(parchemin.getNom());

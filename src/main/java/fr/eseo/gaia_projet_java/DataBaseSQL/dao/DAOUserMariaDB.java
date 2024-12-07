@@ -580,9 +580,9 @@ public class DAOUserMariaDB implements DAOUser {
         return listeObjetsConvertie;
     }
 
-    /*
-    enregistre les coordonnées dans la base de données
-    @param ArrayListe de coordonnées
+    /**
+    * enregistre les coordonnées dans la base de données
+    * @param listeCoo ArrayList de coordonnées
     */
     public void MiseAJourCoo( ArrayList<String> listeCoo) throws SQLException {
         String updateQuery = "UPDATE promethee SET coordonner = ? WHERE nom = ?";

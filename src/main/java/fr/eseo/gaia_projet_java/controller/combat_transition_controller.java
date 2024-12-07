@@ -22,11 +22,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-/*
-controller qui gere tout ce qui est victoire, game over, degat subit ... en gros c'est la logique derriere les combat
-@author Matthieu Lamidon
-@version
-@since
+/**
+* controller qui gere tout ce qui est victoire, game over, degat subit ... en gros c'est la logique derriere les combat
+* @author Matthieu Lamidon
+* @version
+* @since
 */
 public class combat_transition_controller {
     private Stage primaryStage;
@@ -106,11 +106,19 @@ public class combat_transition_controller {
         this.dialogue2 = dialogue2;
     }
 
+    /**
+     * @param primaryStage le stage
+     * @param combat le combat en cours
+     * @param attaqueAlier le nom de l'attaque utiliser
+     */
     public combat_transition_controller(Stage primaryStage,InvocateurVsAdversaire combat, String attaqueAlier) {
         this.primaryStage = primaryStage;
         this.combat = combat;
         this.attaqueAlier = attaqueAlier;
     }
+    /**
+     * Appuis sur un bouton quelquonque passe au dialogue suivant et fait tourner toute la logique du combat
+     */
     @FXML
     private void selectPasse() throws SQLException, IOException {
         if (!validerDialogue1) { // Gestion du premier dialogue
@@ -198,7 +206,9 @@ public class combat_transition_controller {
         }
     }
 
-    // Méthode pour mettre à jour les barres de vie
+    /**
+     * Méthode pour mettre à jour les barres de vie
+     */
     private void mettreAJourBarresDeVie() {
         barDeVieAlier.setProgress(combat.getRatioPvAlier());
         barDeVieAdv.setProgress(combat.getRatioPvAdv());
@@ -212,7 +222,9 @@ public class combat_transition_controller {
         }
     }
 
-    // Méthode pour charger le menu principal
+    /**
+     * Méthode pour charger le menu principal
+     */
     private void chargerMenuPrincipal() {
         try {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu-principale.fxml"));
@@ -227,6 +239,9 @@ public class combat_transition_controller {
         }
     }
 
+    /**
+     * tour de jeu 1
+     */
     private void tourDeJeu(){
         if(combat.invocateurCommence()) {
             setDialogue(combat.iaAttaque());
@@ -235,6 +250,9 @@ public class combat_transition_controller {
             setDialogue(combat.attaquer(attaqueAlier));
         }
     }
+    /**
+     * tour de jeu 2
+     */
     private void tourDeJeu2(){
         if(combat.invocateurCommence()) {
             ArrayList<String> listeAttaque = combat.getListeAttaque();
@@ -244,6 +262,9 @@ public class combat_transition_controller {
         }
     }
 
+    /**
+     * initialisation
+     */
     @FXML
     public void initialize() {
         validerDialogue1=false;
@@ -293,6 +314,9 @@ public class combat_transition_controller {
 
     }
 
+    /**
+     * renvoie vers le game over
+     */
     private void game_over(){
         try {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_game_over.fxml"));
@@ -306,7 +330,9 @@ public class combat_transition_controller {
             e.printStackTrace();
         }
     }
-
+    /**
+     * renvoie vers la scene mystimonAlierMort
+     */
     private void mystimonAlierMort(){
         try {
             // Charger la scène depuis le fichier FXML
@@ -321,6 +347,10 @@ public class combat_transition_controller {
             e.printStackTrace();
         }
     }
+
+    /**
+     * renvoie vers la scene mystimonAdvMort
+     */
     private void mystimonAdvMort(){
 
         try {
@@ -336,6 +366,10 @@ public class combat_transition_controller {
             e.printStackTrace();
         }
     }
+
+    /**
+     * renvoie vers la map car on a gagner
+     */
     public void victoire() throws SQLException, IOException {
         try {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("/fr/eseo/gaia_projet_java/map/map.fxml"));

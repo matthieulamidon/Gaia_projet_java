@@ -17,11 +17,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 
-/*
-controller qui gere la scene du choix d'attaque
-@author Matthieu Lamidon
-@version
-@since
+/**
+* controller qui gere la scene du choix d'attaque
+* @author Matthieu Lamidon
+* @version
+* @since
 */
 public class combat_menu_attaque_controller {
     private Stage primaryStage;
@@ -74,6 +74,9 @@ public class combat_menu_attaque_controller {
     private Label pvRestant;
 
 
+    /**
+     * Appuis du bouton retour
+     */
     @FXML
     private void selectRetour() {
         try {
@@ -89,11 +92,17 @@ public class combat_menu_attaque_controller {
         }
     }
 
+    /**
+     * @param primaryStage le stage
+     * @param combat invocateurVSadversaire en gros le combat en cours
+     */
     public combat_menu_attaque_controller(Stage primaryStage, InvocateurVsAdversaire combat) {
         this.primaryStage = primaryStage;
         this.combat = combat;
     }
-
+    /**
+     * initialisation
+     */
     @FXML
     public void initialize() {
         //URL mystimonImage = "fr/eseo/gaia_projet_java/resource_mystimon/"+combat.getNomMystimonAlier()+".png";
@@ -147,79 +156,46 @@ public class combat_menu_attaque_controller {
         }
     }
 
+    /**
+     * Appuis du bouton attaque1
+     */
     @FXML
     private void lanceAttaque1(){
         ArrayList<String> listeAttaque = combat.getListeAttaque();
         transition(listeAttaque.get(0));
 
-        /*
 
-        if(combat.invocateurCommence()) {
-            dialogue = combat.iaAttaque();
-            ArrayList<String> listeAttaque = combat.getListeAttaque();
-            ArrayList<String> dialogue2= combat.attaquer(listeAttaque.get(0));
-            dialogue.addAll(dialogue2);
-        }else{
-            ArrayList<String> listeAttaque = combat.getListeAttaque();
-            dialogue = combat.attaquer(listeAttaque.get(0));
-            ArrayList<String> dialogue2 = combat.iaAttaque();
-            dialogue.addAll(dialogue2);
-        }
-        transition();*/
     }
-
+    /**
+     * Appuis du bouton attaque2
+     */
     @FXML
     private void lanceAttaque2(){
         ArrayList<String> listeAttaque = combat.getListeAttaque();
-        transition(listeAttaque.get(1));/*
-        if(combat.invocateurCommence()) {
-            dialogue = combat.iaAttaque();
-            ArrayList<String> listeAttaque = combat.getListeAttaque();
-            ArrayList<String> dialogue2= combat.attaquer(listeAttaque.get(1));
-            dialogue.addAll(dialogue2);
-        }else{
-            ArrayList<String> listeAttaque = combat.getListeAttaque();
-            dialogue = combat.attaquer(listeAttaque.get(1));
-            ArrayList<String> dialogue2 = combat.iaAttaque();
-            dialogue.addAll(dialogue2);
-        }
-        transition();*/
+        transition(listeAttaque.get(1));
+
     }
+    /**
+     * Appuis du bouton attaque3
+     */
     @FXML
     private void lanceAttaque3(){
         ArrayList<String> listeAttaque = combat.getListeAttaque();
-        transition(listeAttaque.get(2));/*
-        if(combat.invocateurCommence()) {
-            dialogue = combat.iaAttaque();
-            ArrayList<String> listeAttaque = combat.getListeAttaque();
-            ArrayList<String> dialogue2= combat.attaquer(listeAttaque.get(2));
-            dialogue.addAll(dialogue2);
-        }else{
-            ArrayList<String> listeAttaque = combat.getListeAttaque();
-            dialogue = combat.attaquer(listeAttaque.get(2));
-            ArrayList<String> dialogue2 = combat.iaAttaque();
-            dialogue.addAll(dialogue2);
-        }
-        transition();*/
+        transition(listeAttaque.get(2));
+
     }
+    /**
+     * Appuis du bouton attaque4
+     */
     @FXML
     private void lanceAttaque4(){
         ArrayList<String> listeAttaque = combat.getListeAttaque();
-        transition(listeAttaque.get(3));/*
-        if(combat.invocateurCommence()) {
-            dialogue = combat.iaAttaque();
-            ArrayList<String> listeAttaque = combat.getListeAttaque();
-            ArrayList<String> dialogue2= combat.attaquer(listeAttaque.get(3));
-            dialogue.addAll(dialogue2);
-        }else{
-            ArrayList<String> listeAttaque = combat.getListeAttaque();
-            dialogue = combat.attaquer(listeAttaque.get(3));
-            ArrayList<String> dialogue2 = combat.iaAttaque();
-            dialogue.addAll(dialogue2);
-        }
-        transition();*/
+        transition(listeAttaque.get(3));
     }
 
+    /** renvoie vers l'écran de transition  qui affiche tout ce qui ce passe durant le combat
+     * @param attaque l'attaque selectionné
+     */
     @FXML
     private void transition(String attaque){
         try {

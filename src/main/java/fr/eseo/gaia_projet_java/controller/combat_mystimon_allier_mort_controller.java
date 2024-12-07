@@ -14,11 +14,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-/*
-controller qui gere la scene du choix de si on veux fuir ou changer de mystimon
-@author Matthieu Lamidon
-@version
-@since
+/**
+* controller qui gere la scene du choix de si on veux fuir ou changer de mystimon
+* @author Matthieu Lamidon
+* @version
+* @since
 */
 public class combat_mystimon_allier_mort_controller {
     private Stage primaryStage;
@@ -61,11 +61,18 @@ public class combat_mystimon_allier_mort_controller {
     private Label pvRestant;
 
 
+    /**
+     * @param primaryStage stage
+     * @param combat combat en cours
+     */
     public combat_mystimon_allier_mort_controller(Stage primaryStage, InvocateurVsAdversaire combat) {
         this.primaryStage = primaryStage;
         this.combat = combat;
     }
 
+    /**
+     * initialisation
+     */
     @FXML
     public void initialize() {
         //URL mystimonImage = "fr/eseo/gaia_projet_java/resource_mystimon/"+combat.getNomMystimonAlier()+".png";
@@ -85,7 +92,9 @@ public class combat_mystimon_allier_mort_controller {
         Switch.setText("Mystimon");
         Fuite.setText("Fuite");
     }
-
+    /**
+     * Appuis sur fuite
+     */
     @FXML
     private void Fuite(){
         try {
@@ -101,6 +110,9 @@ public class combat_mystimon_allier_mort_controller {
             e.printStackTrace();
         }
     }
+    /**
+     * Appuis sur switch
+     */
     @FXML
     private void Switch(){
         try {

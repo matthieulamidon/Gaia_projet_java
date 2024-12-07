@@ -12,12 +12,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-/*
-c'est le controller de l'inventaire mais depuis le menu mais pour les details d'un seul objet
-@author Barthelemy Coutard
-@version
-@since
-*/
+/**
+ * c'est le controller de l'inventaire mais depuis le menu mais pour les details d'un seul objet
+ * @author Barthelemy Coutard
+ * @version
+ * @since
+ */
 public class inventaire_details {
 
     private Stage primaryStage;
@@ -39,6 +39,9 @@ public class inventaire_details {
         this.mystimon = mystimon;
     }
 
+    /**
+     * initialisation
+     */
     @FXML
     protected void initialize(){
     nameLabel.setText(mystimon.getNom());
@@ -97,6 +100,9 @@ public class inventaire_details {
     @FXML
     private Button BoutonRetour;
 
+    /** Appuis bouton de retour
+     * @throws IOException
+     */
     @FXML
     private void RetourMenuI() throws IOException {
         try {
@@ -112,6 +118,4 @@ public class inventaire_details {
             e.printStackTrace();
         }
     }
-
-
 }

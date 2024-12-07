@@ -15,11 +15,11 @@ import javafx.stage.Stage;
 
 import java.awt.*;
 import java.io.IOException;
-/*
-controller qui gere la scene du choix de mystimon a échanger
-@author Matthieu Lamidon
-@version
-@since
+/**
+* controller qui gere la scene du choix de mystimon a échanger
+* @author Matthieu Lamidon
+* @version
+* @since
 */
 public class combat_menu_switch_controller {
     private Stage primaryStage;
@@ -100,13 +100,20 @@ public class combat_menu_switch_controller {
     Label mystimon6nbdepv;
 
 
-
+    /**
+     * @param primaryStage le stage en cours
+     * @param combat le combat en cours
+     * @param retourPossible true si on peut faire l'action retour
+     */
     public combat_menu_switch_controller(Stage primaryStage, InvocateurVsAdversaire combat, boolean retourPossible) {
         this.primaryStage = primaryStage;
         this.combat = combat;
         this.retourPossible = retourPossible;
     }
 
+    /**
+     * Appuis du bouton retour
+     */
     @FXML
     private void selectRetour() {
         if (retourPossible) {
@@ -124,10 +131,18 @@ public class combat_menu_switch_controller {
             }
         }
     }
+
+    /**
+     * Appuis le mystimon 1
+     */
     @FXML
     private void selectMystimon1() {
 
     }
+
+    /**
+     * Appuis le mystimon 2
+     */
     @FXML
     private void selectMystimon2() {
         if(combat.mystimonNexxiste(1)&& !combat.getPvMystimonN(1).equals("0")) {
@@ -138,6 +153,9 @@ public class combat_menu_switch_controller {
             }
         }
     }
+    /**
+     * Appuis le mystimon 3
+     */
     @FXML
     private void selectMystimon3() {
         if(combat.mystimonNexxiste(2)&& !combat.getPvMystimonN(2).equals("0")) {
@@ -148,6 +166,9 @@ public class combat_menu_switch_controller {
             }
         }
     }
+    /**
+     * Appuis le mystimon 4
+     */
     @FXML
     private void selectMystimon4() {
         if(combat.mystimonNexxiste(3)&& !combat.getPvMystimonN(3).equals("0")) {
@@ -158,6 +179,9 @@ public class combat_menu_switch_controller {
             }
         }
     }
+    /**
+     * Appuis le mystimon 5
+     */
     @FXML
     private void selectMystimon5() {
         if(combat.mystimonNexxiste(4)&& !combat.getPvMystimonN(4).equals("0")) {
@@ -168,6 +192,9 @@ public class combat_menu_switch_controller {
             }
         }
     }
+    /**
+     * Appuis le mystimon 6
+     */
     @FXML
     private void selectMystimon6() {
         if(combat.mystimonNexxiste(5)&& !combat.getPvMystimonN(5).equals("0")) {
@@ -178,7 +205,9 @@ public class combat_menu_switch_controller {
             }
         }
     }
-
+    /**
+     * met a jour la scene après un switch
+     */
     @FXML
     private void resetscene() {
         //mystimon 1
@@ -241,6 +270,9 @@ public class combat_menu_switch_controller {
     }
 
 
+    /**
+     * initialise les valeurs
+     */
     @FXML
     public void initialize() {
         //mystimon 1

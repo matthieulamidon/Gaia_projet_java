@@ -14,11 +14,11 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
-/*
-controller qui amene vers la scene qui permet de changer notre mystimon
-@author Matthieu Lamidon
-@version
-@since
+/**
+* controller qui amene vers la scene qui permet de changer notre mystimon
+* @author Matthieu Lamidon
+* @version
+* @since
 */
 public class combat_mystimon_adverse_mort_controller {
     private Stage primaryStage;
@@ -61,11 +61,18 @@ public class combat_mystimon_adverse_mort_controller {
     private Label pvRestant;
 
 
+    /**
+     * @param primaryStage le stage
+     * @param combat le combat en cours
+     */
     public combat_mystimon_adverse_mort_controller(Stage primaryStage, InvocateurVsAdversaire combat) {
         this.primaryStage = primaryStage;
         this.combat = combat;
     }
 
+    /**
+     * initialisation
+     */
     @FXML
     public void initialize() {
         //URL mystimonImage = "fr/eseo/gaia_projet_java/resource_mystimon/"+combat.getNomMystimonAlier()+".png";
@@ -86,6 +93,9 @@ public class combat_mystimon_adverse_mort_controller {
         //Garder.setText("garder le meme mystimon");
     }
 
+    /**
+     * Appuis sur garder revoie vers la scene de combat principale
+     */
     @FXML
     private void Garder(){
         //retour a la map si autoriser
@@ -102,6 +112,9 @@ public class combat_mystimon_adverse_mort_controller {
             e.printStackTrace();
         }
     }
+    /**
+     * Appuis sur Mystimon revoie vers la scene de switch mais sans le droit au  retour avant d'avoir switch
+     */
     @FXML
     private void Switch(){
         try {

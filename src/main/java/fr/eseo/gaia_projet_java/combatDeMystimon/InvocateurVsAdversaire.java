@@ -44,6 +44,11 @@ public class InvocateurVsAdversaire {
     //liste des attaque
     private final List<AttaqueCombat> listeAttaque;
 
+    /**
+     * @param joueur le joueur
+     * @param adversaire l'adversaire
+     * @throws SQLException
+     */
     public InvocateurVsAdversaire(Joueur joueur, Adversaire adversaire) throws SQLException {
         this.joueur = joueur;
         this.adversaire = adversaire;
@@ -56,6 +61,13 @@ public class InvocateurVsAdversaire {
         this.mystimonAdversaire = listeMystimonAdversaire.get(0);
         this.listeAttaque = daoUser.LectuceDeEquipeAttaque();
     }
+
+    /**
+     * @param joueur le joueur
+     * @param mystimonAdversaire le mystimon sauvage generer precedament
+     * @param lv le niveau du mystiùpn voulu avant
+     * @throws SQLException
+     */
     public InvocateurVsAdversaire(Joueur joueur,Exemplemon mystimonAdversaire, int lv) throws SQLException {
         this.joueur = joueur;
         //this.adversaire = adversaire("gerard",mystimonAdversaire);
@@ -188,18 +200,18 @@ public class InvocateurVsAdversaire {
     public String getLvMystimonN(int n){
         return String.valueOf(listeMystimonAllier.get(n).getLv());
     }
-    /*
-    renvoie le level du mystimon allié N demandé
-    @param l'incice du mystimon demander
-    @return les pv du mystimon
+    /**
+    *renvoie le level du mystimon allié N demandé
+    *@param n l'incice du mystimon demander
+    *@return les pv du mystimon
     */
     public String getPvMystimonN(int n){
         return String.valueOf(listeMystimonAllier.get(n).getPv());
     }
-    /*
-    verifie si lz mystimon Allié N existe
-    @param l'incice du mystimon demander
-    @return true si le mystimon n existe
+    /**
+    *verifie si lz mystimon Allié N existe
+    *@param n l'incice du mystimon demander
+    *@return true si le mystimon n existe
     */
     public Boolean mystimonNexxiste(int n){
         if(listeMystimonAllier.size()>n){
@@ -208,10 +220,10 @@ public class InvocateurVsAdversaire {
             return false;
         }
     }
-    /*
-    verifie si le mystimon Adverse N existe
-    @param l'incice du mystimon demander
-    @return true si le mystimon Adverse N existe
+    /**
+    *verifie si le mystimon Adverse N existe
+    *@param n l'incice du mystimon demander
+    *@return true si le mystimon Adverse N existe
     */
     public Boolean mystimonNexxisteAdv(int n){
         if(listeMystimonAdversaire.size()>n){
@@ -220,42 +232,43 @@ public class InvocateurVsAdversaire {
             return false;
         }
     }
-    /*
-    renvoie les pv du mystimon adverse N
-    @param l'incice du mystimon demander
-    @return en String le nombre de pv
+    /**
+    *renvoie-les pv du mystimon adverse N
+    *@param n l'incice du mystimon demander
+    *@return en String le nombre de pv
     */
     public String getPvMystimonNAdv(int n){
         return String.valueOf(listeMystimonAdversaire.get(n).getPv());
     }
-    /*
-    renvoie le ratio de pv du mystimon adverse N
-    @param l'incice du mystimon demander
-    @return en double le ratio de pv pour les bar de vie
+    /**
+    *renvoie le ratio de pv du mystimon adverse N
+    *@param n l'incice du mystimon demander
+    *@return en double le ratio de pv pour les bar de vie
     */
     public Double getRatioPvMystimonN(int n){
 
         double progress = (double) listeMystimonAllier.get(n).getPv() / listeMystimonAllier.get(n).getStats().get("PV");
         return progress;
     }
-    /*
-    renvoie la liste d'exemplemon allié
-    @return la liste d'exemplemon allié
+    /**
+    *renvoie la liste d'exemplemon allié
+    *@return la liste d'exemplemon allié
     */
     public List<Exemplemon> getListeMystimonAllier(){
         return listeMystimonAllier;
     }
-    /*
-    renvoie la liste des attaques d'exemplemon allié
-    @return la Arrayliste des attaques d'exemplemon allié
+    /**
+    *renvoie la liste des attaques d'exemplemon allié
+    *@return la Arrayliste des attaques d'exemplemon allié
     */
     public ArrayList<String> getListeAttaque(){
         return mystimonAllier.getListeAttaques();
     }
-    /*
-    renvoie en double un coeficien de degat suplementaire si il ya avantage de type
-    @param type du mystimon toucher, type de l'attaque envoyé
-    @return le coefiicient de degat suplementaire
+    /**
+    *renvoie en double un coeficien de degat suplementaire si il ya avantage de type
+    *@param types1 du mystimon toucher
+    *@param typesAttaque type de l'attaque envoyé
+    *@return le coefiicient de degat suplementaire
     */
     private double avantageDeType(Types types1,Types typesAttaque){
         double cm =1;
@@ -339,9 +352,9 @@ public class InvocateurVsAdversaire {
         return cm;
     }
 
-    /*
-    renvoie si l'attaque est un coup critique
-    @return true si le coup est critique
+    /**
+    *renvoie si l'attaque est un coup critique
+    *@return true si le coup est critique
     */
     public static boolean estCoupCritique() {
         Random random = new Random();
@@ -351,10 +364,10 @@ public class InvocateurVsAdversaire {
         // Si le nombre est inférieur à 6, c'est un coup critique (6,25% de chance)
         return chance < 6;
     }
-    /*
-    renvoie si l'attaque touche
-    @param la pressision de l'attaque
-    @return true si on touche
+    /**
+    *renvoie si l'attaque touche
+    *@param pressision la pressision de l'attaque
+    *@return true si on touche
     */
     public boolean toucher(int pressision) {
         Random random = new Random();
@@ -364,9 +377,9 @@ public class InvocateurVsAdversaire {
         // Si le nombre est inférieur à la pressision, c'est un toucher
         return chance < pressision;
     }
-    /*
-    renvoie un coefficient aléatoire de modification de dégats
-    @return un double du coeficient de degats
+    /**
+    *renvoie un coefficient aléatoire de modification de dégats
+    *@return un double du coeficient de degats
     */
     public static double genererNombreAleatoirePourLeCm() {
         Random random = new Random();
@@ -375,9 +388,9 @@ public class InvocateurVsAdversaire {
         return nombre;
     }
 
-    /*
-    fonction d'attaque de l'adversaire fait tout en gros
-    @return renvoie ce qui ce passe dans le combat
+    /**
+    *fonction d'attaque de l'adversaire fait tout en gros
+    *@return renvoie ce qui ce passe dans le combat
     */
     public ArrayList<String> iaAttaque(){
         ArrayList<String> dialogue = new ArrayList<>();;
@@ -587,10 +600,10 @@ public class InvocateurVsAdversaire {
 
     }
 
-    /*
-    fonction d'attaque de notre Mystimon fait tout en gros
-    @param le nom de l'attaque utiliser
-    @return renvoie ce qui ce passe dans le combat
+    /**
+    *fonction d'attaque de notre Mystimon fait tout en gros
+    *@param attaque le nom de l'attaque utiliser
+    *@return renvoie ce qui ce passe dans le combat
     */
     public ArrayList<String> attaquer(String attaque) {
         AttaqueCombat attaqueIminante = null;
@@ -800,9 +813,9 @@ public class InvocateurVsAdversaire {
 
     }
 
-    /*
-    permet a l'adversaire de changer de mystimon
-    @param le numero n du mystimon avec lequel il doit switch
+    /**
+    *permet a l'adversaire de changer de mystimon
+    *@param n le numero n du mystimon avec lequel il doit switch
     */
     public void switchMystimonAdv(int n){
         if (mystimonNexxisteAdv(n)){
@@ -828,8 +841,8 @@ public class InvocateurVsAdversaire {
         }
     }
 
-    /*
-    pas fini mais proto pour faire level up le mystimon
+    /**
+    *pas fini mais proto pour faire level up le mystimon
     */
     public void levelUp(){
         HashMap<String,Integer> state=new HashMap<>();

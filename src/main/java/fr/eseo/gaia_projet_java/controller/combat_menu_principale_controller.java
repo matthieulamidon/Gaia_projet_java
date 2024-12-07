@@ -19,11 +19,11 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-/*
-controller qui gere la scene du choix de l'action voulu
-@author Matthieu Lamidon
-@version
-@since
+/**
+* controller qui gere la scene du choix de l'action voulu
+* @author Matthieu Lamidon
+* @version
+* @since
 */
 public class combat_menu_principale_controller {
     private Stage primaryStage;
@@ -96,7 +96,9 @@ public class combat_menu_principale_controller {
     }
 
 
-
+    /**
+     * Appuis du sur le bouton attaquer
+     */
     @FXML
     private void selectAttaque() {
         try {
@@ -113,7 +115,9 @@ public class combat_menu_principale_controller {
         }
     }
 
-
+    /**
+     * Appuis du sur le bouton parchemain
+     */
     @FXML
     private void selectParchemin() {
         try {
@@ -130,7 +134,9 @@ public class combat_menu_principale_controller {
         }
     }
 
-
+    /**
+     * Appuis du sur le bouton fuite
+     */
     @FXML
     private void selectFuite() throws SQLException, IOException {
         victoire();
@@ -138,7 +144,9 @@ public class combat_menu_principale_controller {
         //game_over();
     }
 
-
+    /**
+     * Appuis du sur le bouton Mystimon pour le switch
+     */
     @FXML
     private void selectSwitch() {
         try {
@@ -200,6 +208,9 @@ public class combat_menu_principale_controller {
         pvRestantAdv.setText(String.valueOf(combat.getPvAdv()));
     }
 
+    /**
+     * gere le game over
+     */
     private void game_over() {
         try {
             FXMLLoader loader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_game_over.fxml"));
@@ -213,6 +224,9 @@ public class combat_menu_principale_controller {
             e.printStackTrace();
         }
     }
+    /**
+     * gére la victoire
+     */
     public void victoire() throws SQLException, IOException {
         try {
 

@@ -22,11 +22,11 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-/*
-controller qui gere la scene du choix d'objet
-@author Matthieu Lamidon
-@version
-@since
+/**
+* controller qui gere la scene du choix d'objet
+* @author Matthieu Lamidon
+* @version
+* @since
 */
 public class combat_menu_parchemain_controller {
     private Stage primaryStage;
@@ -67,12 +67,19 @@ public class combat_menu_parchemain_controller {
     @FXML
     private Button retour;
 
+    /**
+     * @param primaryStage le stage
+     * @param combat le combat en cours
+     */
     public combat_menu_parchemain_controller(Stage primaryStage, InvocateurVsAdversaire combat) {
         this.primaryStage = primaryStage;
         this.combat = combat;
     }
 
 
+    /**
+     * Appuis du bouton retour
+     */
     // Navigation retour
     @FXML
     private void selectRetour() {
@@ -87,38 +94,55 @@ public class combat_menu_parchemain_controller {
         }
     }
 
-    // Sélection des Mystimons
+    /**
+     * Appuis du bouton Mystimon 1 et enclanche le switch de mystimon
+     */
     @FXML
     private void selectMystimon1() {
         System.out.println("Mystimon 1 sélectionné !");
     }
-
+    /**
+     * Appuis du bouton Mystimon 2 et enclanche le switch de mystimon
+     */
     @FXML
     private void selectMystimon2() {
         System.out.println("Mystimon 2 sélectionné !");
     }
-
+    /**
+     * Appuis du bouton Mystimon 3 et enclanche le switch de mystimon
+     */
     @FXML
     private void selectMystimon3() {
         System.out.println("Mystimon 3 sélectionné !");
     }
 
+    /**
+     * Appuis du bouton Mystimon 4 et enclanche le switch de mystimon
+     */
     @FXML
     private void selectMystimon4() {
         System.out.println("Mystimon 4 sélectionné !");
     }
 
+    /**
+     * Appuis du bouton Mystimon 5 et enclanche le switch de mystimon
+     */
     @FXML
     private void selectMystimon5() {
         System.out.println("Mystimon 5 sélectionné !");
     }
 
+    /**
+     * Appuis du bouton Mystimon 6 et enclanche le switch de mystimon
+     */
     @FXML
     private void selectMystimon6() {
         System.out.println("Mystimon 6 sélectionné !");
     }
 
-    // Gérer le clic sur la liste des parchemins
+    /**
+     * Appuis du sur l'un des item de la liste en gros toujours en beta
+     */
     @FXML
     private void clicPourDetails(javafx.scene.input.MouseEvent event) {
         Buff selectedItem = listeViewParchemins.getSelectionModel().getSelectedItem();
@@ -127,22 +151,31 @@ public class combat_menu_parchemain_controller {
         }
     }
 
-    // Actions supplémentaires (potions, buffs, captures)
+    /**
+     * Appuis du sur l'un l'item 1 de la liste en gros toujours en beta
+     */
     @FXML
     private void selectItemType1() {
         System.out.println("Potion sélectionnée !");
     }
-
+    /**
+     * Appuis du sur l'un l'item 2 de la liste en gros toujours en beta
+     */
     @FXML
     private void selectItemType2() {
         System.out.println("Buff sélectionné !");
     }
-
+    /**
+     * Appuis du sur l'un l'item 3 de la liste en gros toujours en beta
+     */
     @FXML
     private void selectItemType3() {
         System.out.println("Capture sélectionnée !");
     }
 
+    /**
+     * @throws SQLException
+     */
     @FXML   //Fonction qui permet d'afficher le nom des parchemins
     protected void initialize() throws SQLException {
         //mystimon 1

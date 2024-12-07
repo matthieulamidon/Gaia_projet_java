@@ -11,12 +11,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
-/*
-c'est le controller de l'inventaire mais depuis le menu
-@author Barthelemy Coutard
-@version
-@since
-*/
+/**
+ * c'est le controller de l'inventaire mais depuis le menu
+ * @author Barthelemy Coutard
+ * @version
+ * @since
+ */
 public class inventaire_menu {
 
     private Stage primaryStage;
@@ -27,11 +27,17 @@ public class inventaire_menu {
     @FXML
     private Button boutonParchemins;
 
+    /**
+     * Appuis sur le bouton AfficherMystimon
+     */
     //methodes pour le fxml de l'inventaire
     @FXML
     public void AfficherMystimons(){
         System.out.println("Afficher Mystimons");
     }
+    /**
+     * Appuis sur le bouton AfficherParchemin
+     */
     @FXML
     public void AfficherParchemins(){
         System.out.println("Afficher Parchemins");
@@ -42,6 +48,9 @@ public class inventaire_menu {
     }
 
     //Méthode pour changer de scene
+    /**
+     * Appuis sur le bouton AfficherParchemin
+     */
     @FXML
     private void switchToMystimons() throws IOException {
         try {
