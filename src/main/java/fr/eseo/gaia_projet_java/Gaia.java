@@ -2,17 +2,12 @@ package fr.eseo.gaia_projet_java;
 
 
 import fr.eseo.gaia_projet_java.DataBaseSQL.config.DatabaseInitializer;
-import fr.eseo.gaia_projet_java.controller.Transition;
 import fr.eseo.gaia_projet_java.controller.menu_de_demarage_controller;
-import fr.eseo.gaia_projet_java.machine_a_etat.init;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -60,12 +55,6 @@ public class Gaia  extends Application {
         // Configuration de la scène
         Scene scene = new Scene(fxmlLoader.load(), 800, 600);
 
-        // Gestion de la transition d'état
-        Transition transition = new Transition();  // On part avec l'état init
-        transition.setState(new init(transition));  // Nom de la classe "Init" avec majuscule
-
-        // Activation des transitions dans la scène
-        scene.setOnKeyPressed(event -> transition.handleKeyPress(event.getCode()));
 
         // Configuration de la fenêtre principale
         primaryStage.setTitle("State Machine Example");

@@ -11,6 +11,9 @@ public class DatabaseInitializer {
     private static final String username = "root";
     private static final String password = "V1v@3str3spubl1c@";
 
+//mysqldump -u root -p --databases gaia_test_1 > "C:\Users\matth\gaia_test_1.sql"
+//mysql -u root -p gaia_test_1 < "C:\Users\matth\gaia_test_1.sql"
+
     public DatabaseInitializer() throws SQLException {
         try (Connection connection = DriverManager.getConnection(url, username, password)) {
             createDatabase(connection);

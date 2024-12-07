@@ -2,14 +2,8 @@ package fr.eseo.gaia_projet_java;
 
 import fr.eseo.gaia_projet_java.DataBaseSQL.config.DatabaseInitializer;
 import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUserMariaDB;
-import fr.eseo.gaia_projet_java.Invocateur.Adversaire;
 import fr.eseo.gaia_projet_java.Invocateur.Joueur;
-import fr.eseo.gaia_projet_java.combatDeMystimon.InvocateurVsAdversaire;
 import fr.eseo.gaia_projet_java.controller.Map_controller;
-import fr.eseo.gaia_projet_java.controller.combat_menu_principale_controller;
-import fr.eseo.gaia_projet_java.controller.inventaire_menu;
-import fr.eseo.gaia_projet_java.machine_a_etat.init;
-import fr.eseo.gaia_projet_java.controller.Transition;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

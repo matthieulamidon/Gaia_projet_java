@@ -35,7 +35,7 @@ public class InvocateurVsAdversaire {
     private Exemplemon mystimonAllier;
     //Mystimon adversaire
     private final List<Exemplemon> listeMystimonAdversaire;
-    private final Exemplemon mystimonAdversaire;
+    private Exemplemon mystimonAdversaire;
     //liste des attaque
     private final List<AttaqueCombat> listeAttaque;
 
@@ -695,6 +695,14 @@ public class InvocateurVsAdversaire {
         }
         return dialogue;
 
+    }
+    public void switchMystimonAdv(int n){
+        if (mystimonNexxisteAdv(n)){
+            Exemplemon tanpon = mystimonAdversaire;
+            mystimonAdversaire = listeMystimonAdversaire.get(n);
+            listeMystimonAdversaire.set(0,mystimonAdversaire);
+            listeMystimonAdversaire.set(n,tanpon);
+        }
     }
 
     public void gainXp(){//bah oui sans objet c'est ridicule
