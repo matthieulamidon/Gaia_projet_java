@@ -21,6 +21,8 @@ public class DatabaseInitializer {
             createTableMystidex(connection);
             createTableEquipeInvocateur(connection);
             createTableEquipePnj(connection, 0);
+            createTableEquipePnj(connection, 1);
+            createTableEquipePnj(connection, 2);
             createTableInvocateur(connection);
             createTableAttaque(connection);
             createTableObjet(connection);

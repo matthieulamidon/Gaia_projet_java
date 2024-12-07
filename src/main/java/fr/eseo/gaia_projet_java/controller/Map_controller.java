@@ -135,6 +135,11 @@ public void initialize() {
     obstacles.add(new Rectangle(0, 95, 254, 28));
     obstacles.add(new Rectangle(320, 95, 95, 29));
     obstacles.add(new Rectangle(415, 95, 2, 163));
+    obstacles.add(new Rectangle(415, 95, 2, 163));
+    obstacles.add(new Rectangle(545, 300, 30, 50));
+    obstacles.add(new Rectangle(545, 300, 30, 52));//Pnj1
+    obstacles.add(new Rectangle(10, 10, 30, 52));//Pnj2
+    obstacles.add(new Rectangle(400, 400, 30, 52));//Pnj2
     //On initialise les zones de rencontre
     zoneRencontres.add(new Rectangle(0, 159, 92, 184));
     zoneRencontres.add(new Rectangle(35, 348, 64, 32));
@@ -305,7 +310,7 @@ public void deplacementJoueur() throws SQLException, IOException {
     @FXML
     public void CombatPnj(MouseEvent event) throws SQLException, IOException {
         ImageView pnjchoisi = (ImageView) event.getSource();
-        int id;
+        int id = 0;
         if(pnjchoisi == pnjView1){
             id = 0;
         }
@@ -317,7 +322,7 @@ public void deplacementJoueur() throws SQLException, IOException {
         }
         DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
         miseAjourCooDB();//Mise à jour des coordonnees dans la base de données
-        Adversaire Pnj = daoUserMariaDB.readLectureAdversaire(0);
+        Adversaire Pnj = daoUserMariaDB.readLectureAdversaire(id);
         InvocateurVsAdversaire combat = new InvocateurVsAdversaire(joueur, Pnj);
 
         try {
