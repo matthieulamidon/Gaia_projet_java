@@ -6,12 +6,12 @@ import fr.eseo.gaia_projet_java.Mystimons.Mystimon;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-/*
-c'est notre protagoniste
-@author Lamidon Matthieu
-@version
-@since
-*/
+/**
+ * C'est notre protagoniste
+ * @author Lamidon Matthieu
+ * @version
+ * @since
+ */
 public class Joueur extends Invocateur {
     private ArrayList<Mystimon> reserveMystimons;
 

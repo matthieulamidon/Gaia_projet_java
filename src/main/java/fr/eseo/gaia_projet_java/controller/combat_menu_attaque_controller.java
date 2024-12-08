@@ -18,7 +18,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 /**
-* controller qui gere la scene du choix d'attaque
+* Controller qui gère la scène du choix d'attaque
 * @author Matthieu Lamidon
 * @version
 * @since

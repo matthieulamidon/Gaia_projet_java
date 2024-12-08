@@ -10,12 +10,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
-/*
-c'est le lancer du jeu
-@author Matthieu Lamidon
-@version
-@since
-*/
+/**
+ * Sert à lancer le jeu
+ * @author Matthieu Lamidon
+ * @version
+ * @since
+ */
 public class Gaia  extends Application {
 
     @Override
@@ -62,7 +62,7 @@ public class Gaia  extends Application {
 
 
         // Configuration de la fenêtre principale
-        primaryStage.setTitle("State Machine Example");
+        primaryStage.setTitle("Projet Gaia");
         primaryStage.setScene(scene);
         primaryStage.setResizable(true);
         primaryStage.show();

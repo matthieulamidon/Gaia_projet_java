@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.IOException;
 /**
-* controller qui gere la scene du choix de mystimon a échanger
+* Controller qui gère la scène du choix de mystimon à échanger
 * @author Matthieu Lamidon
 * @version
 * @since

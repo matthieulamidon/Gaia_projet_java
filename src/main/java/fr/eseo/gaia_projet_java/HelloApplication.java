@@ -14,12 +14,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 
-/*
-en vrai elle est à barth et elle sert à lancer une version debug du programme sans le menu
-@author Matthieu Lamidon, Barthelemy Coutard
-@version
-@since
-*/
+/**
+ * Sert à lancer une version debug du programme sans le menu
+ * @author Barthelemy Coutard
+ * @version
+ * @since
+ */
 public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException {
@@ -54,59 +54,7 @@ public class HelloApplication extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         root.requestFocus();
-
-
-        /* J'ai enlevé ça car on ne s'en sert pas et ça gênait le focus pour le déplacement du joueur
-        Transition transition = new Transition();  //On part avec l'état init
-        transition.setState(new init(transition));
-
-
-        scene.setOnKeyPressed(event -> transition.handleKeyPress(event.getCode()));//on active les transitions dans la scene
-        */
-
     }
-/*
-public class HelloApplication extends Application {
-    @Override
-    public void start(Stage primaryStage) throws IOException, SQLException {
-        // Test pour vérifier si le chemin d'accès est bien correct
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("combat-view/combat_menu-principale.fxml"));
-        if (fxmlLoader == null) {
-            throw new IllegalStateException("FXML file not found: combat-view/combat_menu_principale.fxml");
-        }
-
-        // Initialisation de la base de données
-        DatabaseInitializer databaseInitializer = new DatabaseInitializer();
-        databaseInitializer.run();
-
-        //initialisation du combat
-        DAOUserMariaDB daoUser = new DAOUserMariaDB();
-        Joueur joueur = daoUser.readLectureJoueur();
-        Adversaire adversaire = daoUser.readLectureAdversaire();
-        InvocateurVsAdversaire combat = new InvocateurVsAdversaire(joueur,adversaire);
-
-        // Chargement du fichier FXML
-        // FXMLLoader fxmlLoader = new FXMLLoader(fxmlLocation);
-        combat_menu_principale_controller c = new combat_menu_principale_controller(primaryStage,combat);
-        fxmlLoader.setController(c);
-
-        // Configuration de la scène
-        Scene scene = new Scene(fxmlLoader.load(), 450, 450);
-
-        // Gestion de la transition d'état
-        Transition transition = new Transition();  // On part avec l'état init
-        transition.setState(new init(transition));  // Nom de la classe "Init" avec majuscule
-
-        // Activation des transitions dans la scène
-        scene.setOnKeyPressed(event -> transition.handleKeyPress(event.getCode()));
-
-        // Configuration de la fenêtre principale
-        primaryStage.setTitle("State Machine Example");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(true);
-        primaryStage.show();
-    }
-*/
     public static void main(String[] args) {
         launch();
     }

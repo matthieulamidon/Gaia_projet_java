@@ -23,7 +23,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
-* controller qui gere la scene du choix d'objet
+* Controller qui gère la scène du choix d'objet
 * @author Matthieu Lamidon
 * @version
 * @since

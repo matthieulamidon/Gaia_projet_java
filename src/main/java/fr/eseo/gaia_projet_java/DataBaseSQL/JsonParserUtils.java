@@ -9,12 +9,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-/*
-c'est une class utiliser pour traduire des chaines Json
-@author Lamidon Matthieu
-@version
-@since
-*/
+/**
+ * C'est une classe utilisée pour traduire des chaines Json
+ * @author Lamidon Matthieu
+ * @version
+ * @since
+ */
 public class JsonParserUtils {
 
     private static final Gson gson = new Gson();

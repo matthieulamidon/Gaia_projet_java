@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 /**
-* controller qui amene vers la scene qui permet de changer notre mystimon
+* Controller qui amène vers la scene qui permet de changer notre mystimon
 * @author Matthieu Lamidon
 * @version
 * @since

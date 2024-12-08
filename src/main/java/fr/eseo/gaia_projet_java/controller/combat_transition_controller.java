@@ -23,7 +23,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 /**
-* controller qui gere tout ce qui est victoire, game over, degat subit ... en gros c'est la logique derriere les combat
+* Controller qui gère tout ce qui est victoire, game over, dégâts subits ... en gros, c'est la logique derrière les combats
 * @author Matthieu Lamidon
 * @version
 * @since

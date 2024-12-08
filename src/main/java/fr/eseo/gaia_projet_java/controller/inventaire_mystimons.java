@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 /*
-c'est le controller de les mystimon mais depuis le menu
+c'est le controller qui gère la scène permettant de consulter l'équipe dans l'inventaire
 @author Barthelemy Coutard
 @version
 @since
@@ -36,6 +36,10 @@ public class inventaire_mystimons {
     @FXML
     private ListView<Exemplemon> listViewMystimons;
 
+    /**
+     * Bouton retour vers le menu
+     * @throws IOException
+     */
     @FXML
     private void RetourMenuI() throws IOException {
         try {
@@ -52,6 +56,11 @@ public class inventaire_mystimons {
         }
     }
 
+    /**
+     * Permet de passer à la scène pour consulter les détails des mystimons
+     * @param mystimon
+     * @throws IOException
+     */
     @FXML
     private void DetailsMysi(Exemplemon mystimon) throws IOException {
         try {
@@ -68,6 +77,10 @@ public class inventaire_mystimons {
         }
     }
 
+    /**
+     * Méthode d'initialisation de la scène
+     * @throws SQLException
+     */
     @FXML   //Fonction qui permet d'afficher le nom des Mystimons de l'équipe
     protected void initialize() throws SQLException {
         //Initalisation de la liste des Mystimons
@@ -90,6 +103,10 @@ public class inventaire_mystimons {
 
         }
 
+    /**
+     * Permet de charger la liste des mystimons, pour ensuite la prendre en paramètre pour changer de scène
+     * @throws IOException
+     */
     @FXML
     private void clicPourDetails() throws IOException {
         Exemplemon mystimon = listViewMystimons.getSelectionModel().getSelectedItem();

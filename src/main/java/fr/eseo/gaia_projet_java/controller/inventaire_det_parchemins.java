@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 /**
-* c'est le controller de l'inventaire mais depuis le menu
+* C'est le controller de l'inventaire depuis le menu
 * @author Barthelemy Coutard
 * @version
 * @since
@@ -46,7 +46,7 @@ public class inventaire_det_parchemins {
         this.parchemin = parchemin;
     }
 
-    /** Appuis bouton de retour
+    /** Appui bouton de retour
      * @throws IOException
      */
     @FXML

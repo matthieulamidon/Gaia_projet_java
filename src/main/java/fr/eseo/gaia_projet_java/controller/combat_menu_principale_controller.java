@@ -97,7 +97,7 @@ public class combat_menu_principale_controller {
 
 
     /**
-     * Appuis du sur le bouton attaquer
+     * Appui du joueur sur le bouton attaquer
      */
     @FXML
     private void selectAttaque() {
@@ -116,7 +116,7 @@ public class combat_menu_principale_controller {
     }
 
     /**
-     * Appuis du sur le bouton parchemain
+     * Appuis du sur le bouton parchemin
      */
     @FXML
     private void selectParchemin() {
@@ -135,7 +135,7 @@ public class combat_menu_principale_controller {
     }
 
     /**
-     * Appuis du sur le bouton fuite
+     * Appui du joueur sur le bouton fuite
      */
     @FXML
     private void selectFuite() throws SQLException, IOException {
@@ -145,7 +145,7 @@ public class combat_menu_principale_controller {
     }
 
     /**
-     * Appuis du sur le bouton Mystimon pour le switch
+     * Appui du joueur sur le bouton Mystimon pour le switch
      */
     @FXML
     private void selectSwitch() {
@@ -209,7 +209,7 @@ public class combat_menu_principale_controller {
     }
 
     /**
-     * gere le game over
+     * Gère le game over
      */
     private void game_over() {
         try {
@@ -225,7 +225,7 @@ public class combat_menu_principale_controller {
         }
     }
     /**
-     * gére la victoire
+     * Gère la victoire
      */
     public void victoire() throws SQLException, IOException {
         try {

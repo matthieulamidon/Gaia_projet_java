@@ -28,12 +28,11 @@ import java.util.Set;
 
 import static java.lang.Integer.valueOf;
 import static java.lang.Math.round;
-/*
-c'est le controller de la map
-@author Barthelemy Coutard
-@version
-@since
-*/
+
+/**
+ * Il s'agit du Controller de la Map
+ * @author Barthelemy Coutard
+ */
 public class Map_controller {
 
     public Stage MapStage;
@@ -43,6 +42,11 @@ public class Map_controller {
     public double joueurX;
     public double joueurY;
 
+    /**
+     * Constructeur de la classe
+     * @param primaryStage
+     * @param joueur
+     */
 public Map_controller(Stage primaryStage, Joueur joueur) {
     this.MapStage = primaryStage;
     this.joueur = joueur;
@@ -110,6 +114,10 @@ private ArrayList<Image> Droite =  new ArrayList<>();
 private ArrayList<Image> MapImage = new ArrayList<>();
 
 
+    /**
+     * Methode qui permet de lancer la timeline de deplacementJoueur et s'assure que l'inventaire ne s'ouvre pas à l'infini
+     * @param scene
+     */
 public void setScene(Scene scene) {// Fonction qui permet de gérer les inputs du clavier
     scene.setOnKeyPressed(event -> {
         touchesAppuyees.add(event.getCode());
@@ -130,6 +138,9 @@ public void setScene(Scene scene) {// Fonction qui permet de gérer les inputs d
 }
 
 
+    /**
+     * Methode d'initialisation de la scene
+     */
 public void initialize() {
     //On initalise la liste des obstacles
     obstacles.add(new Rectangle(0, 598, 800, 2));//pour ne pas sortir en bas
@@ -204,6 +215,11 @@ public void initialize() {
     compteurDeplacement = 0; // Réinitialise le compteur
 }
 
+    /**
+     * Methode permettant de gérer les déplacements du joueur avec des mouvements fluide, et gère les animations
+     * @throws SQLException
+     * @throws IOException
+     */
 public void deplacementJoueur() throws SQLException, IOException {
     double nextX = joueurX;
     double nextY = joueurY;
@@ -306,6 +322,10 @@ public void deplacementJoueur() throws SQLException, IOException {
 
 }
 
+    /**
+     * Methode pour gérer l'ouverture de l'inventaire (initialisation d'un nouveau stage et d'une nouvelle scène)
+     * @throws IOException
+     */
     @FXML
     private void OuvertureInventaire() throws IOException {
         try {
@@ -325,12 +345,21 @@ public void deplacementJoueur() throws SQLException, IOException {
         }
     }
 
+    /**
+     * Methode pour alterner entre les images de la map (permet d'avoir des petites animations)
+     */
     public void AlterneMapImage(){
         IndiceMap = (IndiceMap + 1) % 2;
         mapView.setImage(MapImage.get(IndiceMap)); // Alterner l'image
     }
 
 
+    /**
+     * Méthode pour lancer un combat de dresseur en fonction du pnj
+     * @param pnjchoisi il s'agit de l'imageView avec laquelle le joueur est entré en collision
+     * @throws SQLException
+     * @throws IOException
+     */
     public void CombatPnj(ImageView pnjchoisi) throws SQLException, IOException {
         int id = 0;
         if(pnjchoisi == pnjView1){
@@ -365,6 +394,11 @@ public void deplacementJoueur() throws SQLException, IOException {
         }
     }
 
+    /**
+     * Méthode pour lancer un combat avec un mystimon sauvage
+     * @throws SQLException
+     * @throws IOException
+     */
     //Fonction pour lancer des combats sauvages
     public void CombatMysti() throws SQLException, IOException {
         DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
@@ -390,12 +424,19 @@ public void deplacementJoueur() throws SQLException, IOException {
         }
     }
 
+    /**
+     * Methode publique permettant de renseigner la position du joueur avant d'initialiser la scène
+     */
     //permet d'initialise la position avant d'afficher la scène
     public void defPositionInitiale() {
         joueurView.setLayoutX(joueurX);
         joueurView.setLayoutY(joueurY);
     }
 
+    /**
+     * Méthode permettant d'enregister la position du joueur dans la base de données
+     * @throws SQLException
+     */
     //Fonction pour mettre la position à jour dans la base de données
     public void miseAjourCooDB() throws SQLException {
         ArrayList<String> listeCoo = new ArrayList<>();
@@ -406,10 +447,10 @@ public void deplacementJoueur() throws SQLException, IOException {
     }
 
     /**
+     * Méthode pour appeler un mystimon aléatoire
      * @return
      * @throws SQLException
      */
-    //Fonction pour appeler un mystimon aléatoire
     public Exemplemon adversaireRand() throws SQLException {
     Random rand = new Random();
     DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();
@@ -418,7 +459,14 @@ public void deplacementJoueur() throws SQLException, IOException {
     return exemplemon;
     }
 
-    //Methode pour verifier les collisions avec les pnj
+    /**
+     * Methode pour verifier les collisions avec les pnj
+     * @param nextX la prochaine position X
+     * @param nextY la prochaine position Y
+     * @return false si aucune collision n'est détectée
+     * @throws SQLException
+     * @throws IOException
+     */
     private boolean CollisionPnj(double nextX, double nextY) throws SQLException, IOException {
         Rectangle joueurBounds = new Rectangle(nextX + 4, nextY + 25, 19, 10);
 
@@ -435,7 +483,7 @@ public void deplacementJoueur() throws SQLException, IOException {
             return true;
         }
 
-        return false; // No collision detected
+        return false; //Pas de collision
     }
 }
 

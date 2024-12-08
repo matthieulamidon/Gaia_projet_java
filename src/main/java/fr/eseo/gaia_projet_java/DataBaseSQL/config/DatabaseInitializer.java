@@ -4,12 +4,12 @@ import fr.eseo.gaia_projet_java.Mystimons.Exemplemon;
 
 import java.sql.*;
 import java.util.List;
-/*
-c'est la class d'initialisation de notre base de données
-@author Matthieu Lamidon, Barthelemy Coutard
-@version
-@since
-*/
+/**
+ * C'est la classe d'initialisation de notre base de données
+ * @author Matthieu Lamidon, Barthelemy Coutard
+ * @version
+ * @since
+ */
 public class DatabaseInitializer {
     private static final String url = "jdbc:mariadb://localhost:3306";
     private static final String database = "Gaia_test_1";

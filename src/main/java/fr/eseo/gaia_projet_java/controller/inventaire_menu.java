@@ -28,7 +28,7 @@ public class inventaire_menu {
     private Button boutonParchemins;
 
     /**
-     * Appuis sur le bouton AfficherMystimon
+     * Appui sur le bouton AfficherMystimon
      */
     //methodes pour le fxml de l'inventaire
     @FXML
@@ -36,7 +36,7 @@ public class inventaire_menu {
         System.out.println("Afficher Mystimons");
     }
     /**
-     * Appuis sur le bouton AfficherParchemin
+     * Appui sur le bouton AfficherParchemin
      */
     @FXML
     public void AfficherParchemins(){
@@ -49,7 +49,7 @@ public class inventaire_menu {
 
     //Méthode pour changer de scene
     /**
-     * Appuis sur le bouton AfficherParchemin
+     * Appui sur le bouton AfficherParchemin
      */
     @FXML
     private void switchToMystimons() throws IOException {

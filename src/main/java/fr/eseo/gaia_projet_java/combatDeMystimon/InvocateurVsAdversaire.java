@@ -26,7 +26,7 @@ import static fr.eseo.gaia_projet_java.enumerations.Types.nul;
 import static java.lang.reflect.Array.get;
 
 /**
- * c'est notre classe majeure qui gere toute la logique du combat et discute avec tous les controller de combat
+ * C'est notre classe majeure qui gere toute la logique du combat et discute avec tous les controller de combat
  * @author Matthieu Lamidon
  * @version
  * @since
@@ -41,7 +41,7 @@ public class InvocateurVsAdversaire {
     //Mystimon adversaire
     private final List<Exemplemon> listeMystimonAdversaire;
     private Exemplemon mystimonAdversaire;
-    //liste des attaque
+    //liste des attaques
     private final List<AttaqueCombat> listeAttaque;
 
     /**

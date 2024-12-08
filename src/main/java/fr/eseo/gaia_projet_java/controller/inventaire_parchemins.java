@@ -17,17 +17,21 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-/*
-c'est le controller les objets mais depuis le menu
-@author Barthelemy Coutard
-@version
-@since
-*/
+
+/**
+ * Controller permettant de consulter les parchemins
+ * @author Barthelemy Coutard
+ */
 public class inventaire_parchemins {
 
     private Stage primaryStage;
     private Joueur joueur;
 
+    /**
+     * Constructeur du controller
+     * @param primaryStage
+     * @param joueur
+     */
     inventaire_parchemins(Stage primaryStage, Joueur joueur) {
         this.primaryStage = primaryStage;
         this.joueur = joueur;
@@ -39,6 +43,10 @@ public class inventaire_parchemins {
     @FXML
     private ListView<Buff> listeViewParchemins;
 
+    /**
+     * Retour vers le menu
+     * @throws IOException
+     */
     @FXML
     private void RetourMenuI() throws IOException {
         try {
@@ -55,6 +63,10 @@ public class inventaire_parchemins {
         }
     }
 
+    /**
+     * Méthode d'initialisation de la scène
+     * @throws SQLException
+     */
     @FXML   //Fonction qui permet d'afficher le nom des parchemins
     protected void initialize() throws SQLException {
         //Initalisation de la liste des Mystimons
@@ -82,6 +94,11 @@ public class inventaire_parchemins {
 
     }
 
+    /**
+     * Change de scène pour accéder aux détails d'un parchemin
+     * @param parchemin
+     * @throws IOException
+     */
     @FXML
     private void DetailsParchemin(Buff parchemin) throws IOException {
         try {
@@ -98,6 +115,10 @@ public class inventaire_parchemins {
         }
     }
 
+    /**
+     * Selectionne le parchemin à consulter en détails
+     * @throws IOException
+     */
     @FXML
     private void clicPourDetails() throws IOException {
         Buff parchemin = listeViewParchemins.getSelectionModel().getSelectedItem();

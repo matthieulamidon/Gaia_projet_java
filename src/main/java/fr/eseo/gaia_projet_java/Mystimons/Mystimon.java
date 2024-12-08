@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
-/*
-version abstraite de nos mystimon
-@author Lamidon Matthieu
-@version
-@since
-*/
+/**
+ * version abstraite de nos mystimon
+ * @author Barthélémy Coutard, Lamidon Matthieu
+ * @version
+ * @since
+ */
 public abstract class Mystimon {
     protected int ID;
     protected String Nom;
@@ -126,8 +126,8 @@ public abstract class Mystimon {
 
     public int crééEv() {
         Random random = new Random();
-        // Génère un entier aléatoire entre 0 et 31 inclus
-        return random.nextInt(510); // 32 car la borne supérieure est exclusive
+        // Génère un entier aléatoire entre 0 et 509 inclus
+        return random.nextInt(510); // 510 car la borne supérieure est exclusive
     }
 
     public int crééIv(){

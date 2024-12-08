@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 /**
- * c'est le controller de l'inventaire mais depuis le menu mais pour les details d'un seul objet
+ * c'est le controller de l'inventaire depuis le menu mais pour les details d'un seul objet
  * @author Barthelemy Coutard
  * @version
  * @since

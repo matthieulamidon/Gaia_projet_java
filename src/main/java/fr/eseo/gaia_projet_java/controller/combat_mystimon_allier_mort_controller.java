@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 /**
-* controller qui gere la scene du choix de si on veux fuir ou changer de mystimon
+* Controller qui gère la scène du choix de si on veut fuir ou changer de mystimon
 * @author Matthieu Lamidon
 * @version
 * @since

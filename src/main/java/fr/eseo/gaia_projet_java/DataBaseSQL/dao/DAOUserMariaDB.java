@@ -18,12 +18,12 @@ import java.util.Map;
 import static fr.eseo.gaia_projet_java.DataBaseSQL.JsonParserUtils.jsonToArrayList;
 import static fr.eseo.gaia_projet_java.DataBaseSQL.config.DatabaseInitializer.getConnection;
 
-/*
-c'est notre pont vers notre bases de données
-@author Lamidon Matthieu, Barthelemy Coutard
-@version
-@since
-*/
+/**
+ * C'est notre pont vers notre base de données
+ * @author Lamidon Matthieu, Barthelemy Coutard
+ * @version
+ * @since
+ */
 public class DAOUserMariaDB implements DAOUser {
 
 

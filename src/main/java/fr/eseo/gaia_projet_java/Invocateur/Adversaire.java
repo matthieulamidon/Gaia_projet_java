@@ -6,12 +6,12 @@ import fr.eseo.gaia_projet_java.Parchemins.Parchemin;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-/*
-c'est notre adversaire que l'ont doit affronter
-@author Lamidon Matthieu
-@version
-@since
-*/
+/**
+ * C'est notre adversaire que l'on doit affronter
+ * @author Lamidon Matthieu
+ * @version
+ * @since
+ */
 public class Adversaire extends Invocateur {
 
     public Adversaire(int id, String nom, List<Exemplemon> liste_mystimons, HashMap<String, Integer> liste_objet, ArrayList<Integer> position) {

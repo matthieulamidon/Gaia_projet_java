@@ -1,5 +1,8 @@
 package fr.eseo.gaia_projet_java.enumerations;
 
+/**
+ * Enumeration
+ */
 public enum Types {
     nul,
     feu,

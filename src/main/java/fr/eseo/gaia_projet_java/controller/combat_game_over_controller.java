@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 /**
-*controller qui gere la scene de game over
+* Controller qui gère la scene de game over
 *@author Matthieu Lamidon
 *@version
 *@since

@@ -1,5 +1,8 @@
 package fr.eseo.gaia_projet_java.enumerations;
 
+/**
+ * Enumération des Stats
+ */
 public enum Stat {
     PV,
     ATK,

@@ -15,12 +15,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-/*
-c'est le controller qui permet de voire le menu de démarage
-@author Matthieu Lamidon
-@version
-@since
-*/
+/**
+ * C'est le controller qui permet de voir le menu de démarrage
+ * @author Matthieu Lamidon
+ * @version
+ * @since
+ */
 public class menu_de_demarage_controller {
     private Stage primaryStage;
 
@@ -69,12 +69,18 @@ public class menu_de_demarage_controller {
     }
 
 
-
+    /**
+     * Constructeur de la classe
+     * @param primaryStage
+     */
     public menu_de_demarage_controller(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
 
+    /**
+     * Méthode d'initialisation de la classe
+     */
     public void initialize(){
         Image gameover = new Image("fr/eseo/gaia_projet_java/resource_menu/menu_de_demarage.png");
         img.setImage(gameover);
