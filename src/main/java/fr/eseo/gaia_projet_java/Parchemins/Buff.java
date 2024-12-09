@@ -1,6 +1,8 @@
 package fr.eseo.gaia_projet_java.Parchemins;
 
-
+/**
+ * c'est les objets de buff
+ */
 public class Buff extends Parchemin {
     private String description;
     public Buff(String nom, Integer id, String effet, int efficacite, String description){

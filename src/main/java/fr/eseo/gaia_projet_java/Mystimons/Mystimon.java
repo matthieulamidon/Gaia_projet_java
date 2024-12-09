@@ -2,7 +2,6 @@ package fr.eseo.gaia_projet_java.Mystimons;
 
 import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUser;
 import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUserMariaDB;
-import fr.eseo.gaia_projet_java.Parchemins.Parchemin;
 import fr.eseo.gaia_projet_java.enumerations.Types;
 
 import java.sql.SQLException;
@@ -60,8 +59,8 @@ public abstract class Mystimon {
         this.liste_attaques = liste_attaques;
         this.Experience = Experience;
         this.Niveau = lv;
-        this.iv = crééIv();
-        this.ev = crééEv();
+        this.iv = creeIv();
+        this.ev = creeEv();
         this.Objet = null;
 
     }
@@ -124,25 +123,25 @@ public abstract class Mystimon {
         this.Niveau = i;
     }
 
-    public int crééEv() {
+    public int creeEv() {
         Random random = new Random();
         // Génère un entier aléatoire entre 0 et 509 inclus
         return random.nextInt(510); // 510 car la borne supérieure est exclusive
     }
 
-    public int crééIv(){
+    public int creeIv(){
         Random random = new Random();
         // Génère un entier aléatoire entre 0 et 31 inclus
         return random.nextInt(32); // 32 car la borne supérieure est exclusive
     }
 
-
+/*
 
     public void fuite(Mystimon ennemi){
     }
 
     public void usageParchemin(Parchemin parchemin){
-    }
+    }*/
 
     public ArrayList<String> ConvertionTypes() {
         ArrayList<String> listeTypes = new ArrayList<>();

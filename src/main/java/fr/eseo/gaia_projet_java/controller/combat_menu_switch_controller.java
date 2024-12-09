@@ -271,7 +271,7 @@ public class combat_menu_switch_controller {
 
 
     /**
-     * initialise les valeurs
+     * initialise/   les valeurs
      */
     @FXML
     public void initialize() {

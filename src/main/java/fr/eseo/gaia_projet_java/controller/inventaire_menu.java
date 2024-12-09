@@ -67,6 +67,10 @@ public class inventaire_menu {
         }
     }
 
+    /** bouton parchemin
+     * @param joueur joueur
+     * @throws IOException
+     */
     @FXML
     private void ToParchemins(Joueur joueur) throws IOException {
         //On extrait les données du joueur
@@ -85,11 +89,20 @@ public class inventaire_menu {
 
     }
 
+    /**
+     * Appuis du bouton quitter
+     * @throws IOException
+     */
     @FXML
     private void quitter() throws IOException {
         primaryStage.close();
     }
 
+    /**
+     * bas en vrai je sais pas ça appartient a barth et j'ai la flemme de chercher
+     * @throws IOException
+     * @throws SQLException
+     */
     @FXML
     private void switchToParchemins() throws IOException, SQLException {
         DAOUserMariaDB daoUserMariaDB = new DAOUserMariaDB();

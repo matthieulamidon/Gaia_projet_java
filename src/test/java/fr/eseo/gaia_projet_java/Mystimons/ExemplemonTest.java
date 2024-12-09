@@ -41,7 +41,7 @@ class ExemplemonTest {
     @Test
     void crééEv() {
         for (int i = 0; i < 1000; i++) {
-            int ev = exemplemon.crééEv();
+            int ev = exemplemon.creeEv();
             assertTrue(ev >= 0 && ev <= 509, "L'EV générée doit etre entre 0 et 509 inclus");
         }
     }
@@ -49,7 +49,7 @@ class ExemplemonTest {
     @Test
     void crééIv() {
         for (int i = 0; i < 1000; i++) {
-            int ev = exemplemon.crééEv();
+            int ev = exemplemon.creeEv();
             assertTrue(ev >= 0 && ev <= 31, "L'Iv générée doit etre entre 0 et 509 inclus");
         }
     }

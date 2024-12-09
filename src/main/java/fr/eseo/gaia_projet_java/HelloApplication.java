@@ -16,7 +16,7 @@ import java.sql.SQLException;
 
 /**
  * Sert à lancer une version debug du programme sans le menu
- * @author Barthelemy Coutard
+ * @author Barthelemy Cox
  * @version
  * @since
  */

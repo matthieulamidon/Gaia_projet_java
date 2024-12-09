@@ -381,7 +381,7 @@ public class InvocateurVsAdversaire {
     *renvoie un coefficient aléatoire de modification de dégats
     *@return un double du coeficient de degats
     */
-    public static double genererNombreAleatoirePourLeCm() {
+    public double genererNombreAleatoirePourLeCm() {
         Random random = new Random();
         // Génère un nombre aléatoire entre 0 et 0.15, puis l'ajoute à 0.85
         double nombre = 0.85 + (0.15 * random.nextDouble());

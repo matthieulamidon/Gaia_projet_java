@@ -1,5 +1,8 @@
 package fr.eseo.gaia_projet_java.Parchemins;
 
+/**
+ * c'est les objets
+ */
 public abstract class Parchemin {
     protected String nom;
     protected Integer id;

@@ -13,13 +13,13 @@ import java.util.List;
  * @since
  */
 public class Joueur extends Invocateur {
-    private ArrayList<Mystimon> reserveMystimons;
+    //private ArrayList<Mystimon> reserveMystimons;
 
 
     public Joueur(int id, String nom, List<Exemplemon> liste_mystimons, HashMap<String, Integer> liste_objet, ArrayList<Integer> position) {
         super(id, nom, liste_mystimons, liste_objet, position);
     }
-
+/*
     public ArrayList<Mystimon> getReserveMystimons() {
         return reserveMystimons;
     }
@@ -27,5 +27,5 @@ public class Joueur extends Invocateur {
     public void setReserveMystimons(ArrayList<Mystimon> reserveMystimons){
         this.reserveMystimons = reserveMystimons;
     }
-
+*/
 }

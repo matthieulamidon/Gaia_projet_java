@@ -55,25 +55,5 @@ public abstract class Invocateur {
     public void setPosition(ArrayList<Integer> position) {
         this.position=position;
     }
-    //Coquilles méthodes :
 
-    public void Ajout_Mystimon(Mystimon mistimon, ArrayList<Mystimon> liste_mystimons){
-
-    }
-
-    public void Retirer_Mystimon(Mystimon mistimon, ArrayList<Mystimon> liste_mystimons){
-
-    }
-
-    public void Ajout_Parchemin(Parchemin parchemin, ArrayList<Parchemin> liste_parchemin){
-
-    }
-
-    public void Retirer_Parchemin(Parchemin parchemin, ArrayList<Parchemin> liste_parchemin){
-
-    }
-
-    public void Switch_Mysti(Mystimon mystimon, ArrayList<Mystimon> liste_mystimons){
-
-    }
 }
