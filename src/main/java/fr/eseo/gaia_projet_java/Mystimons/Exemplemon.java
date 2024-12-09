@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
- * voici notre classe de mystimon qui est la version utilisée dans notre code
+ * Notre classe de mystimon qui est la version utilisée dans notre code
  * @author Barthélémy Coutard, Lamidon Matthieu
  * @version
  * @since

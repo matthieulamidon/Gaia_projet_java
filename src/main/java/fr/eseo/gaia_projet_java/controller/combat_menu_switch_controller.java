@@ -112,7 +112,7 @@ public class combat_menu_switch_controller {
     }
 
     /**
-     * Appuis du bouton retour
+     * Appui du bouton retour
      */
     @FXML
     private void selectRetour() {
@@ -133,7 +133,7 @@ public class combat_menu_switch_controller {
     }
 
     /**
-     * Appuis le mystimon 1
+     * Appui sur le mystimon 1
      */
     @FXML
     private void selectMystimon1() {
@@ -141,7 +141,7 @@ public class combat_menu_switch_controller {
     }
 
     /**
-     * Appuis le mystimon 2
+     * Appui sur le mystimon 2
      */
     @FXML
     private void selectMystimon2() {
@@ -154,7 +154,7 @@ public class combat_menu_switch_controller {
         }
     }
     /**
-     * Appuis le mystimon 3
+     * Appui sur le mystimon 3
      */
     @FXML
     private void selectMystimon3() {
@@ -180,7 +180,7 @@ public class combat_menu_switch_controller {
         }
     }
     /**
-     * Appuis le mystimon 5
+     * Appui sur le mystimon 5
      */
     @FXML
     private void selectMystimon5() {
@@ -193,7 +193,7 @@ public class combat_menu_switch_controller {
         }
     }
     /**
-     * Appuis le mystimon 6
+     * Appui sur le mystimon 6
      */
     @FXML
     private void selectMystimon6() {
@@ -206,7 +206,7 @@ public class combat_menu_switch_controller {
         }
     }
     /**
-     * met a jour la scene après un switch
+     * Met à jour la scene après un switch
      */
     @FXML
     private void resetscene() {
@@ -271,7 +271,7 @@ public class combat_menu_switch_controller {
 
 
     /**
-     * initialise/   les valeurs
+     * Initialise les valeurs
      */
     @FXML
     public void initialize() {

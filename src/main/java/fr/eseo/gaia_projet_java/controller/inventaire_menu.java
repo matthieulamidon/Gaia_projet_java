@@ -3,6 +3,7 @@ package fr.eseo.gaia_projet_java.controller;
 import fr.eseo.gaia_projet_java.DataBaseSQL.dao.DAOUserMariaDB;
 import fr.eseo.gaia_projet_java.HelloApplication;
 import fr.eseo.gaia_projet_java.Invocateur.Joueur;
+import fr.eseo.gaia_projet_java.controller.Map_controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

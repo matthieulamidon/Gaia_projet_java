@@ -1,7 +1,8 @@
 package fr.eseo.gaia_projet_java.Parchemins;
 
+
 /**
- * c'est les objets de buff
+ * Classe incomplète, Parchemin ayant des effets positifs
  */
 public class Buff extends Parchemin {
     private String description;

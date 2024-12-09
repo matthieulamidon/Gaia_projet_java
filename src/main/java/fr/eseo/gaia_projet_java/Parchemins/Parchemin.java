@@ -1,7 +1,7 @@
 package fr.eseo.gaia_projet_java.Parchemins;
 
 /**
- * c'est les objets
+ * Classe incomplète, équivalents d'objets à utiliser en combat et sur la map
  */
 public abstract class Parchemin {
     protected String nom;

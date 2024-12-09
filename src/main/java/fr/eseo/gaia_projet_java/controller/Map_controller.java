@@ -79,8 +79,8 @@ private ImageView toitView;
 
 private ArrayList<Rectangle> obstacles = new ArrayList<>();
 private ArrayList<Rectangle> zoneRencontres = new ArrayList<>();
-private static int IndiceDeplacement = 0;// Permet de savoir quelle image utiliser pour le joueur en déplacement
-private static int IndiceMap = 0;//Permet de savoir quelle image utiliser pour la map
+private int IndiceDeplacement = 0;// Permet de savoir quelle image utiliser pour le joueur en déplacement
+private int IndiceMap = 0;//Permet de savoir quelle image utiliser pour la map
 private int compteurDeplacement = 0; // Compte le nombre de déplacements successifs
 private final int SEUIL_ALTERNANCE = 3; // Nombre de déplacements avant changement d'image
 private final Set<KeyCode> touchesAppuyees = new HashSet<>();//HashSet pour permettre de rendre plus fluides les déplacements
@@ -427,7 +427,7 @@ public void deplacementJoueur() throws SQLException, IOException {
     /**
      * Methode publique permettant de renseigner la position du joueur avant d'initialiser la scène
      */
-    //permet d'initialise la position avant d'afficher la scène
+    //permet d'initialiser la position avant d'afficher la scène
     public void defPositionInitiale() {
         joueurView.setLayoutX(joueurX);
         joueurView.setLayoutY(joueurY);
